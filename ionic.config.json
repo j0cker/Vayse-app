@@ -1,5 +1,7 @@
 {
   "name": "Vayse",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

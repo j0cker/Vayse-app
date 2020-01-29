@@ -1,0 +1,28 @@
+
+
+<ion-content>
+
+  <div class="ion-padding vayse2"  style="height: 55%">
+
+    <ion-buttons slot="start" color="transparent">
+      <ion-back-button defaultHref="." style="color: #0cd1e8"></ion-back-button>
+    </ion-buttons>  
+    <img class="" src="../../assets/img/logo.png" alt="" style="max-width: 50%; margin-left: 25%; margin-top: 7%;">
+    <!--<p id="titulo" class="ion-text-center" style="font-size:40px ;color: white;">Moto Hub</p>-->
+  </div>
+
+  <div class="ion-padding" style="background: white; height: 45%">
+    <ion-item>
+      <ion-label position="stacked" color="dark">Nombre Completo</ion-label>
+      <ion-input type="text" [(ngModel)]="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="dark">Celular</ion-label>
+      <ion-input type="password" [(ngModel)]="celular"></ion-input>
+    </ion-item>
+    <ion-button (click)="register(nombre, celular)" color="secondary" expand="block" size="default" style="margin-top: 30px; ">
+      Siguiente
+    </ion-button>
+  </div>
+
+</ion-content>

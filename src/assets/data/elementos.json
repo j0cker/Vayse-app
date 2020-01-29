@@ -1,0 +1,42 @@
+[
+    {
+        "icon": "restaurant",
+        "name": "Alimentos",
+        "redirectTo": "/alimentos"
+    },
+    {
+        "icon": "car",
+        "name": "Autos",
+        "redirectTo": "/autos"
+    },
+    {
+        "icon": "beer",
+        "name": "Bebidas",
+        "redirectTo": "/bebidas"
+    },
+    {
+        "icon": "home",
+        "name": "Hogar",
+        "redirectTo": "/hogar"
+    },
+    {
+        "icon": "business",
+        "name": "Hospedaje",
+        "redirectTo": "/servicios"
+    },
+    {
+        "icon": "ice-cream",
+        "name": "Postres",
+        "redirectTo": "/postres"
+    },
+    {
+        "icon": "medkit",
+        "name": "Salud",
+        "redirectTo": "/salud"
+    },
+    {
+        "icon": "shirt",
+        "name": "Vestimenta",
+        "redirectTo": "/vestimenta"
+    }
+]

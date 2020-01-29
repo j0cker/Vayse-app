@@ -1,0 +1,27 @@
+[
+    {
+        "icon": "home",
+        "name": "Inicio",
+        "redirectTo": "/dashboard"
+    },
+    {
+        "icon": "person",
+        "name": "Perfil",
+        "redirectTo": "/perfil"
+    },
+    {
+        "icon": "cash",
+        "name": "Historico de saldo",
+        "redirectTo": "/mis-motos"
+    },
+    {
+        "icon": "qr-scanner",
+        "name": "Escanear QR",
+        "redirectTo": "/scan-qr"
+    },
+    {
+        "icon": "information-circle-outline",
+        "name": "Contacto",
+        "redirectTo": "/contacto"
+    }
+]

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar class="vayseColor" color="transparent">
+      <ion-buttons slot="start">
+          <ion-menu-button color="light" menu="perfil"></ion-menu-button>
+      </ion-buttons>
+      <ion-title id="titulo" style="color: white">
+          <img
+              src="../../assets/img/logo2-blanco.png" alt="" style="max-width: 35%; margin-top: 3%"></ion-title>
+      <ion-icon slot="end" name="person" color="light" size="large" routerLink="/perfil" style="margin-right: 4%;"></ion-icon>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card class="vayseColor">
+    <ion-card-header>
+      <ion-item color="transparent">
+        <ion-card-title style="color:white;">Vayse Balance</ion-card-title>
+        <ion-icon name="more" slot="end" color="light"></ion-icon>
+      </ion-item>            
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p class="ion-text-center" style="font-size: 50px; color: white;">$0</p>
+      <p class="ion-text-center" style="color: white;">Disponible</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let c of elementos" size="6">
+        
+        <ion-button class="vayseColor" color="transparent" expand="block" style="height: 100%;"> 
+          <div style="margin-top: 10%; margin-bottom: 10%;">
+            <ion-icon color="light" name="{{c.icon}}" size="large"></ion-icon><br>
+            <ion-label color="light">{{c.name}}</ion-label>
+          </div>
+        </ion-button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
