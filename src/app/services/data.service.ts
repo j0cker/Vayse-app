@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ToastController } from '@ionic/angular';
+import { ToastController, NavController } from '@ionic/angular';
 
 import { tap } from 'rxjs/operators';
 import { Componente } from '../interfaces/interfaces';
+import {Registro} from '../models/registro.model';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,33 @@ export class DataService {
   // api = 'http://boogapp.mx/vayse/dashboard/webservices/';
   // api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
 
-  constructor( private http: HttpClient, public toastController: ToastController) { }
+  guardados: Registro[] = [];
+
+  // tslint:disable-next-line: max-line-length
+  constructor( private http: HttpClient, public toastController: ToastController, private storage: Storage, private navCtrl: NavController) {
+    this.cargarStorage();
+   }
+
+  async cargarStorage() {
+    this.guardados = await this.storage.get('Registros') || [];
+  }
+
+  async guardarRegistro(format: any, text: any) {
+
+    await this.cargarStorage();
+
+    const nuevoRegistro = new Registro (format, text);
+    this.guardados.unshift(nuevoRegistro);
+
+    console.log(this.guardados);
+    this.storage.set('Registros', this.guardados);
+
+    this.abrirRegistro();
+  }
+
+  abrirRegistro() {
+    this.navCtrl.navigateForward('pago');
+  }
 
   getMenuOpts() {
     return this.http.get<Componente[]>('/assets/data/menu.json');

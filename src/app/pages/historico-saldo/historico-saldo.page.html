@@ -12,8 +12,6 @@
 
 <ion-content>
   
-  <ion-button (click)="scanQR()">Clic</ion-button>
-
   <ion-list>
 
     <ion-item *ngFor="let registro of dataService.guardados" (click)="abrirRegistro(registro)" detail>

@@ -12,7 +12,7 @@
     {
         "icon": "cash",
         "name": "Historico de saldo",
-        "redirectTo": "/mis-motos"
+        "redirectTo": "/historico-saldo"
     },
     {
         "icon": "qr-scanner",

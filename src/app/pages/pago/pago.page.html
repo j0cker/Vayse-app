@@ -10,20 +10,12 @@
     </ion-toolbar>
   </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+
+  <h2 class="ion-text-center" style="margin-bottom: 10%" >Seleccione forma de pago</h2>
+
+  <ion-button color="secondary" expand="block" routerLink="/pago-normal">Pago normal</ion-button>
+  <ion-button color="secondary" expand="block" routerLink="/pago-puntos" style="margin-top: 5%">Pago con puntos</ion-button>
   
-  <ion-button (click)="scanQR()">Clic</ion-button>
-
-  <ion-list>
-
-    <ion-item *ngFor="let registro of dataService.guardados" (click)="abrirRegistro(registro)" detail>
-      <ion-icon slot="start" [name]="registro.icon"></ion-icon>
-      <ion-label>
-        <h2>{{registro.text}}</h2>
-        <p>{{registro.created | date: 'medium'}}</p>
-      </ion-label>
-    </ion-item>
-
-  </ion-list>
 
 </ion-content>

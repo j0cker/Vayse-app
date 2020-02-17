@@ -43,6 +43,26 @@ const routes: Routes = [
     path: 'register/:correo/:password',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
+  {
+    path: 'historico-saldo',
+    loadChildren: () => import('./pages/historico-saldo/historico-saldo.module').then( m => m.HistoricoSaldoPageModule)
+  },
+  {
+    path: 'pago',
+    loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule)
+  },
+  {
+    path: 'pago-normal',
+    loadChildren: () => import('./pages/pago-normal/pago-normal.module').then( m => m.PagoNormalPageModule)
+  },
+  {
+    path: 'pago-puntos',
+    loadChildren: () => import('./pages/pago-puntos/pago-puntos.module').then( m => m.PagoPuntosPageModule)
+  },
+  {
+    path: 'pago-aprobacion',
+    loadChildren: () => import('./pages/pago-aprobacion/pago-aprobacion.module').then( m => m.PagoAprobacionPageModule)
+  },
 ];
 
 @NgModule({
