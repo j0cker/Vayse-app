@@ -4,7 +4,7 @@
         <ion-menu-button color="light" menu="perfil"></ion-menu-button>
     </ion-buttons>
     <ion-title id="titulo" style="color: white">
-        <img src="../../assets/img/logo2-blanco.png" alt="" style="max-width: 35%; margin-top: 3%">
+        <img src="../../assets/img/logo2-blanco.png" alt="" style="max-width: 35%; margin-top: 3%; margin-bottom: 3%;">
     </ion-title>
     <ion-icon slot="end" name="person" color="light" size="large" routerLink="/perfil" style="margin-right: 4%;"></ion-icon>
   </ion-toolbar>
@@ -13,20 +13,53 @@
 <ion-content class="ion-padding">
 
   <div class="avatar">
-    <p class="ion-text-center" style="font-size: 30px; color: white; ">JX</p>
+    <p class="ion-text-center" style="font-size: 1.875rem; color: white; font-weight: bolder;">
+      JX
+    </p>
   </div>
 
-  <ion-card>
+  <ion-card >
+
     <ion-item>
-        <ion-card-subtitle>Informacion de Perfil</ion-card-subtitle>
+        <ion-card-title style="font-size: 1.2rem; font-weight: bold; " >
+          Informacion Personal
+        </ion-card-title>
         <ion-icon slot="end" name="create" color="secondary" (click)="editProfile()"></ion-icon>
     </ion-item>
 
     <ion-card-content>
-        <p style="font-size: 12px; ">Año de nacimiento</p>
-        <p style="font-size: 12px;">Celular: +52 1</p>
-        <p style="font-size: 12px; ">Moto Club:</p>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          <ion-text style=" font-size: 1.1rem; ">
+            Nombre:
+          </ion-text>
+          <p style=" font-size: 0.95rem; ">
+            {{nombre}}
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          <ion-text style=" font-size: 1.1rem; ">
+            Correo: 
+          </ion-text>
+          <p style=" font-size: 0.95rem; ">
+            {{correo}}
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          <ion-text style=" font-size: 1.1rem; ">
+            Celular:
+          </ion-text>
+          <p style=" font-size: 0.95rem; ">
+            +52 1 {{celular}}
+          </p>
+        </ion-label>
+      </ion-item>      
     </ion-card-content>
+
 </ion-card>
 
 </ion-content>

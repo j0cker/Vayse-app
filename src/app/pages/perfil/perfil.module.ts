@@ -8,12 +8,19 @@ import { PerfilPageRoutingModule } from './perfil-routing.module';
 
 import { PerfilPage } from './perfil.page';
 
+import { PerfilModalPage } from '../perfil-modal/perfil-modal.page';
+import { PerfilModalPageModule } from '../perfil-modal/perfil-modal.module';
+
 @NgModule({
+  entryComponents:[
+    PerfilModalPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilPageRoutingModule
+    PerfilPageRoutingModule,
+    PerfilModalPageModule
   ],
   declarations: [PerfilPage]
 })

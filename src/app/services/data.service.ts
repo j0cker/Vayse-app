@@ -4,7 +4,7 @@ import { ToastController, NavController } from '@ionic/angular';
 
 import { tap } from 'rxjs/operators';
 import { Componente } from '../interfaces/interfaces';
-import {Registro} from '../models/registro.model';
+import { Registro } from '../models/registro.model';
 import { Storage } from '@ionic/storage';
 
 @Injectable({
