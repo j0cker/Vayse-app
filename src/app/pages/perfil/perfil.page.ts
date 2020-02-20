@@ -7,6 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilPage implements OnInit {
 
+  acount: [
+    {
+      name: 'Josue Xicotencatl Avalos',
+      iniciales: 'JX',
+      correo: 'josue@boogapp.mx',
+      celular: '5555555555'   
+    }
+  ]
+
   constructor() { }
 
   ngOnInit() {
