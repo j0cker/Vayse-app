@@ -1,0 +1,80 @@
+
+<ion-header>
+
+  <ion-toolbar class="vayseColor" color="transparent">
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="/perfil" (click)="cerrarModal()" style="color: white;"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title  id="titulo" style="color: white" text-center>
+      <img src="../../assets/img/logo2-blanco.png" alt="" style="max-width: 35%; margin-top: 3%; margin-bottom: 3%;">
+    </ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+
+    <ion-card-header>
+      <ion-card-subtitle class="ion-text-center" style="font-size: 1rem;">
+        Modifica
+      </ion-card-subtitle>
+      <ion-card-title class="ion-text-center" style="font-size: 1.25rem; font-weight: bold;">
+        Tu información
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked" >
+          Nombre:
+        </ion-label>
+        <ion-input clearInput ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          Correo:
+        </ion-label>
+        <ion-input clearInput></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          Celular:
+        </ion-label>
+        <ion-input clearInput></ion-input>
+      </ion-item>
+    </ion-card-content>
+
+  </ion-card>
+  
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+          <ion-button
+              (click)="cerrarModal()"
+              color="transparent"
+              expand="block"
+              size="default"
+              style="margin-top: 30px; ">
+              <span style="color: #707070">Cancelar</span>
+          </ion-button>
+      </ion-col>
+
+      <ion-col>
+          <ion-button
+              (click)="editPerfil(nombre, correo, celular)"
+              color="secondary"
+              expand="block"
+              size="default"
+              style="margin-top: 30px; ">
+              Guardar
+          </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
