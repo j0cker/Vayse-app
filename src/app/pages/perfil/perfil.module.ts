@@ -10,6 +10,7 @@ import { PerfilPage } from './perfil.page';
 
 import { PerfilModalPage } from '../perfil-modal/perfil-modal.page';
 import { PerfilModalPageModule } from '../perfil-modal/perfil-modal.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   entryComponents:[
@@ -20,7 +21,8 @@ import { PerfilModalPageModule } from '../perfil-modal/perfil-modal.module';
     FormsModule,
     IonicModule,
     PerfilPageRoutingModule,
-    PerfilModalPageModule
+    PerfilModalPageModule,
+    ComponentsModule
   ],
   declarations: [PerfilPage]
 })

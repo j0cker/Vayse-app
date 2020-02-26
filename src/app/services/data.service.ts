@@ -12,9 +12,9 @@ import { Storage } from '@ionic/storage';
 })
 export class DataService {
 
-  api = 'http://vayse.mx/dashboard/webservices/';
+  // api = 'http://vayse.mx/dashboard/webservices/';
   // api = 'http://boogapp.mx/vayse/dashboard/webservices/';
-  // api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
+  api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
 
   guardados: Registro[] = [];
 
@@ -141,6 +141,19 @@ export class DataService {
     );
   }
 
+  // se agrega código para obtener el saldo del usuario
+  getSaldo(id_user: string) {
+    // tslint:disable-next-line: max-line-length
+    console.log('[DataService][getProfile] Data Services');
+    console.log('[DataService][getProfile] ID User: ' + id_user);
+    // tslint:disable-next-line: max-line-length
+    return this.http.get(this.api + 'DEV/ws.php?action=getSaldo&token=5Nc7C5Mz@Mu&id_usuario=' + id_user).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+
   sendSMS(celular: any) {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][verifyCode]');
@@ -157,6 +170,17 @@ export class DataService {
     console.log('[DataService][verifyCode]');
     // tslint:disable-next-line: max-line-length
     return this.http.get(this.api + 'usuarios/verifyCode?code=' + code + '&celular=' + celular).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+
+  // se agrega código solucionando en dashboard la función de this.dataService.getCategorias 
+  getCategorias() {
+    console.log('[DataService][getCategorias]');
+    // tslint:disable-next-line: max-line-length
+    return this.http.get(this.api + 'DEV/ws.php?action=get_categorias&token=5Nc7C5Mz@Mu').pipe(
       tap( data => {
         console.log(data);
       })
