@@ -1,16 +1,6 @@
-<ion-header>
-  <ion-toolbar class="vayseColor" color="transparent">
-    
-      <ion-buttons slot="start">
-          <ion-menu-button color="light" menu="perfil"></ion-menu-button>
-      </ion-buttons>
-      <ion-title id="titulo" style="color: white">
-          <img
-              src="../../assets/img/logo2-blanco.png" alt="" style="max-width: 35%; margin-top: 3%; margin-bottom: 3%;"></ion-title>
-      <ion-icon slot="end" name="person" color="light" size="large" routerLink="/perfil" style="margin-right: 4%;"></ion-icon>
-    </ion-toolbar>
-  </ion-header>
-
+<app-header>
+  
+</app-header>
 
 <ion-content class="ion-padding">
 
@@ -32,12 +22,24 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-grid>
+  <ion-grid class="ion-padding">
     <ion-row>
       <ion-col *ngFor="let c of elementos" size="6">
         
-        <ion-button class="vayseColor" color="transparent" expand="block" style="height: 100%;"> 
-          <div style="margin-top: 10%; margin-bottom: 10%;">
+        <ion-button 
+          class="vayseColor" 
+          color="transparent" 
+          expand="block"
+          style="
+            height: 100%; 
+            width: 100%;
+          "> 
+          <div 
+            style="
+              margin-top: 15%; 
+              margin-bottom: 15%;
+                           
+            ">
             <ion-icon color="light" name="{{c.icono_categoria}}" size="large"></ion-icon><br>
             <ion-label color="light">{{c.nombre_categoria}}</ion-label>
           </div>

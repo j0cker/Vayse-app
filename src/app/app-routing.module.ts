@@ -66,6 +66,10 @@ const routes: Routes = [
     path: 'perfil-modal',
     loadChildren: () => import('./pages/perfil-modal/perfil-modal.module').then( m => m.PerfilModalPageModule)
   },
+  {
+    path: 'categoria',
+    loadChildren: () => import('./pages/categoria/categoria.module').then( m => m.CategoriaPageModule)
+  },
 
 ];
 
