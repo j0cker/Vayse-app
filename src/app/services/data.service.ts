@@ -187,4 +187,13 @@ export class DataService {
     );
   }
 
+  getSubCategorias(id_categoria: string) {
+    console.log('[DataService][getSubCategorias]');
+    // tslint:disable-next-line: max-line-length
+    return this.http.get(this.api + 'DEV/ws.php?action=get_subcategorias&token=5Nc7C5Mz@Mu&id_categoria=' + id_categoria).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
 }

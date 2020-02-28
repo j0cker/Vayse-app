@@ -62,13 +62,14 @@ const routes: Routes = [
   {
     path: 'pago-aprobacion',
     loadChildren: () => import('./pages/pago-aprobacion/pago-aprobacion.module').then( m => m.PagoAprobacionPageModule)
-  },  {
+  },
+  {
     path: 'perfil-modal',
     loadChildren: () => import('./pages/perfil-modal/perfil-modal.module').then( m => m.PerfilModalPageModule)
   },
   {
-    path: 'categoria',
-    loadChildren: () => import('./pages/categoria/categoria.module').then( m => m.CategoriaPageModule)
+    path: 'subcategorias/:id_categoria',
+    loadChildren: () => import('./pages/subcategorias/subcategorias.module').then( m => m.SubcategoriasPageModule)
   },
 
 ];

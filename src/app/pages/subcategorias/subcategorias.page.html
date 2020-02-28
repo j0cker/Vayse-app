@@ -1,0 +1,23 @@
+<app-header-back>
+
+</app-header-back>
+
+<ion-content class="ion-padding">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let e of elementos" size="12">
+        <ion-button 
+          class="vayseColor" 
+          expand="block" 
+          shape="round" 
+          color="transparent"
+          style="border-radius: 50px"
+        >
+          {{ e.nombre_subcategoria }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>

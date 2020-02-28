@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,7 @@ export class DashboardPage implements OnInit {
   saldo: any;
   saldos: any;
 
-  constructor(private dataService: DataService, private storage: Storage) { }
+  constructor(private dataService: DataService, private storage: Storage, private router: Router) { }
 
   ngOnInit() {
     this.getID();
@@ -41,6 +42,7 @@ export class DashboardPage implements OnInit {
       console.log(error);
     });
   }
+
   getCategorias() {
     this.dataService.getCategorias()
     .subscribe( (data: any[]) => {
@@ -49,6 +51,11 @@ export class DashboardPage implements OnInit {
     }, ( error ) => {
       console.log(error);
     });
+  }
+
+  subCategorias( id_categoria: any ) {
+    // console.log(id_categoria);
+    this.router.navigate( ['/subcategorias', id_categoria ] );
   }
 
   /* Hace una actualización general de los datos modificados */

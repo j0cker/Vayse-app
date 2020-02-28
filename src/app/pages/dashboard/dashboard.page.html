@@ -27,18 +27,18 @@
       <ion-col *ngFor="let c of elementos" size="6">
         
         <ion-button 
+          (click)="subCategorias(c.id_categoria)"
           class="vayseColor" 
           color="transparent" 
           expand="block"
           style="
             height: 100%; 
-            width: 100%;
-          "> 
+            width: 100%;"
+          > 
           <div 
             style="
               margin-top: 15%; 
-              margin-bottom: 15%;
-                           
+              margin-bottom: 15%;                           
             ">
             <ion-icon color="light" name="{{c.icono_categoria}}" size="large"></ion-icon><br>
             <ion-label color="light">{{c.nombre_categoria}}</ion-label>

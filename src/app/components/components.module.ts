@@ -5,16 +5,19 @@ import { RouterModule } from '@angular/router';
 
 import { MenuComponent } from './menu/menu.component';
 import { HeaderComponent } from './header/header.component';
+import { HeaderBackComponent } from './header-back/header-back.component';
 
 
 @NgModule({
   declarations: [
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    HeaderBackComponent
   ],
   exports: [
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+      HeaderBackComponent
   ],
   imports: [
     CommonModule,
