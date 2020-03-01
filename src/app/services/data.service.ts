@@ -13,8 +13,8 @@ import { Storage } from '@ionic/storage';
 export class DataService {
 
   // api = 'http://vayse.mx/dashboard/webservices/';
-  // api = 'http://boogapp.mx/vayse/dashboard/webservices/';
-  api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
+   api = 'http://boogapp.mx/vayse/dashboard/webservices/';
+  // api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
 
   guardados: Registro[] = [];
 
