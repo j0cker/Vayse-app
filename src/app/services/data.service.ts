@@ -14,7 +14,7 @@ export class DataService {
 
   // api = 'http://vayse.mx/dashboard/webservices/';
   // api = 'http://boogapp.mx/vayse/dashboard/webservices/';
-   api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
+   api = 'http://localhost/vayse-web/dashboard/webservices/';
    api1 = 'http://localhost:8000/api/';
 
 

@@ -4,6 +4,10 @@
 
 <ion-content class="ion-padding">
 
+  <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div class="avatar">
     <p class="ion-text-center" style="font-size: 1.875rem; color: white; font-weight: bolder;">
       DC
@@ -25,8 +29,8 @@
           <ion-text style=" font-size: 1.1rem; ">
             Nombre:
           </ion-text>
-          <p style=" font-size: 0.95rem; ">
-            {{nombre}}
+          <p style=" font-size: 1.05rem; ">
+            {{nombreUsuario}}
           </p>
         </ion-label>
       </ion-item>
@@ -35,8 +39,8 @@
           <ion-text style=" font-size: 1.1rem; ">
             Correo: 
           </ion-text>
-          <p style=" font-size: 0.95rem; ">
-            {{correo}}
+          <p style=" font-size: 1.05rem; ">
+            {{correoUsuario}}
           </p>
         </ion-label>
       </ion-item>
@@ -45,8 +49,8 @@
           <ion-text style=" font-size: 1.1rem; ">
             Celular:
           </ion-text>
-          <p style=" font-size: 0.95rem; ">
-            +52 1 {{celular}}
+          <p style=" font-size: 1.05rem; ">
+            +52 1 {{celularUsuario}}
           </p>
         </ion-label>
       </ion-item>      

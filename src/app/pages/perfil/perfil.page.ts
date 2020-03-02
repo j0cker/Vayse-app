@@ -13,16 +13,15 @@ export class PerfilPage implements OnInit {
 
   id_usuario: any;
   token: any;
-  id_user: any;
 
-  nombre: any; 
-  correo: any; 
-  celular: any;
+  dataPerfil: any;
+  nombreUsuario: any;
+  correoUsuario: any;
+  celularUsuario: any;  
 
   constructor(private dataService: DataService , private modalCtrl: ModalController, private toastController: ToastController, private storage: Storage) { }
 
   ngOnInit() {
-    this.getProfile();
     this.getID();
   }
 
@@ -30,12 +29,15 @@ export class PerfilPage implements OnInit {
     this.dataService.getProfile(this.token, this.id_usuario)
     .subscribe( (data: any) => {
       console.log('[Login][Entrar] Data: ' + data);
-      console.log('[Login][Entrar] Reponse: ' + data.response);
-      this.nombre = data.nombre_usuario;
-      this.correo = data.email_usuario;    
+      console.log('[Login][Entrar] Reponse: ' + data.success);
+      this.dataPerfil = data.data[0];
+      this.nombreUsuario = this.dataPerfil.nombre_usuario;
+      this.correoUsuario = this.dataPerfil.email_usuario;
+      this.celularUsuario = this.dataPerfil.celular_usuario;
+      
       // this.userData = data;
       // tslint:disable-next-line: triple-equals
-      if (data.response == 'TRUE') {
+      if (data.success == 'TRUE') {
         // console.log('[Login][Entrar] Token: ' + data.token);
         // console.log('[Login][Entrar] Usuario: ' + data.data[0].id_usuarios);
         // localStorage.setItem('idUsuario', data.data[0].id_usuarios);
@@ -55,7 +57,7 @@ export class PerfilPage implements OnInit {
     // Or to get a key/value pair
     this.storage.get('id_usuario').then((val) => {
       console.log('ID Usuario: ', val);
-      this.id_user = val;
+      this.id_usuario = val;
       this.getProfile();
       console.log(this.id_usuario);
     });
@@ -63,7 +65,12 @@ export class PerfilPage implements OnInit {
 
   async  editProfile() {
     const modal = await this.modalCtrl.create({
-      component: PerfilModalPage
+      component: PerfilModalPage,
+      componentProps: {
+        nombre: this.dataPerfil.nombre_usuario,
+        correo: this.dataPerfil.email_usuario,
+        celular: this.dataPerfil.celular_usuario,        
+      }
     });
   
     await modal.present();
@@ -78,5 +85,12 @@ export class PerfilPage implements OnInit {
     });
     toast.present();
   };
+  
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getID();
+      event.target.complete();
+    }, 2000);
+  }
 
 }
