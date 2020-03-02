@@ -1,181 +1,85 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { Platform, LoadingController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { Platform, LoadingController, ToastController } from '@ionic/angular';
+import { Environment } from '@ionic-native/google-maps';
 import {
-  GoogleMaps,
   GoogleMap,
+  GoogleMaps,
+  GoogleMapsEvent,
   Geocoder,
   GeocoderResult,
   GoogleMapsAnimation,
-  GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
   Marker,
-  Environment
-} from '@ionic-native/google-maps/ngx';
-
-
+  MyLocation} from '@ionic-native/google-maps/ngx';
 @Component({
   selector: 'app-map-subcategoria',
   templateUrl: './map-subcategoria.page.html',
   styleUrls: ['./map-subcategoria.page.scss'],
 })
-
 export class MapSubcategoriaPage implements OnInit {
-
   map: GoogleMap;
   loading: any;
-  search_address: any;
-  
-  address: Object;
-  establishmentAddress: Object;
-  formattedAddress: string;
-
-  formattedEstablishmentAddress: string;
-
-  long: any;
-  lat: any;
-
-  ciudad: string;
-  numExt: string;
-  cp: string;
-  estado: string;
-
-  phone: string;
-  isDisabled = true;
-
-  constructor(private platform: Platform, public loadingCtrl: LoadingController, public zone: NgZone) { }
-
+  constructor(public loadingCtrl: LoadingController, private platform: Platform, public toastCtrl: ToastController) { }
   async ngOnInit() {
     await this.platform.ready();
     await this.loadMap();
   }
   loadMap() {
-    // This code is necessary for browser
     Environment.setEnv({
       'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBG2qkcfyKgIBzOoSnoLhBl_3CHJkS_2js',
       'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBG2qkcfyKgIBzOoSnoLhBl_3CHJkS_2js'
     });
-    // Create a map
-    // after the view is ready
-    // and the native paltform is ready
-    this.map = GoogleMaps.create('map_canvas2');
+    this.map = GoogleMaps.create('map_canvas2', {
+      camera: {
+        target: {
+          lat: 43.0741704,
+          lng: -89.3809802
+        },
+        zoom: 18,
+        tilt: 30
+      }
+    });
   }
-  async onButtonClick(event: any) {
+  async onButtonClick() {
+    this.map.clear();
     this.loading = await this.loadingCtrl.create({
-      message: 'Please wait...'
+      message: 'Rastreando tu ubicación...'
     });
     await this.loading.present();
-    this.map.clear();
-    // Address -> latitude,longitude
-    Geocoder.geocode({
-      address: this.formattedAddress
-    })
-    .then((results: GeocoderResult[]) => {
-      console.log(results);
+    // Get the location of you
+    this.map.getMyLocation().then((location: MyLocation) => {
       this.loading.dismiss();
-      if (results.length > 0) {
-        let marker: Marker = this.map.addMarkerSync({
-          position: results[0].position,
-          // title:  JSON.stringify(results[0].position)
-          title:  this.formattedAddress,
-          animation: GoogleMapsAnimation.BOUNCE
-        });
-        this.map.animateCamera({
-          target: marker.getPosition(),
-          zoom: 17
-        });
-        marker.showInfoWindow();
-        // console.log(results[0].position.lat);
-        // console.log(results[0].position.lng);
-        this.lat = results[0].position.lat;
-        this.long = results[0].position.lng;
-      } else {
-        alert('Not found');
-      }
+      console.log(JSON.stringify(location, null ,2));
+      // Move the map camera to the location with animation
+      this.map.animateCamera({
+        target: location.latLng,
+        zoom: 17,
+        tilt: 30
+      });
+      // add a marker
+      let marker: Marker = this.map.addMarkerSync({
+        // title: JSON.stringify(location.latLng),
+        position: location.latLng,
+        animation: GoogleMapsAnimation.BOUNCE
+      });
+      // show the infoWindow
+      marker.showInfoWindow();
+      // If clicked it, display the alert
+      marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+        this.showToast('clicked!');
+      });
+    })
+    .catch(err => {
+      this.loading.dismiss();
+      this.showToast(err.error_message);
     });
   }
-  getAddress(place: object) {
-    this.address = place['formatted_address'];
-    this.phone = this.getPhone(place);
-    this.formattedAddress = place['formatted_address'];
-    // this.lat = place['geometry']['location']['lat']['[[Scopes]][0]'];
-    this.zone.run(() => this.formattedAddress = place['formatted_address']);
-    console.log(place);
-    // console.log(place['geometry']['location']['lat']);
-    /*
-    this.numExt = place['address_components'][0]['short_name'];
-    this.ciudad = place['address_components'][3]['short_name'];
-    this.estado = place['address_components'][4]['long_name'];
-    */
-    // this.cp = place['address_components'][6]['short_name'];
-    /* Mostrar direccion en maps */
-    this.onButtonClick(this.formattedAddress);
-    this.isDisabled = false;
-  }
-  getEstablishmentAddress(place: object) {
-    this.establishmentAddress = place['formatted_address'];
-    this.phone = this.getPhone(place);
-    this.formattedEstablishmentAddress = place['formatted_address'];
-    this.zone.run(() => {
-      this.formattedEstablishmentAddress = place['formatted_address'];
-      this.phone = place['formatted_phone_number'];
+  async showToast(message: string) {
+    let toast = await this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position: 'middle'
     });
+    toast.present();
   }
-  getAddrComponent(place, componentTemplate) {
-    let result;
-    for (let i = 0; i < place.address_components.length; i++) {
-      const addressType = place.address_components[i].types[0];
-      if (componentTemplate[addressType]) {
-        result = place.address_components[i][componentTemplate[addressType]];
-        return result;
-      }
-    }
-    return;
-  }
-  getStreetNumber(place) {
-    const COMPONENT_TEMPLATE = { street_number: 'short_name' },
-      streetNumber = this.getAddrComponent(place, COMPONENT_TEMPLATE);
-    return streetNumber;
-  }
-  getStreet(place) {
-    const COMPONENT_TEMPLATE = { route: 'long_name' },
-      street = this.getAddrComponent(place, COMPONENT_TEMPLATE);
-    return street;
-  }
-  getCity(place) {
-    const COMPONENT_TEMPLATE = { locality: 'long_name' },
-      city = this.getAddrComponent(place, COMPONENT_TEMPLATE);
-    return city;
-  }
-  getState(place) {
-    const COMPONENT_TEMPLATE = { administrative_area_level_1: 'short_name' },
-      state = this.getAddrComponent(place, COMPONENT_TEMPLATE);
-    return state;
-  }
-  getDistrict(place) {
-    const COMPONENT_TEMPLATE = { administrative_area_level_2: 'short_name' },
-      state = this.getAddrComponent(place, COMPONENT_TEMPLATE);
-    return state;
-  }
-  getCountryShort(place) {
-    const COMPONENT_TEMPLATE = { country: 'short_name' },
-      countryShort = this.getAddrComponent(place, COMPONENT_TEMPLATE);
-    return countryShort;
-  }
-  getCountry(place) {
-    const COMPONENT_TEMPLATE = { country: 'long_name' },
-      country = this.getAddrComponent(place, COMPONENT_TEMPLATE);
-    return country;
-  }
-  getPostCode(place) {
-    const COMPONENT_TEMPLATE = { postal_code: 'long_name' },
-      postCode = this.getAddrComponent(place, COMPONENT_TEMPLATE);
-    return postCode;
-  }
-  getPhone(place) {
-    const COMPONENT_TEMPLATE = { formatted_phone_number: 'formatted_phone_number' },
-      phone = this.getAddrComponent(place, COMPONENT_TEMPLATE);
-    return phone;
-  }
+  
 }
