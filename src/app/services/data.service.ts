@@ -17,6 +17,7 @@ export class DataService {
   // api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
   // api = 'http://localhost:8000/api/';
 
+
   guardados: Registro[] = [];
 
   // tslint:disable-next-line: max-line-length
