@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -8,9 +8,9 @@ import { ModalController } from '@ionic/angular';
 })
 export class PerfilModalPage implements OnInit {
 
-  nombre: any;
-  correo: any;
-  celular: any;
+  @Input() nombre: any;
+  @Input() correo: any;
+  @Input() celular: any;
 
   constructor( private modalCtrl: ModalController ) { }
 
