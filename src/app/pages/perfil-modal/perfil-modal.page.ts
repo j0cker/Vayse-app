@@ -8,6 +8,10 @@ import { ModalController } from '@ionic/angular';
 })
 export class PerfilModalPage implements OnInit {
 
+  nombre: any;
+  correo: any;
+  celular: any;
+
   constructor( private modalCtrl: ModalController ) { }
 
   ngOnInit() {
@@ -18,4 +22,8 @@ export class PerfilModalPage implements OnInit {
     this.modalCtrl.dismiss();
   }
   
+  editPerfil(nombre, correo, celular) {
+    
+  }
+
 }

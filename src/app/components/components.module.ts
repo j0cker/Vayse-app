@@ -6,18 +6,21 @@ import { RouterModule } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
 import { HeaderComponent } from './header/header.component';
 import { HeaderBackComponent } from './header-back/header-back.component';
+import { HeaderBackeditComponent } from './header-backedit/header-backedit.component';
 
 
 @NgModule({
   declarations: [
     MenuComponent,
     HeaderComponent,
-    HeaderBackComponent
+    HeaderBackComponent,
+    HeaderBackeditComponent
   ],
   exports: [
     MenuComponent,
     HeaderComponent,
-      HeaderBackComponent
+    HeaderBackComponent,
+    HeaderBackeditComponent
   ],
   imports: [
     CommonModule,

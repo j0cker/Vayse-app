@@ -53,7 +53,7 @@ export class LoginPage implements OnInit {
       }
 
     }, ( error ) => {
-      console.log(error);
+      console.log(`El error es: ${error}`);
       // this.userData = 'Este es el error: ' + error.toString();
       this.mal(error);
     });
