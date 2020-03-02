@@ -9,14 +9,31 @@ import { DataService } from '../../services/data.service';
 export class DashboardPage implements OnInit {
 
   elementos: any[] = [];
+  elemento: any;
+  id_user: any;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.getElements()
-    .subscribe( (data: any[]) => {
-      this.elementos = data;
 
+    this.getCategorias();
+  }
+
+  getSaldo() {
+    this.dataService.getSaldo(this.id_user)
+    .subscribe( (data: any[]) => {
+      this.elemento = data;
+      this.elementos = this.elemento.categorias;
+    }, ( error ) => {
+      console.log(error);
+    });
+  }
+
+  getCategorias() {
+    this.dataService.getCategorias()
+    .subscribe( (data: any[]) => {
+      this.elemento = data;
+      this.elementos = this.elemento.categorias;
     }, ( error ) => {
       console.log(error);
     });

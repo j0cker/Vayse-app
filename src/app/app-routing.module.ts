@@ -20,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/password/password.module').then( m => m.PasswordPageModule)
   },
   {
-    path: 'recover-password',
+    path: 'recover-password/:celular',
     loadChildren: () => import('./pages/recover-password/recover-password.module').then( m => m.RecoverPasswordPageModule)
   },
   {

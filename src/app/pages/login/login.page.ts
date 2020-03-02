@@ -4,6 +4,7 @@ import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { MenuController, ToastController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -16,8 +17,8 @@ export class LoginPage implements OnInit {
   correo: any;
   password: any;
 
-  constructor(private dataService: DataService, public toastController: ToastController, private router: Router) {
-   }
+  constructor(private dataService: DataService, public toastController: ToastController, private router: Router, private storage: Storage) {
+  }
 
   ngOnInit() {
   }
@@ -28,9 +29,6 @@ export class LoginPage implements OnInit {
 
     this.dataService.login(correo, password)
     .subscribe( (data: any) => {
-
-      console.log('[Login][Entrar] Data: ' + data);
-      console.log('[Login][Entrar] Reponse: ' + data.response);
 
       // this.userData = data;
       // tslint:disable-next-line: triple-equals
@@ -43,6 +41,8 @@ export class LoginPage implements OnInit {
 
         this.correo = '';
         this.password = '';
+
+        this.storage.set('id_usuario', data.id_usuario);
 
         this.router.navigate( ['/dashboard'] );
         // this.bien();

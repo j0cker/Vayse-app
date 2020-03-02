@@ -12,9 +12,10 @@ import { Storage } from '@ionic/storage';
 })
 export class DataService {
 
-  api = 'http://vayse.mx/dashboard/webservices/';
+  // api = 'http://vayse.mx/dashboard/webservices/';
   // api = 'http://boogapp.mx/vayse/dashboard/webservices/';
   // api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
+  api = 'http://localhost:8000/api/';
 
   guardados: Registro[] = [];
 
@@ -106,35 +107,22 @@ export class DataService {
     );
   }
 
-  // tslint:disable-next-line: max-line-length
-  updatePerfil(token: string, id_user: string, nombre: string, apellido: string, edad: string, celular: string, motoCLub: string) {
-    // tslint:disable-next-line: max-line-length
-    console.log('[DataService][userPost]');
-    // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/updatePerfil?token=' + token + '&id_user=' + id_user + '&nombre=' + nombre + '&apellido=' + apellido + '&edad=' + edad + '&celular=' + celular + '&motoClub=' + motoCLub).pipe(
-      tap( data => {
-        console.log(data);
-      })
-    );
-  }
-
-
-  deleteMoto(token: string, id_user: string, vin: string) {
-    // tslint:disable-next-line: max-line-length
-    console.log('[DataService][userPost]');
-    // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/deleteMoto?token=' + token + '&id_user=' + id_user + '&vin=' + vin).pipe(
-      tap( data => {
-        console.log(data);
-      })
-    );
-  }
-
   getProfile(token: string, id_user: string) {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][getProfile] Data Services');
     // tslint:disable-next-line: max-line-length
     return this.http.get(this.api + 'usuarios/getProfile?token=' + token + '&id_user=' + id_user).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+
+  getSaldo(id_user: string) {
+    // tslint:disable-next-line: max-line-length
+    console.log('[DataService][getProfile] Data Services');
+    // tslint:disable-next-line: max-line-length
+    return this.http.get(this.api + 'DEV/ws.php?action=getSaldo&token=5Nc7C5Mz@Mu&id_usuario=' + id_user).pipe(
       tap( data => {
         console.log(data);
       })
@@ -157,6 +145,16 @@ export class DataService {
     console.log('[DataService][verifyCode]');
     // tslint:disable-next-line: max-line-length
     return this.http.get(this.api + 'usuarios/verifyCode?code=' + code + '&celular=' + celular).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+
+  getCategorias() {
+    console.log('[DataService][getCategorias]');
+    // tslint:disable-next-line: max-line-length
+    return this.http.get(this.api + 'DEV/ws.php?action=get_categorias&token=5Nc7C5Mz@Mu').pipe(
       tap( data => {
         console.log(data);
       })
