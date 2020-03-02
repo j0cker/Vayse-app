@@ -14,8 +14,8 @@ export class DataService {
 
   // api = 'http://vayse.mx/dashboard/webservices/';
   // api = 'http://boogapp.mx/vayse/dashboard/webservices/';
-  // api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
-  // api = 'http://localhost:8000/api/';
+   api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
+   api1 = 'http://localhost:8000/api/';
 
 
   guardados: Registro[] = [];
@@ -79,7 +79,7 @@ export class DataService {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][changePassword]');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/changePassword?celular=' + celular + '&password=' + newPassword).pipe(
+    return this.http.get(this.api1 + 'usuarios/changePassword?celular=' + celular + '&password=' + newPassword).pipe(
       tap( data => {
         console.log(data);
       })
@@ -101,7 +101,7 @@ export class DataService {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][verificarCelular]');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/verificarCel?celular=' + celular).pipe(
+    return this.http.get(this.api1 + 'usuarios/verificarCel?celular=' + celular).pipe(
       tap( data => {
         console.log(data);
       })
@@ -118,7 +118,7 @@ export class DataService {
         console.log(data);
       })
     ); */
-    return this.http.get(this.api + 'usuarios/updatePerfil?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&nombre=' + nombre + '&apellido=' + apellido + '&edad=' + edad + '&celular=' + celular + '&motoClub=' + motoCLub).pipe(
+    return this.http.get(this.api1 + 'usuarios/updatePerfil?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&nombre=' + nombre + '&apellido=' + apellido + '&edad=' + edad + '&celular=' + celular + '&motoClub=' + motoCLub).pipe(
       tap( data => {
         console.log(data);
       })
@@ -134,7 +134,7 @@ export class DataService {
         console.log(data);
       })
     ); */
-    return this.http.get(this.api + 'usuarios/deleteMoto?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&vin=' + vin).pipe(
+    return this.http.get(this.api1 + 'usuarios/deleteMoto?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&vin=' + vin).pipe(
       tap( data => {
         console.log(data);
       })
@@ -150,7 +150,7 @@ export class DataService {
         console.log(data);
       })
     ); */
-    return this.http.get(this.api + 'usuarios/getProfile?token=5Nc7C5Mz@Mu&id_user=' + id_user).pipe(
+    return this.http.get(this.api1 + 'usuarios/getProfile?token=5Nc7C5Mz@Mu&id_user=' + id_user).pipe(
       tap( data => {
         console.log(data);
       })
@@ -174,7 +174,7 @@ export class DataService {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][verifyCode]');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/enviarsms?celular=' + celular).pipe(
+    return this.http.get(this.api1 + 'usuarios/enviarsms?celular=' + celular).pipe(
       tap( data => {
         console.log(data);
       })
@@ -185,7 +185,7 @@ export class DataService {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][verifyCode]');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/verifyCode?code=' + code + '&celular=' + celular).pipe(
+    return this.http.get(this.api1 + 'usuarios/verifyCode?code=' + code + '&celular=' + celular).pipe(
       tap( data => {
         console.log(data);
       })
