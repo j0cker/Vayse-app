@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-subcategorias',
@@ -14,7 +14,7 @@ export class SubcategoriasPage implements OnInit {
   id_categoria: string;
   user: any;
 
-  constructor( private dataService: DataService, private router: ActivatedRoute ) {
+  constructor( private dataService: DataService, private router: ActivatedRoute, private routers: Router ) {
     this.router.params
       .subscribe((params: any) => {
           console.log(params);
@@ -34,6 +34,10 @@ export class SubcategoriasPage implements OnInit {
     }, ( error ) => {
       console.log(error);
     });
+  }
+
+  locSubCategorias( id_subcategoria: any ){
+    this.routers.navigate( ['/map-subcategoria', id_subcategoria ] );
   }
 
 }
