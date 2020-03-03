@@ -27,36 +27,53 @@ export class LoginPage implements OnInit {
   entrar(correo: any, password: any) {
     console.log('Email: ' + correo);
     console.log('Password: ' + password);
+    const esMail = this.isEmail(correo);
+    if(esMail === true) {
+      this.dataService.login(correo, password)
+      .subscribe( (data: any) => {
+  
+        console.log('[Login][Entrar] Data: ' + data);
+        console.log('[Login][Entrar] Reponse: ' + data.response);
+  
+        // this.userData = data;
+        // tslint:disable-next-line: triple-equals
+        if (data.response == true) {
+          // console.log('[Login][Entrar] Token: ' + data.token);
+          // console.log('[Login][Entrar] Usuario: ' + data.data[0].id_usuarios);
+  
+          // localStorage.setItem('idUsuario', data.data[0].id_usuarios);
+          // localStorage.setItem('Token', data.token);
+  
+          this.correo = '';
+          this.password = '';
+          this.storage.set('id_usuario', data.id_usuario);
+          this.router.navigate( ['/dashboard'] );
+          // this.bien();
+        } else {
+          this.mal(data.message);
+        }
+  
+      }, ( error ) => {
+        console.log(`El error es: ${error}`);
+        // this.userData = 'Este es el error: ' + error.toString();
+        this.mal(error);
+      });
+    } else {
+      this.mail();
+    }
+  }
 
-    this.dataService.login(correo, password)
-    .subscribe( (data: any) => {
+  isEmail(correo: any): boolean {
+    let  serchfind: boolean;
+    let regexp: any;
 
-      console.log('[Login][Entrar] Data: ' + data);
-      console.log('[Login][Entrar] Reponse: ' + data.response);
+    // tslint:disable-next-line: max-line-length
+    regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
-      // this.userData = data;
-      // tslint:disable-next-line: triple-equals
-      if (data.response == true) {
-        // console.log('[Login][Entrar] Token: ' + data.token);
-        // console.log('[Login][Entrar] Usuario: ' + data.data[0].id_usuarios);
+    serchfind = regexp.test(correo);
 
-        // localStorage.setItem('idUsuario', data.data[0].id_usuarios);
-        // localStorage.setItem('Token', data.token);
-
-        this.correo = '';
-        this.password = '';
-        this.storage.set('id_usuario', data.id_usuario);
-        this.router.navigate( ['/dashboard'] );
-        // this.bien();
-      } else {
-        this.mal(data.message);
-      }
-
-    }, ( error ) => {
-      console.log(`El error es: ${error}`);
-      // this.userData = 'Este es el error: ' + error.toString();
-      this.mal(error);
-    });
+    console.log(serchfind);
+    return serchfind;
   }
 
   async bien() {
@@ -75,6 +92,16 @@ export class LoginPage implements OnInit {
       duration: 4000,
       color: 'dark',
       position: 'bottom'
+    });
+    toast.present();
+  }
+
+  async mail() {
+    const toast = await this.toastController.create({
+      message: 'Ingresar un correo válido',
+      duration: 4000,
+      color: 'danger',
+      position: 'bottom',
     });
     toast.present();
   }

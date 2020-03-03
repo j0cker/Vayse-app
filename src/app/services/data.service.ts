@@ -109,16 +109,10 @@ export class DataService {
   }
 
   // tslint:disable-next-line: max-line-length
-  updatePerfil(token: string, id_user: string, nombre: string, apellido: string, edad: string, celular: string, motoCLub: string) {
+  updatePerfil(id_user: string, nombre: string, correo: string, celular: string) {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][userPost]');
-    // tslint:disable-next-line: max-line-length
-    /* return this.http.get(this.api + 'usuarios/updatePerfil?token=' + token + '&id_user=' + id_user + '&nombre=' + nombre + '&apellido=' + apellido + '&edad=' + edad + '&celular=' + celular + '&motoClub=' + motoCLub).pipe(
-      tap( data => {
-        console.log(data);
-      })
-    ); */
-    return this.http.get(this.api1 + 'usuarios/updatePerfil?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&nombre=' + nombre + '&apellido=' + apellido + '&edad=' + edad + '&celular=' + celular + '&motoClub=' + motoCLub).pipe(
+    return this.http.get(this.api1 + 'usuarios/updatePerfil?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&nombre=' + nombre + '&correo=' + correo + '&celular=' + celular).pipe(
       tap( data => {
         console.log(data);
       })
