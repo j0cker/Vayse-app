@@ -72,7 +72,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/subcategorias/subcategorias.module').then( m => m.SubcategoriasPageModule)
   },
   {
-    path: 'map-subcategoria',
+    path: 'map-subcategoria/:id_subcategoria',
     loadChildren: () => import('./pages/map-subcategoria/map-subcategoria.module').then( m => m.MapSubcategoriaPageModule)
   },
 

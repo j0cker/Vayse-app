@@ -72,7 +72,6 @@ export class PerfilPage implements OnInit {
         celular: this.dataPerfil.celular_usuario,        
       }
     });
-  
     await modal.present();
   }
 

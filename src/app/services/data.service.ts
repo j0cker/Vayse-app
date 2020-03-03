@@ -12,10 +12,10 @@ import { Storage } from '@ionic/storage';
 })
 export class DataService {
 
-  // api = 'http://vayse.mx/dashboard/webservices/';
-  // api = 'http://boogapp.mx/vayse/dashboard/webservices/';
-   api = 'http://localhost/vayse-web/dashboard/webservices/';
-   api1 = 'http://localhost:8000/api/';
+  api = 'http://vayse.mx/dashboard/webservices/';
+  api1 = 'http://vayse.boogapp.mx/api/';
+  // api = 'http://localhost/vayse-web/dashboard/webservices/';
+  // api1 = 'http://localhost:8000/api/';
 
 
   guardados: Registro[] = [];
@@ -145,6 +145,21 @@ export class DataService {
       })
     ); */
     return this.http.get(this.api1 + 'usuarios/getProfile?token=5Nc7C5Mz@Mu&id_user=' + id_user).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+
+  // se agrega código para obtener con una función los negocios
+  getNegocios(latitud:any, longitud:any, id_subcategoria:any) {
+
+    console.log('[DataService][getNegocios] Data Services');
+    console.log('[DataService][getNegocios] Latitud: ' + latitud);
+    console.log('[DataService][getNegocios] Longitud: ' + longitud);
+    console.log('[DataService][getNegocios] ]ID Subcategorias: ' + id_subcategoria);
+  
+    return this.http.get(this.api + 'DEV/ws.php?action=get_negocios&token=5Nc7C5Mz@Mu&latitud=' + latitud + '&longitud=' + longitud + '&id_subcategoria=' + id_subcategoria).pipe(
       tap( data => {
         console.log(data);
       })
