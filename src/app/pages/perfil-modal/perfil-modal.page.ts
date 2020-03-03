@@ -42,8 +42,7 @@ export class PerfilModalPage implements OnInit {
         console.log(`error ${error}`);      
       })
     } else {
-      console.log(this.mail);
-      
+      this.mail();
     }
   }
 
@@ -93,10 +92,10 @@ export class PerfilModalPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Ingresar un correo válido',
       duration: 4000,
-      color: 'danger',
+      color: 'dark',
       position: 'bottom',
     });
     toast.present();
   }
-  
+
 }
