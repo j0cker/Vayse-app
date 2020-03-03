@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'map-subcategoria', pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
@@ -63,6 +63,20 @@ const routes: Routes = [
     path: 'pago-aprobacion',
     loadChildren: () => import('./pages/pago-aprobacion/pago-aprobacion.module').then( m => m.PagoAprobacionPageModule)
   },
+  {
+    path: 'perfil-modal',
+    loadChildren: () => import('./pages/perfil-modal/perfil-modal.module').then( m => m.PerfilModalPageModule)
+  },
+  {
+    path: 'subcategorias/:id_categoria',
+    loadChildren: () => import('./pages/subcategorias/subcategorias.module').then( m => m.SubcategoriasPageModule)
+  },
+  {
+    path: 'map-subcategoria',
+    loadChildren: () => import('./pages/map-subcategoria/map-subcategoria.module').then( m => m.MapSubcategoriaPageModule)
+  },
+
+
 ];
 
 @NgModule({

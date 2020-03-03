@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HistoricoSaldoPageRoutingModule } from './historico-saldo-routing.module';
+import { MapSubcategoriaPageRoutingModule } from './map-subcategoria-routing.module';
 
-import { HistoricoSaldoPage } from './historico-saldo.page';
+import { MapSubcategoriaPage } from './map-subcategoria.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HistoricoSaldoPageRoutingModule,
+    MapSubcategoriaPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [HistoricoSaldoPage]
+  declarations: [MapSubcategoriaPage]
 })
-export class HistoricoSaldoPageModule {}
+export class MapSubcategoriaPageModule {}

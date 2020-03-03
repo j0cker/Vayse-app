@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HistoricoSaldoPageRoutingModule } from './historico-saldo-routing.module';
+import { PerfilModalPageRoutingModule } from './perfil-modal-routing.module';
 
-import { HistoricoSaldoPage } from './historico-saldo.page';
+import { PerfilModalPage } from './perfil-modal.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HistoricoSaldoPageRoutingModule,
+    PerfilModalPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [HistoricoSaldoPage]
+  declarations: [PerfilModalPage]
 })
-export class HistoricoSaldoPageModule {}
+export class PerfilModalPageModule {}

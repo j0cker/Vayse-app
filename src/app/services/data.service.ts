@@ -4,7 +4,7 @@ import { ToastController, NavController } from '@ionic/angular';
 
 import { tap } from 'rxjs/operators';
 import { Componente } from '../interfaces/interfaces';
-import {Registro} from '../models/registro.model';
+import { Registro } from '../models/registro.model';
 import { Storage } from '@ionic/storage';
 
 @Injectable({
@@ -12,9 +12,11 @@ import { Storage } from '@ionic/storage';
 })
 export class DataService {
 
-  api = 'http://vayse.mx/dashboard/webservices/';
+  // api = 'http://vayse.mx/dashboard/webservices/';
   // api = 'http://boogapp.mx/vayse/dashboard/webservices/';
-  // api = 'http://localhost:8888/vayse-web/dashboard/webservices/';
+   api = 'http://localhost/vayse-web/dashboard/webservices/';
+   api1 = 'http://localhost:8000/api/';
+
 
   guardados: Registro[] = [];
 
@@ -77,7 +79,7 @@ export class DataService {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][changePassword]');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/changePassword?celular=' + celular + '&password=' + newPassword).pipe(
+    return this.http.get(this.api1 + 'usuarios/changePassword?celular=' + celular + '&password=' + newPassword).pipe(
       tap( data => {
         console.log(data);
       })
@@ -99,7 +101,7 @@ export class DataService {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][verificarCelular]');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/verificarCel?celular=' + celular).pipe(
+    return this.http.get(this.api1 + 'usuarios/verificarCel?celular=' + celular).pipe(
       tap( data => {
         console.log(data);
       })
@@ -111,19 +113,28 @@ export class DataService {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][userPost]');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/updatePerfil?token=' + token + '&id_user=' + id_user + '&nombre=' + nombre + '&apellido=' + apellido + '&edad=' + edad + '&celular=' + celular + '&motoClub=' + motoCLub).pipe(
+    /* return this.http.get(this.api + 'usuarios/updatePerfil?token=' + token + '&id_user=' + id_user + '&nombre=' + nombre + '&apellido=' + apellido + '&edad=' + edad + '&celular=' + celular + '&motoClub=' + motoCLub).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    ); */
+    return this.http.get(this.api1 + 'usuarios/updatePerfil?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&nombre=' + nombre + '&apellido=' + apellido + '&edad=' + edad + '&celular=' + celular + '&motoClub=' + motoCLub).pipe(
       tap( data => {
         console.log(data);
       })
     );
   }
 
-
   deleteMoto(token: string, id_user: string, vin: string) {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][userPost]');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/deleteMoto?token=' + token + '&id_user=' + id_user + '&vin=' + vin).pipe(
+    /* return this.http.get(this.api + 'usuarios/deleteMoto?token=' + token + '&id_user=' + id_user + '&vin=' + vin).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    ); */
+    return this.http.get(this.api1 + 'usuarios/deleteMoto?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&vin=' + vin).pipe(
       tap( data => {
         console.log(data);
       })
@@ -134,7 +145,25 @@ export class DataService {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][getProfile] Data Services');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/getProfile?token=' + token + '&id_user=' + id_user).pipe(
+    /* return this.http.get(this.api + 'usuarios/getProfile?token=' + token + '&id_user=' + id_user).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    ); */
+    return this.http.get(this.api1 + 'usuarios/getProfile?token=5Nc7C5Mz@Mu&id_user=' + id_user).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+
+  // se agrega código para obtener el saldo del usuario
+  getSaldo(id_user: string) {
+    // tslint:disable-next-line: max-line-length
+    console.log('[DataService][getProfile] Data Services');
+    console.log('[DataService][getProfile] ID User: ' + id_user);
+    // tslint:disable-next-line: max-line-length
+    return this.http.get(this.api + 'DEV/ws.php?action=getSaldo&token=5Nc7C5Mz@Mu&id_usuario=' + id_user).pipe(
       tap( data => {
         console.log(data);
       })
@@ -145,7 +174,7 @@ export class DataService {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][verifyCode]');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/enviarsms?celular=' + celular).pipe(
+    return this.http.get(this.api1 + 'usuarios/enviarsms?celular=' + celular).pipe(
       tap( data => {
         console.log(data);
       })
@@ -156,11 +185,31 @@ export class DataService {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][verifyCode]');
     // tslint:disable-next-line: max-line-length
-    return this.http.get(this.api + 'usuarios/verifyCode?code=' + code + '&celular=' + celular).pipe(
+    return this.http.get(this.api1 + 'usuarios/verifyCode?code=' + code + '&celular=' + celular).pipe(
       tap( data => {
         console.log(data);
       })
     );
   }
 
+  // se agrega código solucionando en dashboard la función de this.dataService.getCategorias 
+  getCategorias() {
+    console.log('[DataService][getCategorias]');
+    // tslint:disable-next-line: max-line-length
+    return this.http.get(this.api + 'DEV/ws.php?action=get_categorias&token=5Nc7C5Mz@Mu').pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+
+  getSubCategorias(id_categoria: string) {
+    console.log('[DataService][getSubCategorias]');
+    // tslint:disable-next-line: max-line-length
+    return this.http.get(this.api + 'DEV/ws.php?action=get_subcategorias&token=5Nc7C5Mz@Mu&id_categoria=' + id_categoria).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
 }
