@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { Componente } from '../interfaces/interfaces';
 import { Registro } from '../models/registro.model';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class DataService {
   guardados: Registro[] = [];
 
   // tslint:disable-next-line: max-line-length
-  constructor( private http: HttpClient, public toastController: ToastController, private storage: Storage, private navCtrl: NavController) {
+  constructor( private http: HttpClient, public toastController: ToastController, private storage: Storage, private navCtrl: NavController, private router: Router) {
     this.cargarStorage();
    }
 
@@ -29,21 +30,22 @@ export class DataService {
     this.guardados = await this.storage.get('Registros') || [];
   }
 
-  async guardarRegistro(format: any, text: any) {
+  async guardarRegistro(id_negocio: any, property: any) {
 
     await this.cargarStorage();
 
-    const nuevoRegistro = new Registro (format, text);
+    const nuevoRegistro = new Registro (id_negocio, property);
     this.guardados.unshift(nuevoRegistro);
 
     console.log(this.guardados);
     this.storage.set('Registros', this.guardados);
 
-    this.abrirRegistro();
+    this.abrirRegistro(id_negocio);
   }
 
-  abrirRegistro() {
-    this.navCtrl.navigateForward('pago');
+  abrirRegistro(id_negocio: any) {
+    // this.navCtrl.navigateForward('pago', id_negocio);
+    this.router.navigate( ['/pago', id_negocio ] );
   }
 
   getMenuOpts() {

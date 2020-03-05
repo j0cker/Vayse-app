@@ -26,7 +26,7 @@ export class ScanQrPage implements OnInit {
       }
      }).catch(err => {
          console.log('Error', err);
-         // this.dataService.guardarRegistro('html', 'http://boogapp.mx');
+         this.dataService.guardarRegistro('42', 'vayse');
      });
   }
 
