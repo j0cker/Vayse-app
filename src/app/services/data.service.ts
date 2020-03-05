@@ -12,10 +12,10 @@ import { Storage } from '@ionic/storage';
 })
 export class DataService {
 
-  api = 'http://vayse.mx/dashboard/webservices/';
-  api1 = 'http://vayse.boogapp.mx/api/';
-  // api = 'http://localhost/vayse-web/dashboard/webservices/';
-  // api1 = 'http://localhost:8000/api/';
+  // api = 'http://vayse.mx/dashboard/webservices/';
+  // api1 = 'http://vayse.boogapp.mx/api/';
+   api = 'http://localhost/vayse-web/dashboard/webservices/';
+   api1 = 'http://localhost:8000/api/';
 
 
   guardados: Registro[] = [];
@@ -221,4 +221,26 @@ export class DataService {
       })
     );
   }
+
+  /* Requerimientos de la base: ID usuario, ID token usuario, ID negocio, ID metodo de pago, total de la venta, código de comprobación */
+  idNegocio() {
+    
+  }
+
+  aprobarVenta(id_user:string, id_negocio:any, id_metodo_pago:any, total:any, codigocomprobacion:any ){
+    console.log('user: ', id_user);
+    console.log('negocio: ', id_negocio);
+    console.log('metodo pago: ', id_metodo_pago);
+    console.log('total: ', total);
+    console.log('codigo comprobación: ', codigocomprobacion);
+
+    return this.http.get(
+      this.api + 'DEV/ws.php?action=aprobar_venta&token=5Nc7C5Mz@Mu&id_usuario='+ id_user +'&id_negocio='+ id_negocio +'&id_metodo_pago='+ id_metodo_pago +'&total='+ total +'&codigocomprobacion='+ codigocomprobacion
+    ).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+    
 }

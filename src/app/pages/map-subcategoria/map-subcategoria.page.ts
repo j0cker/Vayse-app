@@ -9,6 +9,7 @@ import {
   Geocoder,
   GeocoderResult,
   GoogleMapsAnimation,
+  BaseArrayClass,
   Marker,
   MyLocation} from '@ionic-native/google-maps/ngx';
 import { ActivatedRoute } from '@angular/router';
@@ -26,6 +27,8 @@ export class MapSubcategoriaPage implements OnInit {
   latitud: any;
   longitud: any;
   id_subcategoria: any;
+
+  negocios: any [] = [];
 
   user: any;
 
@@ -49,6 +52,7 @@ export class MapSubcategoriaPage implements OnInit {
     });
     this.map = GoogleMaps.create('map_canvas2');
     this.onButtonClick();
+    this.onButton_click(event);
   }
 
   async onButtonClick() {
@@ -56,10 +60,10 @@ export class MapSubcategoriaPage implements OnInit {
     this.loading = await this.loadingCtrl.create({
       message: 'Rastreando tu ubicación...'
     });
-    await this.loading.present();
+    // await this.loading.present();
     // Get the location of you
     this.map.getMyLocation().then((location: MyLocation) => {
-      this.loading.dismiss();
+      //this.loading.dismiss();
       console.log(JSON.stringify(location, null ,2));
       this.latitud = location.latLng.lat;
       this.longitud = location.latLng.lng;
@@ -86,11 +90,73 @@ export class MapSubcategoriaPage implements OnInit {
 
     })
     .catch(err => {
-      this.loading.dismiss();
+      // this.loading.dismiss();
       this.showToast(err.error_message);
     });
   }
 
+  // batch-geocoding
+
+  async onButton_click(event) {
+    this.map.clear();
+    this.loading = await this.loadingCtrl.create({
+      message: 'Please wait...'
+    });
+    await this.loading.present();
+    let start = Date.now();
+    console.log(`Aquí está el start = ${start}`);
+    // Geocode multiple location
+    Geocoder.geocode({
+      // Google office locations in California, USA
+      "position" : [
+        { "lat": parseInt(this.negocios[0].latitud) , "lng": parseInt(this.negocios[0].longitud) },
+      ]
+    })
+    .then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {     
+      mvcArray.on('insert_at').subscribe((params: any[]) => {
+        const index: number = params[0];
+        const result: GeocoderResult = mvcArray.getAt(index);
+        console.log(`Variable inicializada index = ${index}`);
+        console.log(`Variable inicializada results = `, result);
+        this.map.addMarkerSync({
+          'position':result[0].position,
+          'title':  JSON.stringify(result)
+        });
+      });
+      mvcArray.one('finish').then(() => {
+        this.loading.dismiss();
+        let end = Date.now();
+        console.log(`Variable end = ${end}`);
+        
+        alert("duration: " + ((end - start) / 1000).toFixed(1) + " seconds");
+        let results: any[] = mvcArray.getArray();
+        console.log('Variable final results = ',results);
+      });
+    });
+  }
+  
+// obtiene el negocio
+
+  getNegocio() {
+    this.dataService.getNegocios(this.latitud, this.longitud, this.id_subcategoria.id_subcategoria)
+    .subscribe( (data: any) => {
+      this.negocios = data.negocios;
+      console.log('[Login][Entrar] Data: ' + data);
+      console.log('[Login][Entrar] Negocios: ', this.negocios);
+      
+      if (data.response === true) {
+        
+      } else {
+        this.mal(data.message);
+      }
+      
+    }, ( error ) => {
+      console.log(`El error es: ${error}`);
+      // this.userData = 'Este es el error: ' + error.toString();
+      this.mal(error);
+    });
+  }
+  
   async showToast(message: string) {
     let toast = await this.toastCtrl.create({
       message: message,
@@ -98,26 +164,6 @@ export class MapSubcategoriaPage implements OnInit {
       position: 'middle'
     });
     toast.present();
-  }
-
-  getNegocio() {
-    this.dataService.getNegocios(this.latitud, this.longitud, this.id_subcategoria.id_subcategoria)
-      .subscribe( (data: any) => {
-  
-        console.log('[Login][Entrar] Data: ' + data);
-        console.log('[Login][Entrar] Reponse: ' + data.response);
-  
-        if (data.response === true) {
-          
-        } else {
-          this.mal(data.message);
-        }
-  
-      }, ( error ) => {
-        console.log(`El error es: ${error}`);
-        // this.userData = 'Este es el error: ' + error.toString();
-        this.mal(error);
-      });
   }
 
   async mal(msj: any) {
