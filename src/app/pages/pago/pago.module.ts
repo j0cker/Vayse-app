@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PagoPageRoutingModule } from './pago-routing.module';
 
 import { PagoPage } from './pago.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PagoPageRoutingModule
+    PagoPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [PagoPage]
 })

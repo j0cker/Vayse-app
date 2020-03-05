@@ -1,21 +1,20 @@
-<ion-header>
-  <ion-toolbar class="vayseColor" color="transparent">
-      <ion-buttons slot="start">
-          <ion-menu-button color="light" menu="perfil"></ion-menu-button>
-      </ion-buttons>
+<app-header>
 
-      <ion-title id="titulo" style="color: white" text-center>
-          <img src="../../assets/img/logo2-blanco.png" alt="" style="max-width: 35%; margin-top: 3%; margin-bottom: 3%;"></ion-title>
-      <ion-icon slot="end" name="person" color="light" size="large" routerLink="/perfil" style="margin-right: 4%;"></ion-icon>
-    </ion-toolbar>
-  </ion-header>
+</app-header>
 
 <ion-content class="ion-padding">
 
-  <h2 class="ion-text-center" style="margin-bottom: 10%" >Seleccione forma de pago</h2>
+  <h2 class="ion-text-center" color="secondary">
+    Selecciona <br>
+    Forma de Pago
+  </h2>
 
-  <ion-button color="secondary" expand="block" routerLink="/pago-normal">Pago normal</ion-button>
-  <ion-button color="secondary" expand="block" routerLink="/pago-puntos" style="margin-top: 5%">Pago con puntos</ion-button>
+  <ion-button class="pagoNormal" (click)="pagoNormal()" color="secondary" expand="block" routerLink="/pago-normal">
+    Normal
+  </ion-button>
+  <ion-button class="pagoPuntos" (click)="pagoPuntos()" color="secondary" expand="block" routerLink="/pago-puntos" style="margin-top: 5%">
+    Puntos
+  </ion-button>
   
 
 </ion-content>
