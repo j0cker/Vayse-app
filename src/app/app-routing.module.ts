@@ -48,7 +48,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/historico-saldo/historico-saldo.module').then( m => m.HistoricoSaldoPageModule)
   },
   {
-    path: 'pago',
+    path: 'pago/:id_negocio',
     loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule)
   },
   {
