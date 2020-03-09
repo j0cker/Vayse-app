@@ -10,11 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ScanQrPage implements OnInit {
 
-<<<<<<< HEAD
-  registro: any;
-=======
   id_negocio: any;
->>>>>>> 84bb0dfa8425bede4eae37c98aca2880dbae7779
 
   constructor(private barcodeScanner: BarcodeScanner, public dataService: DataService, private router: Router ) { }
 
