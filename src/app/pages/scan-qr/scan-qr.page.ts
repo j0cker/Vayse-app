@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class ScanQrPage implements OnInit {
 
+  id_negocio: any;
+
   constructor(private barcodeScanner: BarcodeScanner, public dataService: DataService, private router: Router ) { }
 
   ngOnInit() {
@@ -30,12 +32,12 @@ export class ScanQrPage implements OnInit {
      });
   }
 
-  abrirRegistro(registro: any) {
+  openRegistro(registro: any) {
     console.log('Registro', registro);
   }
 
   idMetodoPago() {
-    this.router.navigate( ['/pago', ] );
+    this.dataService.abrirRegistro(this.id_negocio);
   }
 
 }

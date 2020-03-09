@@ -9,10 +9,10 @@
     Forma de Pago
   </h2>
 
-  <ion-button class="pagoNormal" (click)="pagoNormal()" color="secondary" expand="block" routerLink="/pago-normal">
+  <ion-button class="pagoNormal" (click)="pagoNormal()" [(ngModel)]="idMetodoPago" color="secondary" expand="block">
     Normal
   </ion-button>
-  <ion-button class="pagoPuntos" (click)="pagoPuntos()" color="secondary" expand="block" routerLink="/pago-puntos" style="margin-top: 5%">
+  <ion-button class="pagoPuntos" (click)="pagoPuntos()" [(ngModel)]="idMetodoPago" color="secondary" expand="block">
     Puntos
   </ion-button>
   
