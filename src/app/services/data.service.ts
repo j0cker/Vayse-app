@@ -22,9 +22,11 @@ export class DataService {
   guardados: Registro[] = [];
 
   // tslint:disable-next-line: max-line-length
-  constructor( private http: HttpClient, public toastController: ToastController, private storage: Storage, private navCtrl: NavController, private router: Router) {
+  constructor( 
+    private http: HttpClient, public toastController: ToastController, private storage: Storage, private navCtrl: NavController, private router: Router
+  ) {
     this.cargarStorage();
-   }
+  }
 
   async cargarStorage() {
     this.guardados = await this.storage.get('Registros') || [];
@@ -224,11 +226,19 @@ export class DataService {
     );
   }
 
-  /* Requerimientos de la base: ID usuario, ID token usuario, ID negocio, ID metodo de pago, total de la venta, código de comprobación */
-  idNegocio() {
-    
+  /* Se necesita tener el ID del negocio */
+
+  negocio(id_negocio:any){
+    return this.http.get(
+      this.api + 'DEV/ws.php?action=aprobar_venta&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio 
+    ).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
   }
 
+  /* Requerimientos de la base: ID usuario, ID token usuario, ID negocio, ID metodo de pago, total de la venta, código de comprobación */
   aprobarVenta(id_user:string, id_negocio:any, id_metodo_pago:any, total:any, codigocomprobacion:any ){
     console.log('user: ', id_user);
     console.log('negocio: ', id_negocio);

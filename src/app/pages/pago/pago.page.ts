@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-pago',
@@ -12,43 +13,40 @@ export class PagoPage implements OnInit {
 
   id_user: string;
   id_negocio: any;
-  id_metodo_pago: any;
-  total: any;
-  codigocomprobacion: any;
+  
 
-  constructor( private dataService : DataService, private toastController: ToastController, private router : ActivatedRoute ) { 
+  constructor( private storage : Storage, private dataService : DataService, private toastController: ToastController, private router : ActivatedRoute ) { 
     this.router.params
       .subscribe((params: any) => {
-          console.log(params);
-          this.id_metodo_pago = params;
+          console.log(params.id_negocio);
+          this.id_negocio = params.id_negocio;
       });
   }
 
   ngOnInit() {
+    this.getID();
   }
 
-  getNegocios() {
-    
+  getID(){
+    // Or to get a key/value pair
+    this.storage.get('id_usuario').then((val) => {
+      console.log('ID Usuario: ', val);
+      this.id_user = val;
+    });
   }
 
   pagoNormal() {
-    this.dataService.aprobarVenta(
-      this.id_user, this.id_negocio,this.id_metodo_pago,this.total,this.codigocomprobacion
-    ).subscribe( (data:any) => {
+    this.dataService.negocio(this.id_negocio).subscribe( (data:any) => {
 
     }, ( error ) => {
       this.mal('console'+ error)
+      console.log(error);
+      
     })
   }
 
   pagoPuntos() {
-    this.dataService.aprobarVenta(
-      this.id_user, this.id_negocio,this.id_metodo_pago,this.total,this.codigocomprobacion
-    ).subscribe( (data:any) => {
-
-    }, ( error ) => {
-      this.mal('console'+ error)
-    })
+    
   }
 
   async mal(msj: any) {

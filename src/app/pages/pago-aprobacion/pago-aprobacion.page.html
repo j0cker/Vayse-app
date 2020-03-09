@@ -4,20 +4,30 @@
 
 <ion-content class="ion-padding">
 
-  <h2 class="ion-text-center">Ingrese código de aprobación</h2>
+  <h2 class="ion-text-center">
+    Ingrese código de aprobación
+  </h2>
 
-  <h5 class="ion-text-center">Venta de ${{cantidad}}</h5>
-  <h5 class="ion-text-center"> PAGO NORMAL</h5>
+  <h5 class="ion-text-center"> 
+    SU PAGO 
+  </h5>
+  <h5 class="ion-text-center">
+    Venta de ${{cantidad}}
+  </h5>
   <br>
 
   <ion-item color="transparent" style="background-color: #e7fbfd; border-radius: 7px;">
-    <ion-input type="tel" color="secondary" [(ngModel)]="codigo"  style="font-size: 18px;" placeholder="Ingrese código"></ion-input>
+    <ion-input class="ion-text-center" type="tel" color="secondary" [(ngModel)]="codigo" style="font-size: 18px;" placeholder="Ingrese código"></ion-input>
   </ion-item> 
 
   <ion-button
     style="margin-top: 30px"
     color="secondary"
     expand="block"
-    size="default">Aprobar Venta</ion-button>
+    size="default"
+    (click)="pagoAprobado()"
+  >
+    Aprobar Venta
+  </ion-button>
 
 </ion-content>

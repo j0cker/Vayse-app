@@ -11,6 +11,8 @@ import { PagoNormalPage } from './pago-normal.page';
 import { PagoAprobacionPage } from '../pago-aprobacion/pago-aprobacion.page';
 import { PagoAprobacionPageModule } from '../pago-aprobacion/pago-aprobacion.module';
 
+import { ComponentsModule } from 'src/app/components/components.module';
+
 @NgModule({
   entryComponents: [
     PagoAprobacionPage
@@ -20,7 +22,8 @@ import { PagoAprobacionPageModule } from '../pago-aprobacion/pago-aprobacion.mod
     FormsModule,
     IonicModule,
     PagoNormalPageRoutingModule,
-    PagoAprobacionPageModule
+    PagoAprobacionPageModule,
+    ComponentsModule
   ],
   declarations: [PagoNormalPage]
 })

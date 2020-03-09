@@ -3,7 +3,6 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-scan-qr',
   templateUrl: './scan-qr.page.html',
@@ -11,10 +10,11 @@ import { Router } from '@angular/router';
 })
 export class ScanQrPage implements OnInit {
 
+  registro: any;
+
   constructor(private barcodeScanner: BarcodeScanner, public dataService: DataService, private router: Router ) { }
 
   ngOnInit() {
-    this.scanQR();
   }
 
   scanQR() {

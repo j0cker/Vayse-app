@@ -9,7 +9,7 @@ import { PagoAprobacionPage } from '../pago-aprobacion/pago-aprobacion.page';
 })
 export class PagoNormalPage implements OnInit {
 
-  cantidad: any;
+  total: any;
 
   constructor(private modalCtrl: ModalController) { }
 
@@ -20,7 +20,7 @@ export class PagoNormalPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: PagoAprobacionPage,
       componentProps: {
-        cantidad: this.cantidad
+        cantidad: this.total
       }
     });
 
