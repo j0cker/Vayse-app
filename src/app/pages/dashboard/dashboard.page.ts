@@ -23,7 +23,7 @@ export class DashboardPage implements OnInit {
     this.getCategorias();
   }
 
-  getID(){
+  getID() {
     // Or to get a key/value pair
     this.storage.get('id_usuario').then((val) => {
       console.log('ID Usuario: ', val);

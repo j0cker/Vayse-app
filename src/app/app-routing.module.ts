@@ -52,11 +52,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule)
   },
   {
-    path: 'pago-normal',
+    path: 'pago-normal/:idMetodoPago',
     loadChildren: () => import('./pages/pago-normal/pago-normal.module').then( m => m.PagoNormalPageModule)
   },
   {
-    path: 'pago-puntos',
+    path: 'pago-puntos/:idMetodoPago',
     loadChildren: () => import('./pages/pago-puntos/pago-puntos.module').then( m => m.PagoPuntosPageModule)
   },
   {

@@ -116,7 +116,8 @@ export class DataService {
   updatePerfil(id_user: string, nombre: string, correo: string, celular: string) {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][userPost]');
-    return this.http.get(this.api1 + 'usuarios/updatePerfil?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&nombre=' + nombre + '&correo=' + correo + '&celular=' + celular).pipe(
+    return this.http.get(this.api1 + 'usuarios/updatePerfil?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&nombre=' + nombre + '&correo=' + correo + '&celular=' + celular)
+    .pipe(
       tap( data => {
         console.log(data);
       })
@@ -254,5 +255,4 @@ export class DataService {
       })
     );
   }
-    
 }
