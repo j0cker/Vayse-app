@@ -48,19 +48,19 @@ const routes: Routes = [
     loadChildren: () => import('./pages/historico-saldo/historico-saldo.module').then( m => m.HistoricoSaldoPageModule)
   },
   {
-    path: 'pago',
+    path: 'pago/:id_negocio',
     loadChildren: () => import('./pages/pago/pago.module').then( m => m.PagoPageModule)
   },
   {
-    path: 'pago-normal',
+    path: 'pago-normal/:idMetodoPago/:id_negocio',
     loadChildren: () => import('./pages/pago-normal/pago-normal.module').then( m => m.PagoNormalPageModule)
   },
   {
-    path: 'pago-puntos',
+    path: 'pago-puntos/:idMetodoPago/:id_negocio',
     loadChildren: () => import('./pages/pago-puntos/pago-puntos.module').then( m => m.PagoPuntosPageModule)
   },
   {
-    path: 'pago-aprobacion',
+    path: 'pago-aprobacion/:idMetodoPago/:id_negocio/:total',
     loadChildren: () => import('./pages/pago-aprobacion/pago-aprobacion.module').then( m => m.PagoAprobacionPageModule)
   },
   {

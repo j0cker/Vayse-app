@@ -6,44 +6,52 @@ import { tap } from 'rxjs/operators';
 import { Componente } from '../interfaces/interfaces';
 import { Registro } from '../models/registro.model';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  // api = 'http://vayse.mx/dashboard/webservices/';
-  // api1 = 'http://vayse.boogapp.mx/api/';
-   api = 'http://localhost/vayse-web/dashboard/webservices/';
-   api1 = 'http://localhost:8000/api/';
-
+  api = 'http://vayse.mx/dashboard/webservices/';
+  api1 = 'http://api.vayse.mx/api/';
+  // api = 'http://localhost/vayse-web/dashboard/webservices/';
+  // api1 = 'http://localhost:8000/api/';
 
   guardados: Registro[] = [];
 
   // tslint:disable-next-line: max-line-length
-  constructor( private http: HttpClient, public toastController: ToastController, private storage: Storage, private navCtrl: NavController) {
+  constructor( 
+    private http: HttpClient, public toastController: ToastController, private storage: Storage, private navCtrl: NavController, private router: Router
+  ) {
     this.cargarStorage();
-   }
+  }
 
   async cargarStorage() {
     this.guardados = await this.storage.get('Registros') || [];
   }
 
-  async guardarRegistro(format: any, text: any) {
+  async guardarRegistro(id_negocio: any, property: any) {
+
+    // console.log('ID Negocio: ' , id_negocio);
+    // console.log('Propery: ' , property);
+    
 
     await this.cargarStorage();
 
-    const nuevoRegistro = new Registro (format, text);
+    const nuevoRegistro = new Registro (id_negocio, property);
     this.guardados.unshift(nuevoRegistro);
 
     console.log(this.guardados);
     this.storage.set('Registros', this.guardados);
 
-    this.abrirRegistro();
+    this.abrirRegistro(id_negocio)
+
   }
 
-  abrirRegistro() {
-    this.navCtrl.navigateForward('pago');
+  abrirRegistro(id_negocio: any) {
+    // this.navCtrl.navigateForward('pago', id_negocio);
+    this.router.navigate( ['/pago', id_negocio ] );
   }
 
   getMenuOpts() {
@@ -112,7 +120,8 @@ export class DataService {
   updatePerfil(id_user: string, nombre: string, correo: string, celular: string) {
     // tslint:disable-next-line: max-line-length
     console.log('[DataService][userPost]');
-    return this.http.get(this.api1 + 'usuarios/updatePerfil?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&nombre=' + nombre + '&correo=' + correo + '&celular=' + celular).pipe(
+    return this.http.get(this.api1 + 'usuarios/updatePerfil?token=5Nc7C5Mz@Mu&id_user=' + id_user + '&nombre=' + nombre + '&correo=' + correo + '&celular=' + celular)
+    .pipe(
       tap( data => {
         console.log(data);
       })
@@ -223,24 +232,26 @@ export class DataService {
   }
 
   /* Requerimientos de la base: ID usuario, ID token usuario, ID negocio, ID metodo de pago, total de la venta, código de comprobación */
-  idNegocio() {
-    
-  }
-
-  aprobarVenta(id_user:string, id_negocio:any, id_metodo_pago:any, total:any, codigocomprobacion:any ){
+  aprobarVenta(
+    id_user: string,
+    id_negocio: any,
+    id_metodo_pago: any,
+    total: any,
+    codigocomprobacion: any,
+    saldo_vayse_usado: any ){
     console.log('user: ', id_user);
     console.log('negocio: ', id_negocio);
     console.log('metodo pago: ', id_metodo_pago);
     console.log('total: ', total);
+    console.log('saldo vayse usado: ', saldo_vayse_usado);
     console.log('codigo comprobación: ', codigocomprobacion);
 
     return this.http.get(
-      this.api + 'DEV/ws.php?action=aprobar_venta&token=5Nc7C5Mz@Mu&id_usuario='+ id_user +'&id_negocio='+ id_negocio +'&id_metodo_pago='+ id_metodo_pago +'&total='+ total +'&codigocomprobacion='+ codigocomprobacion
+      this.api + 'DEV/ws.php?action=aprobar_venta&token=5Nc7C5Mz@Mu&id_usuario='+ id_user +'&id_negocio='+ id_negocio +'&id_metodo_pago='+ id_metodo_pago +'&total='+ total +'&saldo_vayse_usado='+ saldo_vayse_usado +'&codigocomprobacion='+ codigocomprobacion
     ).pipe(
       tap( data => {
         console.log(data);
       })
     );
   }
-    
 }

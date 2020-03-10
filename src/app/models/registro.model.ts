@@ -1,14 +1,14 @@
 export class Registro {
 
-    public format: any;
-    public text: any;
+    public id_negocio: any;
+    public property: any;
     public type: any;
     public icon: any;
     public created: Date;
 
-    constructor(format: any,  text: any) {
-        this.format = format;
-        this.text = text;
+    constructor(id_negocio: any,  property: any) {
+        this.id_negocio = id_negocio;
+        this.property = property;
 
         this.created = new Date();
 
@@ -17,7 +17,7 @@ export class Registro {
 
     private determinarTipo() {
 
-        const inicioTexto = this.text.substr(0, 4);
+        const inicioTexto = this.property.substr(0, 4);
         console.log('Tipo', inicioTexto);
 
         switch (inicioTexto) {

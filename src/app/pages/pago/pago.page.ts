@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-pago',
@@ -10,45 +11,30 @@ import { ToastController } from '@ionic/angular';
 })
 export class PagoPage implements OnInit {
 
-  id_user: string;
-  id_negocio: any;
-  id_metodo_pago: any;
+  idNegocio: any;
+  idMetodoPago: any;
   total: any;
-  codigocomprobacion: any;
 
-  constructor( private dataService : DataService, private toastController: ToastController, private router : ActivatedRoute ) { 
+  constructor(
+    private dataService: DataService, private toastController: ToastController, private router: ActivatedRoute, private route: Router
+  ) {
     this.router.params
       .subscribe((params: any) => {
-          console.log(params);
-          this.id_metodo_pago = params;
+          this.idNegocio = params.id_negocio;
       });
   }
 
   ngOnInit() {
   }
 
-  getNegocios() {
-    
-  }
-
   pagoNormal() {
-    this.dataService.aprobarVenta(
-      this.id_user, this.id_negocio,this.id_metodo_pago,this.total,this.codigocomprobacion
-    ).subscribe( (data:any) => {
-
-    }, ( error ) => {
-      this.mal('console'+ error)
-    })
+    this.idMetodoPago = 3;
+    this.route.navigate(['/pago-normal', this.idMetodoPago, this.idNegocio]);
   }
 
   pagoPuntos() {
-    this.dataService.aprobarVenta(
-      this.id_user, this.id_negocio,this.id_metodo_pago,this.total,this.codigocomprobacion
-    ).subscribe( (data:any) => {
-
-    }, ( error ) => {
-      this.mal('console'+ error)
-    })
+    this.idMetodoPago = 1;
+    this.route.navigate(['/pago-puntos', this.idMetodoPago, this.idNegocio]);
   }
 
   async mal(msj: any) {
@@ -59,6 +45,6 @@ export class PagoPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
-  };
+  }
 
 }

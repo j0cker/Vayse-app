@@ -1,23 +1,18 @@
-<ion-header>
-  <ion-toolbar class="vayseColor" color="transparent">
-    <ion-buttons slot="start">
-        <ion-back-button style="color: white;" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-
-    <ion-title id="titulo" style="color: white" class="ion-text-center">
-      <img src="../../assets/img/logo2-blanco.png" alt="" style="max-width: 35%; margin-top: 3%; margin-bottom: 3%;"></ion-title>
-      <ion-icon slot="end" name="person" color="light" size="large" routerLink="/perfil" style="margin-right: 4%;"></ion-icon>
-  </ion-toolbar>
-</ion-header>
+<app-header-back>
+  
+</app-header-back>
 
 <ion-content class="ion-padding">
 
-  <h2 class="ion-text-center">Ingrese cantidad pagada</h2>
+  <h2 class="ion-text-center">
+    Ingrese la <br>
+    cantidad a pagar
+  </h2>
 
   <br><br>
 
   <ion-item color="transparent" style="background-color: #e7fbfd; border-radius: 7px;">
-    <ion-input type="tel" color="secondary" [(ngModel)]="cantidad"  style="font-size: 18px;" placeholder="0.00"></ion-input>
+    <ion-input class="ion-text-center" type="tel" color="secondary" [(ngModel)]="total"  style="font-size: 18px;" placeholder="00.00"><ion-text style="margin-right: 0.5rem;">$ </ion-text></ion-input>
   </ion-item> 
 
   <ion-button
@@ -25,6 +20,9 @@
     style="margin-top: 30px"
     color="secondary"
     expand="block"
-    size="default">Enviar</ion-button>
+    size="default"
+  >
+    Enviar
+  </ion-button>
 
 </ion-content>

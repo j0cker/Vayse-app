@@ -3,7 +3,6 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-scan-qr',
   templateUrl: './scan-qr.page.html',
@@ -11,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class ScanQrPage implements OnInit {
 
-  constructor(private barcodeScanner: BarcodeScanner, public dataService: DataService, private router: Router ) { }
+  scan: any;
+
+  constructor( private barcodeScanner: BarcodeScanner, public dataService: DataService, private router: Router ) { }
 
   ngOnInit() {
     this.scanQR();
@@ -20,13 +21,13 @@ export class ScanQrPage implements OnInit {
   scanQR() {
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
-
+      this.scan = JSON.parse(barcodeData.text);
       if ( !barcodeData.cancelled ) {
-        this.dataService.guardarRegistro(barcodeData.format, barcodeData.text);
+        this.dataService.guardarRegistro(this.scan.id_negocio, this.scan.property);
       }
      }).catch(err => {
          console.log('Error', err);
-         // this.dataService.guardarRegistro('html', 'http://boogapp.mx');
+         // this.dataService.guardarRegistro('42', 'vayse');
      });
   }
 
@@ -39,3 +40,4 @@ export class ScanQrPage implements OnInit {
   }
 
 }
+
