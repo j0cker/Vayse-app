@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PagoAprobacionPage } from '../pago-aprobacion/pago-aprobacion.page';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -11,28 +10,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PagoNormalPage implements OnInit {
 
   @Input() idMetodoPago: any;
+  @Input() idNegocio: any;
   total: any;
 
   constructor( private modalCtrl: ModalController, private router: ActivatedRoute, private route: Router ) {
     this.router.params
       .subscribe((params: any) => {
-          console.log(params.idMetodoPago);
           this.idMetodoPago = params.idMetodoPago;
+          this.idNegocio = params.id_negocio;
       });
   }
 
   ngOnInit() {
   }
 
-  async codigo() {
-    const modal = await this.modalCtrl.create({
-      component: PagoAprobacionPage,
-      componentProps: {
-        total: this.total,
-        id_metodo_pago: this.idMetodoPago
-      }
-    });
-    await modal.present();
+  codigo() {
+    this.route.navigate(['/pago-aprobacion', this.idMetodoPago, this.idNegocio, this.total])
   }
 
 }

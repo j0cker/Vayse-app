@@ -10,32 +10,34 @@ import { Router } from '@angular/router';
 })
 export class ScanQrPage implements OnInit {
 
-  id_negocio: any;
+  scan: any;
 
-  constructor(private barcodeScanner: BarcodeScanner, public dataService: DataService, private router: Router ) { }
+  constructor( private barcodeScanner: BarcodeScanner, public dataService: DataService, private router: Router ) { }
 
   ngOnInit() {
+    this.scanQR();
   }
 
   scanQR() {
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
-
+      this.scan = JSON.parse(barcodeData.text);
       if ( !barcodeData.cancelled ) {
-        this.dataService.guardarRegistro(barcodeData.format, barcodeData.text);
+        this.dataService.guardarRegistro(this.scan.id_negocio, this.scan.property);
       }
      }).catch(err => {
          console.log('Error', err);
-         this.dataService.guardarRegistro('42', 'vayse');
+         // this.dataService.guardarRegistro('42', 'vayse');
      });
   }
 
-  openRegistro(registro: any) {
+  abrirRegistro(registro: any) {
     console.log('Registro', registro);
   }
 
   idMetodoPago() {
-    this.dataService.abrirRegistro(this.id_negocio);
+    this.router.navigate( ['/pago', ] );
   }
 
 }
+

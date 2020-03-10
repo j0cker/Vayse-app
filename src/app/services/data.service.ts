@@ -13,11 +13,10 @@ import { Router } from '@angular/router';
 })
 export class DataService {
 
-  // api = 'http://vayse.mx/dashboard/webservices/';
-  // api1 = 'http://vayse.boogapp.mx/api/';
-   api = 'http://localhost/vayse-web/dashboard/webservices/';
-   api1 = 'http://localhost:8000/api/';
-
+  api = 'http://vayse.mx/dashboard/webservices/';
+  api1 = 'http://api.vayse.mx/api/';
+  // api = 'http://localhost/vayse-web/dashboard/webservices/';
+  // api1 = 'http://localhost:8000/api/';
 
   guardados: Registro[] = [];
 
@@ -34,6 +33,10 @@ export class DataService {
 
   async guardarRegistro(id_negocio: any, property: any) {
 
+    // console.log('ID Negocio: ' , id_negocio);
+    // console.log('Propery: ' , property);
+    
+
     await this.cargarStorage();
 
     const nuevoRegistro = new Registro (id_negocio, property);
@@ -42,7 +45,8 @@ export class DataService {
     console.log(this.guardados);
     this.storage.set('Registros', this.guardados);
 
-    this.abrirRegistro(id_negocio);
+    this.abrirRegistro(id_negocio)
+
   }
 
   abrirRegistro(id_negocio: any) {
@@ -227,28 +231,23 @@ export class DataService {
     );
   }
 
-  /* Se necesita tener el ID del negocio */
-
-  negocio(id_negocio:any){
-    return this.http.get(
-      this.api + 'DEV/ws.php?action=aprobar_venta&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio 
-    ).pipe(
-      tap( data => {
-        console.log(data);
-      })
-    );
-  }
-
   /* Requerimientos de la base: ID usuario, ID token usuario, ID negocio, ID metodo de pago, total de la venta, código de comprobación */
-  aprobarVenta(id_user:string, id_negocio:any, id_metodo_pago:any, total:any, codigocomprobacion:any ){
+  aprobarVenta(
+    id_user: string,
+    id_negocio: any,
+    id_metodo_pago: any,
+    total: any,
+    codigocomprobacion: any,
+    saldo_vayse_usado: any ){
     console.log('user: ', id_user);
     console.log('negocio: ', id_negocio);
     console.log('metodo pago: ', id_metodo_pago);
     console.log('total: ', total);
+    console.log('saldo vayse usado: ', saldo_vayse_usado);
     console.log('codigo comprobación: ', codigocomprobacion);
 
     return this.http.get(
-      this.api + 'DEV/ws.php?action=aprobar_venta&token=5Nc7C5Mz@Mu&id_usuario='+ id_user +'&id_negocio='+ id_negocio +'&id_metodo_pago='+ id_metodo_pago +'&total='+ total +'&codigocomprobacion='+ codigocomprobacion
+      this.api + 'DEV/ws.php?action=aprobar_venta&token=5Nc7C5Mz@Mu&id_usuario='+ id_user +'&id_negocio='+ id_negocio +'&id_metodo_pago='+ id_metodo_pago +'&total='+ total +'&saldo_vayse_usado='+ saldo_vayse_usado +'&codigocomprobacion='+ codigocomprobacion
     ).pipe(
       tap( data => {
         console.log(data);

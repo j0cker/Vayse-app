@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { PagoAprobacionPage } from '../pago-aprobacion/pago-aprobacion.page';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModalController, ToastController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from '../../services/data.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-pago-puntos',
@@ -9,34 +11,40 @@ import { PagoAprobacionPage } from '../pago-aprobacion/pago-aprobacion.page';
 })
 export class PagoPuntosPage implements OnInit {
 
+  @Input() idMetodoPago: any;
+  @Input() idNegocio: any;
   total: any;
-
-  constructor(private modalCtrl: ModalController) { }
+  
+  constructor(
+    private modalCtrl: ModalController,
+    private router: ActivatedRoute,
+    private route: Router,
+    private dataService: DataService,
+    private storage: Storage,
+    private toastController: ToastController
+  ) {
+    this.router.params
+      .subscribe((params: any) => {
+          this.idMetodoPago = params.idMetodoPago;
+          this.idNegocio = params.id_negocio;
+      });
+  }
 
   ngOnInit() {
   }
 
-  async codigo() {
-    const modal = await this.modalCtrl.create({
-      component: PagoAprobacionPage,
-      componentProps: {
-        cantidad: this.total
-      }
-    });
+  codigo() {
+    this.route.navigate(['/pago-aprobacion', this.idMetodoPago, this.idNegocio, this.total])
+  }
 
-    await modal.present();
+  async mal(msj: any) {
+    const toast = await this.toastController.create({
+      message: msj,
+      duration: 4000,
+      color: 'dark',
+      position: 'bottom'
+    });
+    toast.present();
   }
 
 }
-
-/* La ruta para aprobar la venta es este
-  {
-    this.dataService.aprobarVenta(
-      this.id_user, this.id_negocio, this.id_metodo_pago, this.total, this.codigocomprobacion
-    ).subscribe( ( data: any ) => {
-
-    }, ( error ) => {
-      this.mal('console' + error );
-    });
-  }
-*/

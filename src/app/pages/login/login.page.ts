@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Network } from '@ionic-native/network/ngx';
+import { Dialogs } from '@ionic-native/dialogs/ngx';
+import { MenuController, ToastController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-
 
 @Component({
   selector: 'app-login',

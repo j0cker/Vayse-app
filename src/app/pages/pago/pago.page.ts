@@ -20,25 +20,21 @@ export class PagoPage implements OnInit {
   ) {
     this.router.params
       .subscribe((params: any) => {
-          console.log(params.id_negocio);
           this.idNegocio = params.id_negocio;
       });
   }
 
   ngOnInit() {
-    // this.getID();
   }
 
   pagoNormal() {
     this.idMetodoPago = 3;
-    this.route.navigate(['/pago-normal', this.idMetodoPago]);
-    console.log(this.idMetodoPago);
+    this.route.navigate(['/pago-normal', this.idMetodoPago, this.idNegocio]);
   }
 
   pagoPuntos() {
     this.idMetodoPago = 1;
-    this.route.navigate(['/pago-normal', this.idMetodoPago]);
-    console.log(this.idMetodoPago);
+    this.route.navigate(['/pago-puntos', this.idMetodoPago, this.idNegocio]);
   }
 
   async mal(msj: any) {

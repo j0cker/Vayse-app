@@ -1,25 +1,17 @@
 <app-header>
-  
+
 </app-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+
+  <ion-grid fixed>
+    <ion-row class="contentRow">
+      <ion-col size="12">
+        <ion-button (click)="scanQR()" color="secondary" shape="round" expand="block">
+          <ion-icon slot="icon-only" name="camera"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   
-  <ion-button (click)="scanQR()">Clic</ion-button>
-
-  <ion-list>
-
-    <ion-item *ngFor="let registro of dataService.guardados" (click)="openRegistro(registro)" detail>
-      <ion-icon slot="start" [name]="registro.icon"></ion-icon>
-      <ion-label>
-        <h2>{{registro.text}}</h2>
-        <p>{{registro.created | date: 'medium'}}</p>
-      </ion-label>
-    </ion-item>
-
-  </ion-list>
-
-  <ion-button (click)="idMetodoPago()" expand="block" fill="outline" shape="round">
-    Pago
-  </ion-button>
-
 </ion-content>
