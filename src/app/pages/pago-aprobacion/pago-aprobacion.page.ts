@@ -74,16 +74,15 @@ export class PagoAprobacionPage implements OnInit {
         } else {
           this.mal(data.message);
         }
-        
       }, ( error ) => {
-        this.mal('Transaccion Incorrecta');
+        this.mal('Revise su conexión a internet o contacte al administrador');
       });
     }
   }
 
   async bien() {
     const toast = await this.toastController.create({
-      message: 'Transacción realizada para el usuario No.' + this.id_user,
+      message: 'Transacción realizada con éxito',
       duration: 4000,
       color: 'dark',
       position: 'bottom'

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Platform, LoadingController, ToastController } from '@ionic/angular';
-import { Environment } from '@ionic-native/google-maps';
+import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
+import { Platform, LoadingController, ToastController, NavController } from '@ionic/angular';
+import { Environment, MarkerOptions, LatLng } from '@ionic-native/google-maps';
 import { DataService } from '../../services/data.service';
 import {
   GoogleMap,
@@ -21,41 +21,46 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class MapSubcategoriaPage implements OnInit {
+  
   map: GoogleMap;
   loading: any;
 
   latitud: any;
   longitud: any;
+  
   id_subcategoria: any;
-
   negocios: any [] = [];
 
   user: any;
 
-  constructor(public loadingCtrl: LoadingController, private platform: Platform, public toastCtrl: ToastController, private dataService: DataService, private toastController: ToastController, private router: ActivatedRoute ) {
+  @ViewChild('search_address', {static:false} ) search_address: ElementRef;
+
+  constructor(
+    public loadingCtrl: LoadingController, private platform: Platform, public toastCtrl: ToastController, private dataService: DataService, private toastController: ToastController, private router: ActivatedRoute
+  ) {
     this.router.params
       .subscribe((params: any) => {
           console.log(params);
           this.id_subcategoria = params;
       });
-   }
+    }
 
   async ngOnInit() {
     await this.platform.ready();
-    await this.loadMap();
   }
-  
-  loadMap() {
+   
+/*loadMap() {
     Environment.setEnv({
       'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBG2qkcfyKgIBzOoSnoLhBl_3CHJkS_2js',
       'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBG2qkcfyKgIBzOoSnoLhBl_3CHJkS_2js'
     });
     this.map = GoogleMaps.create('map_canvas2');
-    this.onButtonClick();
+    this.initMap();
     this.onButton_click(event);
-  }
+  } */
 
-  async onButtonClick() {
+  async initMap() {
+    console.log('inicia initMap');
     this.map.clear();
     this.loading = await this.loadingCtrl.create({
       message: 'Rastreando tu ubicación...'
@@ -63,7 +68,7 @@ export class MapSubcategoriaPage implements OnInit {
     // await this.loading.present();
     // Get the location of you
     this.map.getMyLocation().then((location: MyLocation) => {
-      //this.loading.dismiss();
+      this.loading.dismiss();
       console.log(JSON.stringify(location, null ,2));
       this.latitud = location.latLng.lat;
       this.longitud = location.latLng.lng;
@@ -75,7 +80,7 @@ export class MapSubcategoriaPage implements OnInit {
       });
       // add a marker
       let marker: Marker = this.map.addMarkerSync({
-        // title: JSON.stringify(location.latLng),
+        title: JSON.stringify(location.latLng),
         position: location.latLng,
         animation: GoogleMapsAnimation.BOUNCE
       });
@@ -90,7 +95,7 @@ export class MapSubcategoriaPage implements OnInit {
 
     })
     .catch(err => {
-      // this.loading.dismiss();
+      this.loading.dismiss();
       this.showToast(err.error_message);
     });
   }
@@ -98,26 +103,25 @@ export class MapSubcategoriaPage implements OnInit {
   // batch-geocoding
 
   async onButton_click(event) {
+    console.log('inicia onButton_click');
+    
     this.map.clear();
     this.loading = await this.loadingCtrl.create({
       message: 'Please wait...'
     });
-    await this.loading.present();
+    // await this.loading.present();
     let start = Date.now();
-    console.log(`Aquí está el start = ${start}`);
     // Geocode multiple location
     Geocoder.geocode({
       // Google office locations in California, USA
       "position" : [
-        { "lat": parseInt(this.negocios[0].latitud) , "lng": parseInt(this.negocios[0].longitud) },
+        { "lat": 19.305709 , "lng": -99.1119342},
       ]
     })
     .then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {     
       mvcArray.on('insert_at').subscribe((params: any[]) => {
         const index: number = params[0];
         const result: GeocoderResult = mvcArray.getAt(index);
-        console.log(`Variable inicializada index = ${index}`);
-        console.log(`Variable inicializada results = `, result);
         this.map.addMarkerSync({
           'position':result[0].position,
           'title':  JSON.stringify(result)
@@ -126,11 +130,9 @@ export class MapSubcategoriaPage implements OnInit {
       mvcArray.one('finish').then(() => {
         this.loading.dismiss();
         let end = Date.now();
-        console.log(`Variable end = ${end}`);
         
         alert("duration: " + ((end - start) / 1000).toFixed(1) + " seconds");
         let results: any[] = mvcArray.getArray();
-        console.log('Variable final results = ',results);
       });
     });
   }
@@ -141,10 +143,9 @@ export class MapSubcategoriaPage implements OnInit {
     this.dataService.getNegocios(this.latitud, this.longitud, this.id_subcategoria.id_subcategoria)
     .subscribe( (data: any) => {
       this.negocios = data.negocios;
-      console.log('[Login][Entrar] Data: ' + data);
-      console.log('[Login][Entrar] Negocios: ', this.negocios);
-      
+      console.log('Negocios: ', this.negocios);
       if (data.response === true) {
+        console.log('si entra la base de datos en negocios');
         
       } else {
         this.mal(data.message);

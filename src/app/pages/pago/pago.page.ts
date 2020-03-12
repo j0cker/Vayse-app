@@ -37,14 +37,4 @@ export class PagoPage implements OnInit {
     this.route.navigate(['/pago-puntos', this.idMetodoPago, this.idNegocio]);
   }
 
-  async mal(msj: any) {
-    const toast = await this.toastController.create({
-      message: msj,
-      duration: 4000,
-      color: 'dark',
-      position: 'bottom'
-    });
-    toast.present();
-  }
-
 }

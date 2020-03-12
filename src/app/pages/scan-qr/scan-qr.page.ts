@@ -27,12 +27,8 @@ export class ScanQrPage implements OnInit {
       }
      }).catch(err => {
          console.log('Error', err);
-         // this.dataService.guardarRegistro('42', 'vayse');
+         /* this.dataService.guardarRegistro('42', 'vayse');  // esta línea es harcodeada para probar con ionic serve*/
      });
-  }
-
-  abrirRegistro(registro: any) {
-    console.log('Registro', registro);
   }
 
   idMetodoPago() {
