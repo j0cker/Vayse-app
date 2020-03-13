@@ -1,17 +1,16 @@
-import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
-import { Platform, LoadingController, ToastController, NavController } from '@ionic/angular';
-import { Environment, MarkerOptions, LatLng } from '@ionic-native/google-maps';
+import { Component } from '@angular/core';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { Environment } from '@ionic-native/google-maps';
 import { DataService } from '../../services/data.service';
 import {
   GoogleMap,
   GoogleMaps,
   GoogleMapsEvent,
+  GoogleMapOptions,
   Geocoder,
   GeocoderResult,
-  GoogleMapsAnimation,
   BaseArrayClass,
-  Marker,
-  MyLocation} from '@ionic-native/google-maps/ngx';
+  Marker} from '@ionic-native/google-maps/ngx';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -20,132 +19,134 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./map-subcategoria.page.scss'],
 })
 
-export class MapSubcategoriaPage implements OnInit {
-  
+export class MapSubcategoriaPage {
+
   map: GoogleMap;
+  isRunning: boolean = false;
+
   loading: any;
 
   latitud: any;
   longitud: any;
-  
   id_subcategoria: any;
+
   negocios: any [] = [];
 
   user: any;
 
-  @ViewChild('search_address', {static:false} ) search_address: ElementRef;
-
-  constructor(
-    public loadingCtrl: LoadingController, private platform: Platform, public toastCtrl: ToastController, private dataService: DataService, private toastController: ToastController, private router: ActivatedRoute
+  constructor( 
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController,
+    private dataService: DataService,
+    private toastController: ToastController,
+    private router: ActivatedRoute,
+    private mapOptions: GoogleMapOptions
   ) {
     this.router.params
       .subscribe((params: any) => {
           console.log(params);
           this.id_subcategoria = params;
       });
-    }
+   }
 
-  async ngOnInit() {
-    await this.platform.ready();
+  ionViewDidLoad() {
+    this.loadMap();
   }
-   
-/*loadMap() {
+
+  loadMap() {
     Environment.setEnv({
       'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBG2qkcfyKgIBzOoSnoLhBl_3CHJkS_2js',
       'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBG2qkcfyKgIBzOoSnoLhBl_3CHJkS_2js'
     });
-    this.map = GoogleMaps.create('map_canvas2');
-    this.initMap();
+
+    this.map = GoogleMaps.create('map_canvas2', this.mapOptions);
+
+    let marker: Marker = this.map.addMarkerSync({
+      title: 'Ionic',
+      icon: 'blue',
+      animation: 'DROP',
+      position: {
+        lat: 19.3000409,
+        lng: -99.1031679
+      }
+    });
+    marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+      alert('clicked');
+    });
     this.onButton_click(event);
-  } */
-
-  async initMap() {
-    console.log('inicia initMap');
-    this.map.clear();
-    this.loading = await this.loadingCtrl.create({
-      message: 'Rastreando tu ubicación...'
-    });
-    // await this.loading.present();
-    // Get the location of you
-    this.map.getMyLocation().then((location: MyLocation) => {
-      this.loading.dismiss();
-      console.log(JSON.stringify(location, null ,2));
-      this.latitud = location.latLng.lat;
-      this.longitud = location.latLng.lng;
-      // Move the map camera to the location with animation
-      this.map.animateCamera({
-        target: location.latLng,
-        zoom: 17,
-        tilt: 30
-      });
-      // add a marker
-      let marker: Marker = this.map.addMarkerSync({
-        title: JSON.stringify(location.latLng),
-        position: location.latLng,
-        animation: GoogleMapsAnimation.BOUNCE
-      });
-      // show the infoWindow
-      marker.showInfoWindow();
-      // If clicked it, display the alert
-      marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-        this.showToast('clicked!');
-      });
-
-      this.getNegocio();
-
-    })
-    .catch(err => {
-      this.loading.dismiss();
-      this.showToast(err.error_message);
-    });
   }
 
+  // Obtiene tu ubicación
+
+
+  
   // batch-geocoding
 
   async onButton_click(event) {
-    console.log('inicia onButton_click');
-    
-    this.map.clear();
-    this.loading = await this.loadingCtrl.create({
-      message: 'Please wait...'
-    });
-    // await this.loading.present();
+    if(this.isRunning){
+      return;
+    }
+    this.isRunning = true;
     let start = Date.now();
+    console.log('Aquí está el start = ', start );
     // Geocode multiple location
     Geocoder.geocode({
-      // Google office locations in California, USA
-      "position" : [
-        { "lat": 19.305709 , "lng": -99.1119342},
+      // locations for position
+      "position": [
+        { "lat": 19.2999144, "lng": -99.1030284 },
+        { "lat": 19.2999386, "lng": -99.1034268 },
       ]
     })
-    .then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {     
-      mvcArray.on('insert_at').subscribe((params: any[]) => {
-        const index: number = params[0];
-        const result: GeocoderResult = mvcArray.getAt(index);
-        this.map.addMarkerSync({
-          'position':result[0].position,
-          'title':  JSON.stringify(result)
-        });
-      });
+    .then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {
+
       mvcArray.one('finish').then(() => {
-        this.loading.dismiss();
+        if (mvcArray.getLength() > 0) {
+          let results: any[] =  mvcArray.getArray();
+          results.forEach((result: GeocoderResult[]) => {
+  
+            // Get a result
+            let address: string = [
+              result[0].subThoroughfare || "",
+              result[0].thoroughfare || "",
+              result[0].locality || "",
+              result[0].adminArea || "",
+              result[0].postalCode || "",
+              result[0].country || ""].join(", ");
+  
+            let marker: Marker = this.map.addMarkerSync({
+              'position': result[0].position,
+              'icon': 'assets/img/logo.png',
+              'title': address
+            });
+            marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(this.onMarkerClick.bind(this));
+  
+          });
+        }
+  
         let end = Date.now();
-        
+        this.isRunning = false;
+        console.log('finish', mvcArray.getArray());
         alert("duration: " + ((end - start) / 1000).toFixed(1) + " seconds");
-        let results: any[] = mvcArray.getArray();
       });
+  
     });
   }
-  
+
+  onMarkerClick(params: any[]) {
+    let marker: Marker = params[1];
+    marker.showInfoWindow();
+  }
+
 // obtiene el negocio
 
   getNegocio() {
     this.dataService.getNegocios(this.latitud, this.longitud, this.id_subcategoria.id_subcategoria)
     .subscribe( (data: any) => {
       this.negocios = data.negocios;
-      console.log('Negocios: ', this.negocios);
+      console.log('[Login][Entrar] Data: ' + data);
+      console.log('[Login][Entrar] Negocios: ', this.negocios);
+      
       if (data.response === true) {
-        console.log('si entra la base de datos en negocios');
         
       } else {
         this.mal(data.message);

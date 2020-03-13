@@ -3,7 +3,6 @@ import { ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { DataService } from '../../services/data.service';
-import { type } from 'os';
 
 @Component({
   selector: 'app-pago-puntos',
