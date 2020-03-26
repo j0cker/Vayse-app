@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TextAst } from '@angular/compiler';
 
 @Component({
   selector: 'app-pago-normal',
@@ -13,7 +14,11 @@ export class PagoNormalPage implements OnInit {
   @Input() idNegocio: any;
   total: any;
 
-  constructor( private modalCtrl: ModalController, private router: ActivatedRoute, private route: Router ) {
+  constructor(
+    private router: ActivatedRoute,
+    private route: Router,
+    private toastController: ToastController 
+  ) {
     this.router.params
       .subscribe((params: any) => {
           this.idMetodoPago = params.idMetodoPago;
@@ -24,7 +29,7 @@ export class PagoNormalPage implements OnInit {
   ngOnInit() {
   }
 
-  codigo() {
+  cash() {
     this.route.navigate(['/pago-aprobacion', this.idMetodoPago, this.idNegocio, this.total])
   }
 

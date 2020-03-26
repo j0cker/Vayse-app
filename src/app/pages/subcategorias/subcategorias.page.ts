@@ -14,7 +14,11 @@ export class SubcategoriasPage implements OnInit {
   id_categoria: string;
   user: any;
 
-  constructor( private dataService: DataService, private router: ActivatedRoute, private routers: Router ) {
+  constructor(
+    private dataService: DataService,
+    private router: ActivatedRoute,
+    private routers: Router
+  ) {
     this.router.params
       .subscribe((params: any) => {
           console.log(params);

@@ -13,10 +13,10 @@ import { Router } from '@angular/router';
 })
 export class DataService {
 
-  api = 'http://vayse.mx/dashboard/webservices/';
-  api1 = 'http://api.vayse.mx/api/';
-  // api = 'http://localhost/vayse-web/dashboard/webservices/';
-  // api1 = 'http://localhost:8000/api/';
+  // api = 'http://vayse.mx/dashboard/webservices/';
+  // api1 = 'http://api.vayse.mx/api/';
+  api = 'http://localhost/vayse-web/dashboard/webservices/';
+  api1 = 'http://localhost:8000/api/';
 
   guardados: Registro[] = [];
 
@@ -163,10 +163,7 @@ export class DataService {
   // se agrega código para obtener con una función los negocios
   getNegocios(latitud:any, longitud:any, id_subcategoria:any) {
 
-    console.log('[DataService][getNegocios] Data Services');
-    console.log('[DataService][getNegocios] Latitud: ' + latitud);
-    console.log('[DataService][getNegocios] Longitud: ' + longitud);
-    console.log('[DataService][getNegocios] ]ID Subcategorias: ' + id_subcategoria);
+    console.log('[DataService][getNegocios] ID Subcategorias: ', id_subcategoria);
   
     return this.http.get(this.api + 'DEV/ws.php?action=get_negocios&token=5Nc7C5Mz@Mu&latitud=' + latitud + '&longitud=' + longitud + '&id_subcategoria=' + id_subcategoria).pipe(
       tap( data => {
@@ -222,7 +219,7 @@ export class DataService {
   }
 
   getSubCategorias(id_categoria: string) {
-    console.log('[DataService][getSubCategorias]');
+    console.log('[DataService][getSubCategorias]', id_categoria);
     // tslint:disable-next-line: max-line-length
     return this.http.get(this.api + 'DEV/ws.php?action=get_subcategorias&token=5Nc7C5Mz@Mu&id_categoria=' + id_categoria).pipe(
       tap( data => {
@@ -238,14 +235,8 @@ export class DataService {
     id_metodo_pago: any,
     total: any,
     codigocomprobacion: any,
-    saldo_vayse_usado: any ){
-    console.log('user: ', id_user);
-    console.log('negocio: ', id_negocio);
-    console.log('metodo pago: ', id_metodo_pago);
-    console.log('total: ', total);
-    console.log('saldo vayse usado: ', saldo_vayse_usado);
-    console.log('codigo comprobación: ', codigocomprobacion);
-
+    saldo_vayse_usado: any
+  ) {    
     return this.http.get(
       this.api + 'DEV/ws.php?action=aprobar_venta&token=5Nc7C5Mz@Mu&id_usuario='+ id_user +'&id_negocio='+ id_negocio +'&id_metodo_pago='+ id_metodo_pago +'&total='+ total +'&saldo_vayse_usado='+ saldo_vayse_usado +'&codigocomprobacion='+ codigocomprobacion
     ).pipe(
@@ -254,4 +245,20 @@ export class DataService {
       })
     );
   }
+
+  /* Trae la info de los negocios de la base de datos los requerimientos son Token, id_negocio, action */
+  getInfoNegocios(
+    id_negocio: any,
+  ) {
+    console.log('Info Negocios');
+    return this.http.get(
+      this.api + 'DEV/ws.php?action=get_info_negocio&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio 
+    ).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+
+
 }

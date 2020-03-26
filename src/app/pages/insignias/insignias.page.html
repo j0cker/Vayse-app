@@ -1,0 +1,23 @@
+<app-header>
+
+</app-header>
+
+<ion-content class="ion-padding">
+
+  <h1>
+    Insignias del Negocio
+  </h1>
+
+  <ion-card *ngFor="let insignia of insignias">
+    <img [src]="insignia.foto_perfil" />
+    <ion-card-header>
+      <ion-card-subtitle>
+        {{ insignia.nombre_usuario }}
+      </ion-card-subtitle>
+      <ion-card-title>
+        {{ insignia.rating }}
+      </ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+</ion-content>

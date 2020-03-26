@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataService } from '../../services/data.service';
 import { Storage } from '@ionic/storage';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-pago-puntos',
@@ -13,15 +13,19 @@ export class PagoPuntosPage implements OnInit {
 
   @Input() idMetodoPago: any;
   @Input() idNegocio: any;
-  total: any;
+  total: number;
+
+  id_user: string;
+  saldos: any;
+  saldo_vayse_usado: any;
+  saldo: any;
   
   constructor(
-    private modalCtrl: ModalController,
     private router: ActivatedRoute,
     private route: Router,
+    private toastController: ToastController,
     private dataService: DataService,
-    private storage: Storage,
-    private toastController: ToastController
+    private storage: Storage
   ) {
     this.router.params
       .subscribe((params: any) => {
@@ -31,10 +35,46 @@ export class PagoPuntosPage implements OnInit {
   }
 
   ngOnInit() {
+    this.getID();
+  }
+  
+  getID() {
+    this.storage.get('id_usuario').then((val) => {
+      this.id_user = val;
+      this.getSaldo(this.id_user);
+    });
   }
 
-  codigo() {
-    this.route.navigate(['/pago-aprobacion', this.idMetodoPago, this.idNegocio, this.total])
+  getSaldo(id_user: string) {
+    this.dataService.getSaldo(id_user)
+    .subscribe( (data: any[]) => {
+      this.saldos = data;
+      this.saldo_vayse_usado = this.saldos.saldo;
+    }, ( error ) => {
+      console.log(error);
+    });
+  }
+
+  puntos() {
+    this.dataService.getSaldo(this.id_user)
+    .subscribe( (data: any ) => {
+      if( data.response === true && this.total <= this.saldo_vayse_usado ) {          
+        this.bien();
+        this.route.navigate(['/pago-aprobacion', this.idMetodoPago, this.idNegocio, this.total])
+      } else {
+        this.mal('No tienes puntos suficientes');
+      }
+    });
+  }
+
+  async bien() {
+    const toast = await this.toastController.create({
+      message: 'Tienes puntos suficientes',
+      duration: 4000,
+      color: 'dark',
+      position: 'bottom'
+    });
+    toast.present();
   }
 
   async mal(msj: any) {
