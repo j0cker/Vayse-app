@@ -17,6 +17,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { IonicStorageModule } from '@ionic/storage';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { IonicStorageModule } from '@ionic/storage';
     AppRoutingModule,
     ComponentsModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
   providers: [
     StatusBar,
@@ -36,6 +37,7 @@ import { IonicStorageModule } from '@ionic/storage';
     Network,
     Dialogs,
     BarcodeScanner,
+    GoogleMaps,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

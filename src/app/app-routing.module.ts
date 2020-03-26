@@ -63,6 +63,20 @@ const routes: Routes = [
     path: 'pago-aprobacion',
     loadChildren: () => import('./pages/pago-aprobacion/pago-aprobacion.module').then( m => m.PagoAprobacionPageModule)
   },
+  {
+    path: 'perfil-modal',
+    loadChildren: () => import('./pages/perfil-modal/perfil-modal.module').then( m => m.PerfilModalPageModule)
+  },
+  {
+    path: 'subcategorias/:id_categoria',
+    loadChildren: () => import('./pages/subcategorias/subcategorias.module').then( m => m.SubcategoriasPageModule)
+  },
+  {
+    path: 'map-subcategoria/:id_subcategoria',
+    loadChildren: () => import('./pages/map-subcategoria/map-subcategoria.module').then( m => m.MapSubcategoriaPageModule)
+  },
+
+
 ];
 
 @NgModule({

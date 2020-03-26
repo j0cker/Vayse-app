@@ -1,15 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuComponent } from './menu/menu.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
+import { MenuComponent } from './menu/menu.component';
+import { HeaderComponent } from './header/header.component';
+import { HeaderBackComponent } from './header-back/header-back.component';
+import { HeaderBackeditComponent } from './header-backedit/header-backedit.component';
+
+
 @NgModule({
   declarations: [
-    MenuComponent
+    MenuComponent,
+    HeaderComponent,
+    HeaderBackComponent,
+    HeaderBackeditComponent
   ],
   exports: [
-    MenuComponent
+    MenuComponent,
+    HeaderComponent,
+    HeaderBackComponent,
+    HeaderBackeditComponent
   ],
   imports: [
     CommonModule,

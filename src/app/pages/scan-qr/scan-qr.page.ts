@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { DataService } from '../../services/data.service';
 })
 export class ScanQrPage implements OnInit {
 
-  constructor(private barcodeScanner: BarcodeScanner, public dataService: DataService) { }
+  constructor(private barcodeScanner: BarcodeScanner, public dataService: DataService, private router: Router ) { }
 
   ngOnInit() {
     this.scanQR();
@@ -31,6 +32,10 @@ export class ScanQrPage implements OnInit {
 
   abrirRegistro(registro: any) {
     console.log('Registro', registro);
+  }
+
+  idMetodoPago() {
+    this.router.navigate( ['/pago', ] );
   }
 
 }
