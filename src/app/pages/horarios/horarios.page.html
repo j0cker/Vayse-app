@@ -1,0 +1,28 @@
+<app-header>
+
+</app-header>
+
+<ion-content class="ion-padding">
+  
+  <h1>
+    Horarios
+  </h1>
+
+  <ion-list class="table">
+    <ion-list class="listWrapper" *ngFor="let servicio of horaServicios">
+      <ion-item color="transparent">
+        <ion-label class="dia">
+          {{ servicio.descripcion_dia }}
+        </ion-label>
+        <ion-label class="horaInicio">
+          {{ servicio.hora_inicio }} hrs
+        </ion-label>
+        <ion-label class="horaFin">
+          {{ servicio.hora_fin }} hrs
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    
+  </ion-list>
+
+</ion-content>

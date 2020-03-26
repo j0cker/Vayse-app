@@ -12,7 +12,7 @@ import {
   BaseArrayClass,
   Marker,
   MyLocation} from '@ionic-native/google-maps/ngx';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-map-subcategoria',
@@ -29,10 +29,22 @@ export class MapSubcategoriaPage implements OnInit {
   id_subcategoria: any;
 
   negocios: any [] = [];
+  negocios2: any[] = [
+    { "lat": 19.3033386 , "lng": -99.1124461 },
+    { "lat": 19.281527751722066 , "lng": -99.14210042732856 },
+  ];
 
   user: any;
 
-  constructor(public loadingCtrl: LoadingController, private platform: Platform, public toastCtrl: ToastController, private dataService: DataService, private toastController: ToastController, private router: ActivatedRoute ) {
+  constructor(
+    public loadingCtrl: LoadingController,
+    private platform: Platform,
+    public toastCtrl: ToastController,
+    private dataService: DataService,
+    private toastController: ToastController,
+    private router: ActivatedRoute,
+    private routers: Router
+  ) {
     this.router.params
       .subscribe((params: any) => {
           console.log(params);
@@ -85,13 +97,38 @@ export class MapSubcategoriaPage implements OnInit {
       marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
         this.showToast('Your location is here (Tu ubicación)');
       });
-
       this.getNegocio();
-
     })
     .catch(err => {
       // this.loading.dismiss();
       this.showToast(err.error_message);
+    });
+  }
+
+  // obtiene el negocio
+
+  getNegocio() {
+    this.dataService.getNegocios(this.latitud, this.longitud, this.id_subcategoria.id_subcategoria)
+    .subscribe( (data: any) => {
+      
+      this.negocios = data.negocios;
+      console.log('Data: ', data);
+      console.log('Data length: ', data.length);
+      console.log('Negocios: ', this.negocios);
+      console.log('Negocios 2: ', this.negocios2);
+      console.log('Negocios length: ', this.negocios.length);
+      console.log('Negocios 2 length: ', this.negocios2.length);
+
+      if (data.response === true) {
+        console.log('Si entra en todos los registros de la base de datos');
+      } else {
+        this.mal(data.message);
+      }
+      
+    }, ( error ) => {
+      console.log('El error es: ', error);
+      // this.userData = 'Este es el error: ' + error.toString();
+      this.mal(error);
     });
   }
 
@@ -104,59 +141,30 @@ export class MapSubcategoriaPage implements OnInit {
     });
     await this.loading.present();
     let start = Date.now();
-    console.log('Aquí está el start = ',start);
+    console.log('Aquí está el start = ', start);
     // Geocode multiple location
     Geocoder.geocode({
-      // Google office locations in California, USA
-      "position" : [
-        { "lat": parseFloat(this.negocios[0].latitud) , "lng": parseFloat(this.negocios[0].longitud) },
-        { "lat": parseFloat(this.negocios[1].latitud) , "lng": parseFloat(this.negocios[1].longitud) },
-      ]
+      // Longitud y Latitud en la base de datos de Negocios
+      "position" : this.negocios2
     })
     .then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {     
       mvcArray.on('insert_at').subscribe((params: any[]) => {
         const index: number = params[0];
         const result: GeocoderResult = mvcArray.getAt(index);
-        console.log('Variable inicializada index = ', index);
-        console.log(`Variable inicializada results = `, result);
+        console.log('Inicia index = ', index);
+        console.log(`Variable inicio results = `, result);
         this.map.addMarkerSync({
-          'position':result[0].position,
-          'title':  JSON.stringify(result)
+          'position': result[0].position,
+          'title':  JSON.stringify('Información del Negocio')  //this.routers.navigate( ['/info-negocio', this.id_subcategoria] )
         });
+        console.log('variable result [0] position: ', result[0].position );
       });
       mvcArray.one('finish').then(() => {
         this.loading.dismiss();
         let end = Date.now();
         console.log('Variable end = ', end);
-        
         alert("duration: " + ((end - start) / 1000).toFixed(1) + " seconds");
-        let results: any[] = mvcArray.getArray();
-        console.log('Variable final results = ', results);
       });
-    });
-  }
-  
-// obtiene el negocio
-
-  getNegocio() {
-    this.dataService.getNegocios(this.latitud, this.longitud, this.id_subcategoria.id_subcategoria)
-    .subscribe( (data: any) => {
-      this.negocios = data.negocios;
-      console.log('[Login][Entrar] Data: ' + data);
-      console.log('Negocios: ', this.negocios);
-      console.log('latitud de negocios: ', this.negocios[0].latitud);
-      console.log('longitud de negocios: ', this.negocios[0].longitud);
-      
-      if (data.response === true) {
-        
-      } else {
-        this.mal(data.message);
-      }
-      
-    }, ( error ) => {
-      console.log(`El error es: ${error}`);
-      // this.userData = 'Este es el error: ' + error.toString();
-      this.mal(error);
     });
   }
   

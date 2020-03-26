@@ -1,0 +1,25 @@
+<app-header>
+
+</app-header>
+
+<ion-content class="ion-padding">
+
+  <h1>
+    Opiniones del Negocio
+  </h1>
+
+  <ion-card *ngFor="let opinion of opiniones">
+    <img [src]="opinion.foto_perfil" />
+    <ion-card-header>
+      <ion-card-subtitle>Opinion de:</ion-card-subtitle>
+      <ion-card-title>
+        {{ opinion.nombre_usuario }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ opinion.opinion }}
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

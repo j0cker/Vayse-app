@@ -1,0 +1,25 @@
+
+.table {
+  
+  .listWrapper{
+    margin: -1rem 0rem -1rem 0rem;
+
+    .dia {
+      font-weight: bold;
+    }
+  
+    .horaInicio {
+      display: flex;
+      justify-content: center;
+      border: 0.1rem solid grey;
+    }
+  
+    .horaFin {
+      display: flex;
+      justify-content: center;
+      border: 0.1rem solid grey;
+    }
+  
+  }
+
+}

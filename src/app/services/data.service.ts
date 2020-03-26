@@ -163,9 +163,7 @@ export class DataService {
   // se agrega código para obtener con una función los negocios
   getNegocios(latitud:any, longitud:any, id_subcategoria:any) {
 
-    console.log('[DataService][getNegocios] Latitud: ' + latitud);
-    console.log('[DataService][getNegocios] Longitud: ' + longitud);
-    console.log('[DataService][getNegocios] ]ID Subcategorias: ' + id_subcategoria);
+    console.log('[DataService][getNegocios] ID Subcategorias: ', id_subcategoria);
   
     return this.http.get(this.api + 'DEV/ws.php?action=get_negocios&token=5Nc7C5Mz@Mu&latitud=' + latitud + '&longitud=' + longitud + '&id_subcategoria=' + id_subcategoria).pipe(
       tap( data => {
@@ -221,7 +219,7 @@ export class DataService {
   }
 
   getSubCategorias(id_categoria: string) {
-    console.log('[DataService][getSubCategorias]');
+    console.log('[DataService][getSubCategorias]', id_categoria);
     // tslint:disable-next-line: max-line-length
     return this.http.get(this.api + 'DEV/ws.php?action=get_subcategorias&token=5Nc7C5Mz@Mu&id_categoria=' + id_categoria).pipe(
       tap( data => {
@@ -247,4 +245,20 @@ export class DataService {
       })
     );
   }
+
+  /* Trae la info de los negocios de la base de datos los requerimientos son Token, id_negocio, action */
+  getInfoNegocios(
+    id_negocio: any,
+  ) {
+    console.log('Info Negocios');
+    return this.http.get(
+      this.api + 'DEV/ws.php?action=get_info_negocio&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio 
+    ).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+
+
 }
