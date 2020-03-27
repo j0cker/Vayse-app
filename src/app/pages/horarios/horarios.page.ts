@@ -9,8 +9,8 @@ import { DataService } from 'src/app/services/data.service';
 export class HorariosPage implements OnInit {
 
   id_negocio: any = 42;
-  infoNegocio: any[];
-  horaServicios: any[] = [];
+  infoNegocio: any;
+  horaServicios: any = [];
   
   constructor(
     private dataService: DataService

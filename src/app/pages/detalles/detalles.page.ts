@@ -10,7 +10,7 @@ export class DetallesPage implements OnInit {
 
   id_negocio: any = 42;
   infoNegocio: any;
-  // horaServicios: any[] = [];
+  // detalles: any = [];
 
   constructor(
     private dataService: DataService
@@ -24,7 +24,7 @@ export class DetallesPage implements OnInit {
     this.dataService.getInfoNegocios( this.id_negocio )
     .subscribe( (data: any[]) => {
       this.infoNegocio = data;
-      // this.horaServicios = data.horarios;
+      // this.detalles = this.infoNegocio.detalles;
 
     }, ( error ) => {
       console.log(error);

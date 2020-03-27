@@ -10,7 +10,7 @@ export class OpinionesPage implements OnInit {
 
   id_negocio: any = 42;
   infoNegocio: any;
-  opiniones: any[] = [];
+  opiniones: any = [];
   
   constructor(
     private dataService: DataService,
@@ -27,7 +27,7 @@ export class OpinionesPage implements OnInit {
       this.infoNegocio = data;
       this.opiniones = this.infoNegocio.opiniones;
       console.log(this.infoNegocio);
-      console.log('opiniones: ',this.opiniones);
+      console.log('opiniones: ', this.opiniones);
 
     }, ( error ) => {
       console.log(error);

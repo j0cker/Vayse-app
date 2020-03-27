@@ -10,7 +10,7 @@ export class InsigniasPage implements OnInit {
 
   id_negocio: any = 42;
   infoNegocio: any;
-  insignias: any[] = [];
+  insignias: any = [];
 
   constructor(
     private dataService: DataService
@@ -26,7 +26,7 @@ export class InsigniasPage implements OnInit {
       this.infoNegocio = data;
       this.insignias = this.infoNegocio.valoraciones;
       console.log(this.infoNegocio);
-      console.log('insignias: ',this.insignias);
+      console.log('insignias: ', this.insignias);
 
     }, ( error ) => {
       console.log(error);

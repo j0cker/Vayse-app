@@ -10,7 +10,7 @@ export class GaleriaPage implements OnInit {
 
   id_negocio: any = 42;
   infoNegocio: any;
-  imagenes: any[] = [];
+  imagenes: any = [];
 
   constructor(
     private dataService: DataService
