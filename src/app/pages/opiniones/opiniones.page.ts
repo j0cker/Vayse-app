@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-opiniones',
@@ -9,12 +10,11 @@ import { DataService } from 'src/app/services/data.service';
 export class OpinionesPage implements OnInit {
 
   id_negocio: any = 42;
-  infoNegocio: any;
-  opiniones: any = [];
+  infoOpiniones: any = [];
   
   constructor(
     private dataService: DataService,
-    
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -23,16 +23,35 @@ export class OpinionesPage implements OnInit {
 
   getInfoNegocios() {
     this.dataService.getInfoNegocios( this.id_negocio )
-    .subscribe( (data: any[]) => {
-      this.infoNegocio = data;
-      this.opiniones = this.infoNegocio.opiniones;
-      console.log(this.infoNegocio);
-      console.log('opiniones: ', this.opiniones);
-
-    }, ( error ) => {
-      console.log(error);
+    .subscribe( (data: any) => {
+      if(data.success === 'true' || 'TRUE'){
+        this.infoOpiniones = data.opiniones;
+        // console.log('array opiniones: ', this.infoOpiniones);
+        this.bien();
+      } else {
+        this.mal(data.message)
+      }
     });
-    
+  }
+
+  async bien() {
+    const toast = await this.toastController.create({
+      message: 'Queremos saber tu opinión del negocio',
+      duration: 2000,
+      color: 'dark',
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  async mal(msj: any) {
+    const toast = await this.toastController.create({
+      message: msj,
+      duration: 4000,
+      color: 'dark',
+      position: 'bottom'
+    });
+    toast.present();
   }
 
 }

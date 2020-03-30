@@ -9,7 +9,7 @@ import { DataService } from '../../services/data.service';
 export class DetallesPage implements OnInit {
 
   id_negocio: any = 42;
-  infoNegocio: any;
+  infoDetalles: any;
   // detalles: any = [];
 
   constructor(
@@ -23,7 +23,7 @@ export class DetallesPage implements OnInit {
   getInfoNegocios() {
     this.dataService.getInfoNegocios( this.id_negocio )
     .subscribe( (data: any[]) => {
-      this.infoNegocio = data;
+      this.infoDetalles = data;
       // this.detalles = this.infoNegocio.detalles;
 
     }, ( error ) => {

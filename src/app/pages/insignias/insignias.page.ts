@@ -9,7 +9,7 @@ import { DataService } from 'src/app/services/data.service';
 export class InsigniasPage implements OnInit {
 
   id_negocio: any = 42;
-  infoNegocio: any;
+  infoValoraciones: any;
   insignias: any = [];
 
   constructor(
@@ -23,9 +23,9 @@ export class InsigniasPage implements OnInit {
   getInfoNegocios() {
     this.dataService.getInfoNegocios( this.id_negocio )
     .subscribe( (data: any[]) => {
-      this.infoNegocio = data;
-      this.insignias = this.infoNegocio.valoraciones;
-      console.log(this.infoNegocio);
+      this.infoValoraciones = data;
+      this.insignias = this.infoValoraciones.valoraciones;
+      console.log('info valoraciones: ', this.infoValoraciones);
       console.log('insignias: ', this.insignias);
 
     }, ( error ) => {

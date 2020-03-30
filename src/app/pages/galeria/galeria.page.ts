@@ -9,7 +9,7 @@ import { DataService } from '../../services/data.service';
 export class GaleriaPage implements OnInit {
 
   id_negocio: any = 42;
-  infoNegocio: any;
+  infoGaleria: any;
   imagenes: any = [];
 
   constructor(
@@ -23,10 +23,13 @@ export class GaleriaPage implements OnInit {
   getInfoNegocios() {
     this.dataService.getInfoNegocios( this.id_negocio )
     .subscribe( (data: any[] ) => {
-      this.infoNegocio = data;
-      this.imagenes = this.infoNegocio.galeria;
-      console.log(this.infoNegocio);
-      console.log(this.imagenes);
+      // if(data.success === 'true' && 'TRUE' ){
+        this.infoGaleria = data;
+        this.imagenes = this.infoGaleria.galeria;
+        console.log('info Galeria: ', this.infoGaleria);
+        console.log('imagenes: ', this.imagenes);
+
+      // }
 
     }, ( error ) => {
       console.log(error);

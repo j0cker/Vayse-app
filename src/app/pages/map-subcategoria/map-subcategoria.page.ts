@@ -29,10 +29,6 @@ export class MapSubcategoriaPage implements OnInit {
   id_subcategoria: any;
 
   negocios: any [] = [];
-  negocios2: any[] = [
-    { "lat": 19.3033386 , "lng": -99.1124461 },
-    { "lat": 19.281527751722066 , "lng": -99.14210042732856 },
-  ];
 
   user: any;
 
@@ -64,7 +60,6 @@ export class MapSubcategoriaPage implements OnInit {
     });
     this.map = GoogleMaps.create('map_canvas2');
     this.onButtonClick();
-    this.onButton_click(event);
   }
 
   async onButtonClick() {
@@ -72,7 +67,7 @@ export class MapSubcategoriaPage implements OnInit {
     this.loading = await this.loadingCtrl.create({
       message: 'Rastreando tu ubicación...'
     });
-    // await this.loading.present();
+    await this.loading.present();
     // Get the location of you
     this.map.getMyLocation().then((location: MyLocation) => {
       //this.loading.dismiss();
@@ -115,15 +110,15 @@ export class MapSubcategoriaPage implements OnInit {
       console.log('Data: ', data);
       console.log('Data length: ', data.length);
       console.log('Negocios: ', this.negocios);
-      console.log('Negocios 2: ', this.negocios2);
       console.log('Negocios length: ', this.negocios.length);
-      console.log('Negocios 2 length: ', this.negocios2.length);
 
       if (data.response === true) {
         console.log('Si entra en todos los registros de la base de datos');
       } else {
         this.mal(data.message);
       }
+
+      this.onButton_click(event);
       
     }, ( error ) => {
       console.log('El error es: ', error);
@@ -139,13 +134,35 @@ export class MapSubcategoriaPage implements OnInit {
     this.loading = await this.loadingCtrl.create({
       message: 'Please wait...'
     });
-    await this.loading.present();
+    // await this.loading.present();
     let start = Date.now();
     console.log('Aquí está el start = ', start);
+
+    var negocios_parse_geolocation = new Array();
+
+    console.log("negocios: ");
+    console.log(this.negocios);
+
+    for ( var index = 0 ; index < this.negocios.length; index++ ) {
+
+      console.log("Indice: " + index);
+
+      console.log(this.negocios[index]);
+      console.log(this.negocios[index].latitud);
+
+      negocios_parse_geolocation[index] =  new Array();
+      negocios_parse_geolocation[index].lat = parseFloat(this.negocios[index].latitud);
+      negocios_parse_geolocation[index].lng = parseFloat(this.negocios[index].longitud);
+
+    }
+
+    console.log("negocios_parse_geolocation:");
+    console.log(negocios_parse_geolocation);
+
     // Geocode multiple location
     Geocoder.geocode({
       // Longitud y Latitud en la base de datos de Negocios
-      "position" : this.negocios2
+      "position" : negocios_parse_geolocation
     })
     .then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {     
       mvcArray.on('insert_at').subscribe((params: any[]) => {
@@ -155,7 +172,7 @@ export class MapSubcategoriaPage implements OnInit {
         console.log(`Variable inicio results = `, result);
         this.map.addMarkerSync({
           'position': result[0].position,
-          'title':  JSON.stringify('Información del Negocio')  //this.routers.navigate( ['/info-negocio', this.id_subcategoria] )
+          'title':  JSON.stringify( this.routers.navigate(['info-negocio', this.id_subcategoria]) )  //this.routers.navigate( ['/info-negocio', this.id_subcategoria] )
         });
         console.log('variable result [0] position: ', result[0].position );
       });

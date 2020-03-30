@@ -10,6 +10,10 @@ import { DataService } from '../../services/data.service';
 })
 export class SigninPage implements OnInit {
 
+  correo: any;
+  password1: any;
+  password2: any;
+
   constructor(private router: Router, public toastController: ToastController, private dataService: DataService) { }
 
   ngOnInit() {
@@ -17,7 +21,6 @@ export class SigninPage implements OnInit {
 
   signin(correo: any, password1: any, password2: any) {
     // const control = new FormControl(correo, Validators.email);
-
     // console.log(control.errors); // {email: true}
     // Verificar que ningun campo este vacio
     if (correo == undefined || correo == '' || password1 == undefined || password1 == '' || password2 == undefined || password2 == '') {
