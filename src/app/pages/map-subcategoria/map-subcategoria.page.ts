@@ -28,7 +28,8 @@ export class MapSubcategoriaPage implements OnInit {
   longitud: any;
   id_subcategoria: any;
 
-  negocios: any [] = [];
+  negocios: any = [];
+  id_negocio: any;
 
   user: any;
 
@@ -42,8 +43,8 @@ export class MapSubcategoriaPage implements OnInit {
     private routers: Router
   ) {
     this.router.params
-      .subscribe((params: any) => {
-          console.log(params);
+      .subscribe( (params: any) => {
+          console.log('params', params);
           this.id_subcategoria = params;
       });
    }
@@ -62,6 +63,7 @@ export class MapSubcategoriaPage implements OnInit {
     this.onButtonClick();
   }
 
+  //tu ubicacion
   async onButtonClick() {
     this.map.clear();
     this.loading = await this.loadingCtrl.create({
@@ -70,7 +72,7 @@ export class MapSubcategoriaPage implements OnInit {
     await this.loading.present();
     // Get the location of you
     this.map.getMyLocation().then((location: MyLocation) => {
-      //this.loading.dismiss();
+      this.loading.dismiss();
       console.log('el json stringify that location',JSON.stringify(location, null ,2));
       this.latitud = location.latLng.lat;
       this.longitud = location.latLng.lng;
@@ -84,6 +86,8 @@ export class MapSubcategoriaPage implements OnInit {
       let marker: Marker = this.map.addMarkerSync({
         // title: JSON.stringify(location.latLng),
         position: location.latLng,
+        title: 'Estas aquí',
+        //label: 'Estas aquí', //aparentemente no sirve
         animation: GoogleMapsAnimation.BOUNCE
       });
       // show the infoWindow
@@ -101,22 +105,12 @@ export class MapSubcategoriaPage implements OnInit {
   }
 
   // obtiene el negocio
-
   getNegocio() {
     this.dataService.getNegocios(this.latitud, this.longitud, this.id_subcategoria.id_subcategoria)
     .subscribe( (data: any) => {
-      
       this.negocios = data.negocios;
       console.log('Data: ', data);
-      console.log('Data length: ', data.length);
       console.log('Negocios: ', this.negocios);
-      console.log('Negocios length: ', this.negocios.length);
-
-      if (data.response === true) {
-        console.log('Si entra en todos los registros de la base de datos');
-      } else {
-        this.mal(data.message);
-      }
 
       this.onButton_click(event);
       
@@ -127,7 +121,7 @@ export class MapSubcategoriaPage implements OnInit {
     });
   }
 
-  // batch-geocoding
+  // batch-geocoding marca los negocios
 
   async onButton_click(event) {
     this.map.clear();
@@ -168,23 +162,28 @@ export class MapSubcategoriaPage implements OnInit {
       mvcArray.on('insert_at').subscribe((params: any[]) => {
         const index: number = params[0];
         const result: GeocoderResult = mvcArray.getAt(index);
-        console.log('Inicia index = ', index);
-        console.log(`Variable inicio results = `, result);
-        this.map.addMarkerSync({
+        let marker: Marker = this.map.addMarkerSync({
           'position': result[0].position,
-          'title':  JSON.stringify( this.routers.navigate(['info-negocio', this.id_subcategoria]) )  //this.routers.navigate( ['/info-negocio', this.id_subcategoria] )
-        });
+          'title': '<h1><strong><ion-button class="login" routerLink="/login" color="secondary" expand="block" size="default">Iniciar Sesión</ion-button></strong></h1>',
+          //label: 'Estas aquí', //aparentemente no sirve
+          animation: GoogleMapsAnimation.DROP
+        })
+        // marker.showInfoWindow();
+        marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe( () => {
+          console.log('Nuevo entro ', this.negocios[0].id_negocio);
+          this.routers.navigate( ['/tabs-nav', this.negocios[0].id_negocio] );
+          
+        })
         console.log('variable result [0] position: ', result[0].position );
       });
       mvcArray.one('finish').then(() => {
         this.loading.dismiss();
         let end = Date.now();
-        console.log('Variable end = ', end);
         alert("duration: " + ((end - start) / 1000).toFixed(1) + " seconds");
       });
     });
   }
-  
+
   async showToast(message: string) {
     let toast = await this.toastCtrl.create({
       message: message,

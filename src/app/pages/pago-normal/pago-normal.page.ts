@@ -17,7 +17,6 @@ export class PagoNormalPage implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private route: Router,
-    private toastController: ToastController 
   ) {
     this.router.params
       .subscribe((params: any) => {

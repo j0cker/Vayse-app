@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-insignias',
@@ -10,10 +11,10 @@ export class InsigniasPage implements OnInit {
 
   id_negocio: any = 42;
   infoValoraciones: any;
-  insignias: any = [];
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -22,16 +23,35 @@ export class InsigniasPage implements OnInit {
 
   getInfoNegocios() {
     this.dataService.getInfoNegocios( this.id_negocio )
-    .subscribe( (data: any[]) => {
-      this.infoValoraciones = data;
-      this.insignias = this.infoValoraciones.valoraciones;
-      console.log('info valoraciones: ', this.infoValoraciones);
-      console.log('insignias: ', this.insignias);
-
-    }, ( error ) => {
-      console.log(error);
+    .subscribe( (data: any) => {
+      if(data.success === 'true' || 'TRUE'){
+        this.infoValoraciones = data.valoraciones;
+        console.log('info valoraciones: ', this.infoValoraciones);
+        this.bien();
+      } else {
+        this.mal(data.message);
+      }
     });
-    
+  }
+
+  async bien() {
+    const toast = await this.toastController.create({
+      message: 'Deseamos saber tu valoración',
+      duration: 2000,
+      color: 'dark',
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  async mal(msj: any) {
+    const toast = await this.toastController.create({
+      message: msj,
+      duration: 4000,
+      color: 'dark',
+      position: 'bottom'
+    });
+    toast.present();
   }
 
 }

@@ -77,7 +77,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/map-subcategoria/map-subcategoria.module').then( m => m.MapSubcategoriaPageModule)
   },
   {
-    path: 'tabs-nav',
+    path: 'tabs-nav/:id_negocio',
     loadChildren: () => import('./pages/tabs-nav/tabs-nav.module').then( m => m.TabsNavPageModule)
   },
   {

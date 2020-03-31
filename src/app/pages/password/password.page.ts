@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VerificacionPasswordPage } from '../verificacion-password/verificacion-password.page';
 import { ToastController, ModalController } from '@ionic/angular';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-password',
@@ -15,7 +16,7 @@ export class PasswordPage implements OnInit {
 
   flag1: boolean; hide1 = true;
 
-  constructor(private modalCtrl: ModalController, public toastController: ToastController) { }
+  constructor(private modalCtrl: ModalController, public toastController: ToastController, private dataService: DataService) { }
 
   ngOnInit() {
   }
@@ -36,7 +37,7 @@ export class PasswordPage implements OnInit {
         this.flag1 = true;
         this.hide1 = true;
 
-        // this.sendSMS();
+        this.sendSMS();
 
         const modal = await this.modalCtrl.create({
           component: VerificacionPasswordPage,
@@ -51,7 +52,7 @@ export class PasswordPage implements OnInit {
 
   }
 
-  /*
+
   sendSMS() {
     this.dataService.sendSMS(this.celular)
       .subscribe((data: any) => {
@@ -73,7 +74,7 @@ export class PasswordPage implements OnInit {
           this.mal(error);
       });
   }
-  */
+
 
   async completo() {
     const toast = await this.toastController.create({

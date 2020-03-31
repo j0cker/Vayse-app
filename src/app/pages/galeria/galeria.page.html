@@ -8,13 +8,9 @@
     Imagenes del Negocio
   </h1>
 
-  <ion-card *ngFor="let imagen of imagenes">
-    <img [src]="imagen.imagen"/>
-    <ion-card-content>
-      Amamos lo que hacemos, estamos para brindarle el mejor servicio que el meracado pueda ofrecer
-    </ion-card-content>
+  <ion-card *ngFor="let imagenes of infoGaleria">
+    <ion-img [src]="imagenes.imagen"></ion-img>
   </ion-card>
 
 </ion-content>
-+
 

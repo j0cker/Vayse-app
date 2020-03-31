@@ -16,7 +16,7 @@ export class PagoPage implements OnInit {
   total: any;
 
   constructor(
-    private dataService: DataService, private toastController: ToastController, private router: ActivatedRoute, private route: Router
+    private router: ActivatedRoute, private route: Router
   ) {
     this.router.params
       .subscribe((params: any) => {

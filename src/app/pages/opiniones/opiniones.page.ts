@@ -29,7 +29,7 @@ export class OpinionesPage implements OnInit {
         // console.log('array opiniones: ', this.infoOpiniones);
         this.bien();
       } else {
-        this.mal(data.message)
+        this.mal(data.message);
       }
     });
   }
