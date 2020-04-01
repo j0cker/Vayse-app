@@ -9,8 +9,8 @@ import { DataService } from 'src/app/services/data.service';
 export class HorariosPage implements OnInit {
 
   id_negocio: any = 42;
-  infoNegocio: any[];
-  horaServicios: any[] = [];
+  infoServicio: any;
+  horario: any = [];
   
   constructor(
     private dataService: DataService
@@ -23,10 +23,10 @@ export class HorariosPage implements OnInit {
   getInfoNegocios() {
     this.dataService.getInfoNegocios( this.id_negocio )
     .subscribe( (data: any[]) => {
-      this.infoNegocio = data;
-      this.horaServicios = this.infoNegocio.horarios;
-      console.log(this.infoNegocio);
-      console.log(this.horaServicios);
+      this.infoServicio = data;
+      this.horario = this.infoServicio.horarios;
+      console.log('info servicio: ', this.infoServicio);
+      console.log('horario: ', this.horario);
 
     }, ( error ) => {
       console.log(error);

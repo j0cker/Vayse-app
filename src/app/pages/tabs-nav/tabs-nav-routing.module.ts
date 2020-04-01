@@ -9,6 +9,18 @@ const routes: Routes = [
     component: TabsNavPage,
     children: [
       {
+<<<<<<< HEAD
+=======
+        path: '',
+        children: [
+          {
+            path: '',
+            loadChildren: '',
+          }
+        ]
+      },
+      {
+>>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
         path: 'detalles',
         children: [
           {

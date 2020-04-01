@@ -8,6 +8,7 @@
     Insignias del Negocio
   </h1>
 
+<<<<<<< HEAD
   <ion-card *ngFor="let insignia of insignias">
     <img [src]="insignia.foto_perfil" />
     <ion-card-header>
@@ -19,5 +20,19 @@
       </ion-card-title>
     </ion-card-header>
   </ion-card>
+=======
+  <ion-item color="transparent" *ngFor="let insignia of infoValoraciones">
+    <ion-avatar class="imgAvatar">
+      <img [src]="insignia.foto_perfil" />
+    </ion-avatar>
+    <ion-label>
+      <h3>
+        {{ insignia.nombre_usuario }}
+      </h3>
+      <ion-icon name="star"></ion-icon>
+      
+    </ion-label>
+  </ion-item>
+>>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
 
 </ion-content>

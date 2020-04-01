@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'tabs-nav', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
@@ -77,9 +77,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/map-subcategoria/map-subcategoria.module').then( m => m.MapSubcategoriaPageModule)
   },
   {
-    path: 'tabs-nav',
+    path: 'tabs-nav/:id_negocio',
     loadChildren: () => import('./pages/tabs-nav/tabs-nav.module').then( m => m.TabsNavPageModule)
-  },  {
+  },
+  {
     path: 'detalles',
     loadChildren: () => import('./pages/detalles/detalles.module').then( m => m.DetallesPageModule)
   },

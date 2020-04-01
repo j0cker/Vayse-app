@@ -8,6 +8,7 @@
     Opiniones del Negocio
   </h1>
 
+<<<<<<< HEAD
   <ion-card *ngFor="let opinion of opiniones">
     <img [src]="opinion.foto_perfil" />
     <ion-card-header>
@@ -20,6 +21,21 @@
       {{ opinion.opinion }}
     </ion-card-content>
   </ion-card>
+=======
+  <ion-item color="transparent" *ngFor="let opiniones of infoOpiniones">
+    <ion-avatar class="imgAvatar">
+      <img [src]="opiniones.foto_perfil">
+    </ion-avatar>
+    <ion-label>
+      <h3>
+        {{ opiniones.nombre_usuario }}
+      </h3>
+      <p>
+        {{ opiniones.opinion}}
+      </p>
+    </ion-label>
+  </ion-item>
+>>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
 
 
 </ion-content>
