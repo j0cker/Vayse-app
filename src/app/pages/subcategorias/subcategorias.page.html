@@ -12,10 +12,15 @@
           expand="block" 
           shape="round" 
           color="transparent"
-          style="border-radius: 50px; color: white;"
+          style="border-radius: 50px;"
           (click)="locSubCategorias(e.id_subcategoria)"
         >
-          {{ e.nombre_subcategoria }}
+          <ion-text color="light">
+            <h6>
+              {{ e.nombre_subcategoria }}
+            </h6>
+          </ion-text>  
+        
         </ion-button>
       </ion-col>
     </ion-row>

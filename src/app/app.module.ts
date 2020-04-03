@@ -22,11 +22,13 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 /* este apenas lo importe */
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { IonicRatingModule } from 'ionic4-rating';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    IonicRatingModule,
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,

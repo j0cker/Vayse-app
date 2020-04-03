@@ -4,25 +4,38 @@
 
 <ion-content class="ion-padding">
   
-  <h1>
-    Horarios
-  </h1>
+  <ion-text class="ion-text-center" color="secondary">
+    <h4>
+      Horarios
+    </h4>
+  </ion-text>
 
-  <ion-list class="table">
-    <ion-list class="listWrapper" *ngFor="let servicio of horario">
-      <ion-item color="transparent">
-        <ion-label class="dia">
-          {{ servicio.descripcion_dia }}
-        </ion-label>
-        <ion-label class="horaInicio">
-          {{ servicio.hora_inicio }} hrs
-        </ion-label>
-        <ion-label class="horaFin">
-          {{ servicio.hora_fin }} hrs
-        </ion-label>
-      </ion-item>
-    </ion-list>
-    
+<ion-card>
+  <ion-list *ngFor="let servicio of horario">
+    <ion-item color="transparent">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4">
+            <ion-text class="ion-text-center" color="secondary">
+              <p>
+                {{ servicio.descripcion_dia }}
+              </p>
+            </ion-text>
+          </ion-col>
+          <ion-col size="4">
+            <p>
+              {{ servicio.hora_inicio }}
+            </p>
+          </ion-col>
+          <ion-col size="4">
+            <p>
+              {{ servicio.hora_fin }}
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
   </ion-list>
+</ion-card>
 
 </ion-content>

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
-=======
-import { ActivatedRoute } from '@angular/router';
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
+import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-tabs-nav',
@@ -11,22 +10,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TabsNavPage implements OnInit {
 
-<<<<<<< HEAD
-  constructor() { }
-=======
   id_negocio: any;
 
   constructor(
-    private router: ActivatedRoute
-  ) {
+    private router: ActivatedRoute,
+    private storage: Storage
+  ) { 
     this.router.params.subscribe( (params: any) => {
-      this.id_negocio = params;
+      this.id_negocio = params.id_negocio;
       console.log('id negocio: ', this.id_negocio );
-    })
+    });
   }
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
 
   ngOnInit() {
+    this.pushNegocio()
+  }
+
+  pushNegocio() {
+    this.storage.set('id_negocio', this.id_negocio );
   }
 
 }

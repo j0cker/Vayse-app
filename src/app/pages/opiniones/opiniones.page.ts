@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-<<<<<<< HEAD
-=======
 import { ToastController } from '@ionic/angular';
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
+import { ActivatedRoute } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-opiniones',
@@ -13,44 +12,33 @@ import { ToastController } from '@ionic/angular';
 export class OpinionesPage implements OnInit {
 
   id_negocio: any = 42;
-<<<<<<< HEAD
-  infoNegocio: any;
-  opiniones: any[] = [];
-  
-  constructor(
-    private dataService: DataService,
-    
-=======
   infoOpiniones: any = [];
   
   constructor(
     private dataService: DataService,
-    private toastController: ToastController
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
+    private toastController: ToastController,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
-    this.getInfoNegocios();
+    this.getID();
+  }
+
+  getID() {
+    // Or to get a key/value pair
+    this.storage.get('id_negocio').then((val) => {
+      console.log('ID Negocio: ', val);
+      this.id_negocio = val;
+      this.getInfoNegocios();
+    });
   }
 
   getInfoNegocios() {
     this.dataService.getInfoNegocios( this.id_negocio )
-<<<<<<< HEAD
-    .subscribe( (data: any[]) => {
-      this.infoNegocio = data;
-      this.opiniones = this.infoNegocio.opiniones;
-      console.log(this.infoNegocio);
-      console.log('opiniones: ',this.opiniones);
-
-    }, ( error ) => {
-      console.log(error);
-    });
-    
-=======
     .subscribe( (data: any) => {
       if(data.success === 'true' || 'TRUE'){
         this.infoOpiniones = data.opiniones;
-        // console.log('array opiniones: ', this.infoOpiniones);
+        console.log('opiniones: ', this.infoOpiniones);
         this.bien();
       } else {
         this.mal(data.message);
@@ -63,7 +51,7 @@ export class OpinionesPage implements OnInit {
       message: 'Queremos saber tu opinión del negocio',
       duration: 2000,
       color: 'dark',
-      position: 'bottom'
+      position: 'middle'
     });
     toast.present();
   }
@@ -76,7 +64,6 @@ export class OpinionesPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
   }
 
 }

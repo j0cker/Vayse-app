@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { ActivatedRoute } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-horarios',
@@ -13,11 +15,21 @@ export class HorariosPage implements OnInit {
   horario: any = [];
   
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
-    this.getInfoNegocios();
+    this.getID();
+  }
+
+  getID() {
+    // Or to get a key/value pair
+    this.storage.get('id_negocio').then((val) => {
+      console.log('ID Negocio: ', val);
+      this.id_negocio = val;
+      this.getInfoNegocios();
+    });
   }
 
   getInfoNegocios() {

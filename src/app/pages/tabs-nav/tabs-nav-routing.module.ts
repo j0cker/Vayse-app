@@ -6,73 +6,36 @@ import { TabsNavPage } from './tabs-nav.page';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'detalles'
+  },
+  {
+    path: '',
     component: TabsNavPage,
     children: [
       {
-<<<<<<< HEAD
-=======
-        path: '',
-        children: [
-          {
-            path: '',
-            loadChildren: '',
-          }
-        ]
-      },
-      {
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
         path: 'detalles',
-        children: [
-          {
-            path: '',
-            loadChildren: '../detalles/detalles.module#DetallesPageModule',
-          }
-        ]
+        loadChildren: () => import('../detalles/detalles.module').then( m => m.DetallesPageModule),
       },
       {
         path: 'insignias',
-        children: [
-          {
-            path: '',
-            loadChildren: '../insignias/insignias.module#InsigniasPageModule',
-          }
-        ]
+        loadChildren: () => import('../insignias/insignias.module').then( m => m.InsigniasPageModule)
       },
       {
         path: 'ubicacion',
-        children: [
-          {
-            path: '',
-            loadChildren: '../map-subcategoria/map-subcategoria.module#MapSubcategoriaPageModule',
-          }
-        ]
+        loadChildren: () => import('../map-subcategoria/map-subcategoria.module').then( m => m.MapSubcategoriaPageModule)
+
       },
       {
         path: 'opiniones',
-        children: [
-          {
-            path: '',
-            loadChildren: '../opiniones/opiniones.module#OpinionesPageModule',
-          }
-        ]
+        loadChildren: () => import('../opiniones/opiniones.module').then( m => m.OpinionesPageModule)
       },
       {
         path: 'horarios',
-        children: [
-          {
-            path: '',
-            loadChildren: '../horarios/horarios.module#HorariosPageModule',
-          }
-        ]
+        loadChildren: () => import('../horarios/horarios.module').then( m => m.HorariosPageModule)
       },
       {
         path: 'galeria',
-        children: [
-          {
-            path: '',
-            loadChildren: '../galeria/galeria.module#GaleriaPageModule',
-          }
-        ]
+        loadChildren: () => import('../galeria/galeria.module').then( m => m.GaleriaPageModule)
       }
     ]
   }

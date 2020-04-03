@@ -4,35 +4,26 @@
 
 <ion-content class="ion-padding">
 
-  <h1>
-    Insignias del Negocio
-  </h1>
+  <ion-text class="ion-text-center" color="secondary">
+    <h4>
+      Insignias del Negocio
+    </h4>
+  </ion-text>
 
-<<<<<<< HEAD
-  <ion-card *ngFor="let insignia of insignias">
-    <img [src]="insignia.foto_perfil" />
-    <ion-card-header>
-      <ion-card-subtitle>
-        {{ insignia.nombre_usuario }}
-      </ion-card-subtitle>
-      <ion-card-title>
-        {{ insignia.rating }}
-      </ion-card-title>
-    </ion-card-header>
-  </ion-card>
-=======
   <ion-item color="transparent" *ngFor="let insignia of infoValoraciones">
     <ion-avatar class="imgAvatar">
       <img [src]="insignia.foto_perfil" />
     </ion-avatar>
     <ion-label>
-      <h3>
-        {{ insignia.nombre_usuario }}
-      </h3>
-      <ion-icon name="star"></ion-icon>
-      
+      <ion-text class="ion-text-center" color="dark">
+        <h2>
+          {{ insignia.nombre_usuario }}
+        </h2>
+      </ion-text>
+      <rating [(ngModel)]="insignia.rating" readonly="true">
+      </rating>
+        
     </ion-label>
   </ion-item>
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
 
 </ion-content>

@@ -247,9 +247,7 @@ export class DataService {
   }
 
   /* Trae la info de los negocios de la base de datos los requerimientos son Token, id_negocio, action */
-  getInfoNegocios(
-    id_negocio: any,
-  ) {
+  getInfoNegocios( id_negocio: any ) {
     console.log('Info Negocios');
     return this.http.get(
       this.api + 'DEV/ws.php?action=get_info_negocio&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio 
@@ -258,6 +256,18 @@ export class DataService {
         console.log(data);
       })
     );
+  }
+
+  getPromociones( id_negocio: any ) {
+    console.log('Promos');
+    return this.http.get(
+      this.api + 'DEV/ws.php?action=get_promociones&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio
+    ).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    )
+    
   }
 
 

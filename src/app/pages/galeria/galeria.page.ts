@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { ToastController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-galeria',
@@ -9,16 +11,26 @@ import { ToastController } from '@ionic/angular';
 })
 export class GaleriaPage implements OnInit {
 
-  id_negocio: any = 42;
-  infoGaleria: any = [];
+  id_negocio: any;
+  infoGaleria: any;
 
   constructor(
     private dataService: DataService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
-    this.getInfoNegocios();
+    this.getID();
+  }
+
+  getID() {
+    // Or to get a key/value pair
+    this.storage.get('id_negocio').then((val) => {
+      console.log('ID Negocio: ', val);
+      this.id_negocio = val;
+      this.getInfoNegocios();
+    });
   }
 
   getInfoNegocios() {
@@ -26,13 +38,12 @@ export class GaleriaPage implements OnInit {
     .subscribe( (data: any) => {
       if(data.success === 'true' || 'TRUE'){
         this.infoGaleria = data.galeria;
-        // console.log('info Galeria: ', this.infoGaleria);
+        console.log('info Galeria: ', this.infoGaleria);
         this.bien()
       } else {
         this.mal(data.message)
       }
     });
-    
   }
 
   async bien() {
@@ -40,7 +51,7 @@ export class GaleriaPage implements OnInit {
       message: 'Ve nuestro negocio',
       duration: 2000,
       color: 'dark',
-      position: 'bottom'
+      position: 'middle'
     });
     toast.present();
   }

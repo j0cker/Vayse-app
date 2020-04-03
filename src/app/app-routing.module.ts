@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'tabs-nav', pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
@@ -80,27 +80,6 @@ const routes: Routes = [
     path: 'tabs-nav/:id_negocio',
     loadChildren: () => import('./pages/tabs-nav/tabs-nav.module').then( m => m.TabsNavPageModule)
   },
-  {
-    path: 'detalles',
-    loadChildren: () => import('./pages/detalles/detalles.module').then( m => m.DetallesPageModule)
-  },
-  {
-    path: 'insignias',
-    loadChildren: () => import('./pages/insignias/insignias.module').then( m => m.InsigniasPageModule)
-  },
-  {
-    path: 'horarios',
-    loadChildren: () => import('./pages/horarios/horarios.module').then( m => m.HorariosPageModule)
-  },
-  {
-    path: 'galeria',
-    loadChildren: () => import('./pages/galeria/galeria.module').then( m => m.GaleriaPageModule)
-  },
-  {
-    path: 'opiniones',
-    loadChildren: () => import('./pages/opiniones/opiniones.module').then( m => m.OpinionesPageModule)
-  },
-
 
 ];
 

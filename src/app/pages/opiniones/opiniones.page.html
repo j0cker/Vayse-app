@@ -4,38 +4,29 @@
 
 <ion-content class="ion-padding">
 
-  <h1>
-    Opiniones del Negocio
-  </h1>
-
-<<<<<<< HEAD
-  <ion-card *ngFor="let opinion of opiniones">
-    <img [src]="opinion.foto_perfil" />
-    <ion-card-header>
-      <ion-card-subtitle>Opinion de:</ion-card-subtitle>
-      <ion-card-title>
-        {{ opinion.nombre_usuario }}
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      {{ opinion.opinion }}
-    </ion-card-content>
-  </ion-card>
-=======
+  <ion-text class="ion-text-center" color="secondary">
+    <h4>
+      Opiniones del Negocio
+    </h4>
+  </ion-text>
+  
   <ion-item color="transparent" *ngFor="let opiniones of infoOpiniones">
     <ion-avatar class="imgAvatar">
       <img [src]="opiniones.foto_perfil">
     </ion-avatar>
     <ion-label>
-      <h3>
-        {{ opiniones.nombre_usuario }}
-      </h3>
-      <p>
-        {{ opiniones.opinion}}
-      </p>
+      <ion-text color="dark">
+        <h2>
+          {{ opiniones.nombre_usuario }}
+        </h2>
+      </ion-text>
+      <ion-text color="dark">
+        <h4>
+          {{ opiniones.opinion}}
+        </h4>
+      </ion-text>
     </ion-label>
   </ion-item>
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
 
 
 </ion-content>

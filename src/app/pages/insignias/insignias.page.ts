@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-<<<<<<< HEAD
-=======
 import { ToastController } from '@ionic/angular';
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
+import { ActivatedRoute } from '@angular/router';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-insignias',
@@ -12,42 +12,39 @@ import { ToastController } from '@ionic/angular';
 })
 export class InsigniasPage implements OnInit {
 
-  id_negocio: any = 42;
-<<<<<<< HEAD
-  infoNegocio: any;
-  insignias: any[] = [];
-
-  constructor(
-    private dataService: DataService
-=======
+  id_negocio: any;
   infoValoraciones: any;
 
   constructor(
     private dataService: DataService,
-    private toastController: ToastController
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
-  ) { }
+    private toastController: ToastController,
+    private storage: Storage
+  ) {
+    /*
+    this.router.params.subscribe( (data: any) => {
+      this.id_negocio = data;
+      console.log('negocio: ', this.id_negocio);
+    });
+    */
+  }
 
   ngOnInit() {
-    this.getInfoNegocios();
+    this.getID();
+  }
+
+  getID() {
+    // Or to get a key/value pair
+    this.storage.get('id_negocio').then((val) => {
+      console.log('ID Negocio: ', val);
+      this.id_negocio = val;
+      this.getInfoNegocios();
+    });
   }
 
   getInfoNegocios() {
     this.dataService.getInfoNegocios( this.id_negocio )
-<<<<<<< HEAD
-    .subscribe( (data: any[]) => {
-      this.infoNegocio = data;
-      this.insignias = this.infoNegocio.valoraciones;
-      console.log(this.infoNegocio);
-      console.log('insignias: ',this.insignias);
-
-    }, ( error ) => {
-      console.log(error);
-    });
-    
-=======
     .subscribe( (data: any) => {
-      if(data.success === 'true' || 'TRUE'){
+      if (data.success === 'true' || 'TRUE'){
         this.infoValoraciones = data.valoraciones;
         console.log('info valoraciones: ', this.infoValoraciones);
         this.bien();
@@ -62,7 +59,7 @@ export class InsigniasPage implements OnInit {
       message: 'Deseamos saber tu valoración',
       duration: 2000,
       color: 'dark',
-      position: 'bottom'
+      position: 'middle'
     });
     toast.present();
   }
@@ -75,7 +72,6 @@ export class InsigniasPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
->>>>>>> c3d64c90ddef44b92d8ced6d43f4efd102818f36
   }
 
 }

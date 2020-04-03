@@ -4,13 +4,19 @@
 
 <ion-content class="ion-padding">
 
-  <h1>
-    Imagenes del Negocio
-  </h1>
+  <ion-text class="ion-text-center" color="secondary">
+    <h4>
+      Imagenes del Negocio
+    </h4>
+  </ion-text>
 
-  <ion-card *ngFor="let imagenes of infoGaleria">
-    <ion-img [src]="imagenes.imagen"></ion-img>
-  </ion-card>
+  <ion-slides pager="true">
+    <ion-slide *ngFor="let galeria of infoGaleria">
+      <ion-card mode="ios">
+        <img [src]="galeria.imagen"/>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
 
 </ion-content>
 

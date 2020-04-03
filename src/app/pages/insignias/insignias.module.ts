@@ -9,13 +9,16 @@ import { InsigniasPageRoutingModule } from './insignias-routing.module';
 import { InsigniasPage } from './insignias.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
+import { IonicRatingModule } from 'ionic4-rating';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     InsigniasPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    IonicRatingModule
   ],
   declarations: [InsigniasPage]
 })

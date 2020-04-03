@@ -2,10 +2,79 @@
   
 </app-header>
 
-<ion-content class="ion-padding">
+<ion-content>
+
+  <ion-list *ngFor="let detalle of infoDetalles">
+    
+    <ion-text class="ion-text-center" color="secondary">
+      <h4>
+        {{ detalle.nombre_negocio }}
+      </h4>
+    </ion-text>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="10">
+        <img [src]="detalle.foto_negocio" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   
-  <h1>
-    Negocio Prueba
-  </h1>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Detalles
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{ detalle.descripcion }}
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Promociones
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{ promociones }}
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+          Dirección
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{ detalle.direccion }}
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Valoracion
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{ valoraciones }}
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Telefóno:
+      </ion-card-title>
+      <ion-card-subtitle>
+        {{ detalle.telefono }}
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+</ion-list>
 
 </ion-content>
