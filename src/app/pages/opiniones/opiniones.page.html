@@ -9,6 +9,12 @@
       Opiniones del Negocio
     </h4>
   </ion-text>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="pushValoracion()">
+    <ion-fab-button color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   
   <ion-item color="transparent" *ngFor="let opiniones of infoOpiniones">
     <ion-avatar class="imgAvatar">

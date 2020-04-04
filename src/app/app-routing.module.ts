@@ -80,6 +80,15 @@ const routes: Routes = [
     path: 'tabs-nav/:id_negocio',
     loadChildren: () => import('./pages/tabs-nav/tabs-nav.module').then( m => m.TabsNavPageModule)
   },
+  {
+    path: 'popover-valoraciones',
+    loadChildren: () => import('./pages/popover-valoraciones/popover-valoraciones.module').then( m => m.PopoverValoracionesPageModule)
+  },
+  {
+    path: 'popover-opiniones',
+    loadChildren: () => import('./pages/popover-opiniones/popover-opiniones.module').then( m => m.PopoverOpinionesPageModule)
+  },
+  
 
 ];
 

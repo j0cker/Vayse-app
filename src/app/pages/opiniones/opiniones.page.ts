@@ -46,6 +46,11 @@ export class OpinionesPage implements OnInit {
     });
   }
 
+  pushValoracion() {
+    console.log('nueva opinion');
+    
+  }
+
   async bien() {
     const toast = await this.toastController.create({
       message: 'Queremos saber tu opinión del negocio',

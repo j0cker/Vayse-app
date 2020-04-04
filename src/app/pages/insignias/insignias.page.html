@@ -10,6 +10,12 @@
     </h4>
   </ion-text>
 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <ion-item color="transparent" *ngFor="let insignia of infoValoraciones">
     <ion-avatar class="imgAvatar">
       <img [src]="insignia.foto_perfil" />
@@ -22,7 +28,6 @@
       </ion-text>
       <rating [(ngModel)]="insignia.rating" readonly="true">
       </rating>
-        
     </ion-label>
   </ion-item>
 

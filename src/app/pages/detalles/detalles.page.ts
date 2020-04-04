@@ -37,7 +37,7 @@ export class DetallesPage implements OnInit {
   getInfoNegocios() {
     this.dataService.getInfoNegocios( this.id_negocio )
     .subscribe( (data: any) => {
-      if(data.success === 'true' || 'TRUE'){
+      if(data.success === 'true' || 'TRUE') {
         this.infoDetalles = data.negocios;
         this.valoraciones = data.valoraciones.length;
         console.log('info negocios: ', this.infoDetalles);
@@ -60,8 +60,7 @@ export class DetallesPage implements OnInit {
           console.log('mal');
           // this.mal(data.message)
         }
-      })
-    
+      });
   }
   
 }

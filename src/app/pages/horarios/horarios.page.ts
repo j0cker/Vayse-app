@@ -39,7 +39,6 @@ export class HorariosPage implements OnInit {
       this.horario = this.infoServicio.horarios;
       console.log('info servicio: ', this.infoServicio);
       console.log('horario: ', this.horario);
-
     }, ( error ) => {
       console.log(error);
     });

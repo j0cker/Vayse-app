@@ -17,13 +17,16 @@ const routes: Routes = [
         loadChildren: () => import('../detalles/detalles.module').then( m => m.DetallesPageModule),
       },
       {
+        path: 'galeria',
+        loadChildren: () => import('../galeria/galeria.module').then( m => m.GaleriaPageModule)
+      },
+      {
         path: 'insignias',
         loadChildren: () => import('../insignias/insignias.module').then( m => m.InsigniasPageModule)
       },
       {
         path: 'ubicacion',
-        loadChildren: () => import('../map-subcategoria/map-subcategoria.module').then( m => m.MapSubcategoriaPageModule)
-
+        loadChildren: () => import('../ubicacion/ubicacion.module').then( m => m.UbicacionPageModule)
       },
       {
         path: 'opiniones',
@@ -33,10 +36,6 @@ const routes: Routes = [
         path: 'horarios',
         loadChildren: () => import('../horarios/horarios.module').then( m => m.HorariosPageModule)
       },
-      {
-        path: 'galeria',
-        loadChildren: () => import('../galeria/galeria.module').then( m => m.GaleriaPageModule)
-      }
     ]
   }
 ];

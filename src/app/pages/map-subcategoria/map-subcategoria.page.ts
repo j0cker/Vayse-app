@@ -197,6 +197,7 @@ export class MapSubcategoriaPage implements OnInit {
       });
     });
   }
+  
   async showToast(message: string) {
     let toast = await this.toastCtrl.create({
       message: message,

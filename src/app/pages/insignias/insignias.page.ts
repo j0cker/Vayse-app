@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { ToastController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { ToastController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { PopoverValoracionesPage } from '../popover-valoraciones/popover-valoraciones.page';
 
 @Component({
   selector: 'app-insignias',
@@ -15,10 +14,14 @@ export class InsigniasPage implements OnInit {
   id_negocio: any;
   infoValoraciones: any;
 
+  popoverController = document.querySelector('ion-popover-controller');
+  currentPopover = null;
+  button = document.querySelector('ion-fab-button');
+
   constructor(
     private dataService: DataService,
     private toastController: ToastController,
-    private storage: Storage
+    private storage: Storage,
   ) {
     /*
     this.router.params.subscribe( (data: any) => {
@@ -53,6 +56,24 @@ export class InsigniasPage implements OnInit {
       }
     });
   }
+
+  async pushValoracion(ev: any) {
+    console.log('nueva valoracion');
+    const popover = await this.popoverController.create({
+      component: PopoverValoracionesPage,
+      event: ev,
+      translucent: true
+    });
+    this.currentPopover = popover;
+    return await popover.present();
+  }
+
+  dismissPopover() {
+    if (this.currentPopover) {
+      this.currentPopover.dismiss().then(() => { this.currentPopover = null; });
+    }
+  }
+
 
   async bien() {
     const toast = await this.toastController.create({
