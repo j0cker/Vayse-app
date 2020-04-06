@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { ToastController} from '@ionic/angular';
+import { ToastController, PopoverController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { PopoverValoracionesPage } from '../popover-valoraciones/popover-valoraciones.page';
+import { PopinsigniaComponent } from '../../components/popinsignia/popinsignia.component';
 
 @Component({
   selector: 'app-insignias',
@@ -14,14 +14,11 @@ export class InsigniasPage implements OnInit {
   id_negocio: any;
   infoValoraciones: any;
 
-  popoverController = document.querySelector('ion-popover-controller');
-  currentPopover = null;
-  button = document.querySelector('ion-fab-button');
-
   constructor(
     private dataService: DataService,
     private toastController: ToastController,
     private storage: Storage,
+    private popoverCtrl: PopoverController
   ) {
     /*
     this.router.params.subscribe( (data: any) => {
@@ -50,31 +47,25 @@ export class InsigniasPage implements OnInit {
       if (data.success === 'true' || 'TRUE'){
         this.infoValoraciones = data.valoraciones;
         console.log('info valoraciones: ', this.infoValoraciones);
-        this.bien();
+        // this.bien();
       } else {
-        this.mal(data.message);
+        // this.mal(data.message);
       }
     });
   }
 
-  async pushValoracion(ev: any) {
-    console.log('nueva valoracion');
-    const popover = await this.popoverController.create({
-      component: PopoverValoracionesPage,
-      event: ev,
-      translucent: true
+  async popoverValoracion( evento ) {
+
+    const popover = await this.popoverCtrl.create({
+      component: PopinsigniaComponent,
+      event: evento,
+      mode: 'ios',
+      backdropDismiss: false,
     });
-    this.currentPopover = popover;
-    return await popover.present();
+    await popover.present();
   }
 
-  dismissPopover() {
-    if (this.currentPopover) {
-      this.currentPopover.dismiss().then(() => { this.currentPopover = null; });
-    }
-  }
-
-
+  /*
   async bien() {
     const toast = await this.toastController.create({
       message: 'Deseamos saber tu valoración',
@@ -94,5 +85,6 @@ export class InsigniasPage implements OnInit {
     });
     toast.present();
   }
+  */
 
 }

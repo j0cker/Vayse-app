@@ -266,8 +266,37 @@ export class DataService {
       tap( data => {
         console.log(data);
       })
-    )
-    
+    );
+  }
+
+  pushValoracion(
+    id_negocio: any,
+    id_user: string,
+    rating: number
+  ) {
+    console.log('Valoracion: ');
+    return this.http.get(
+      this.api + 'DEV/ws.php?action=agregar_valoracion&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio +'&id_usuario='+ id_user +'&rating='+ rating
+    ).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
+
+  pushOpinion(
+    id_negocio: any,
+    id_user: string,
+    opinion: string
+  ) {
+    console.log('Opinion: ');
+    return this.http.get(
+      this.api + 'DEV/ws.php?action=agregar_opinion&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio +'&id_usuario='+ id_user +'&opinion='+ opinion
+    ).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
   }
 
 

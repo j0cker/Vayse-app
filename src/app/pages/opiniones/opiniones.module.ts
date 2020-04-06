@@ -8,8 +8,12 @@ import { OpinionesPageRoutingModule } from './opiniones-routing.module';
 
 import { OpinionesPage } from './opiniones.page';
 import { ComponentsModule } from '../../components/components.module';
+import { PopopinionComponent } from '../../components/popopinion/popopinion.component';
 
 @NgModule({
+  entryComponents: [
+    PopopinionComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

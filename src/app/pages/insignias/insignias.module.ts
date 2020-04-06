@@ -10,8 +10,12 @@ import { InsigniasPage } from './insignias.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 import { IonicRatingModule } from 'ionic4-rating';
+import { PopinsigniaComponent } from '../../components/popinsignia/popinsignia.component';
 
 @NgModule({
+  entryComponents: [
+    PopinsigniaComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

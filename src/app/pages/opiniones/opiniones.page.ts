@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, PopoverController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { PopopinionComponent } from '../../components/popopinion/popopinion.component';
 
 @Component({
   selector: 'app-opiniones',
@@ -17,7 +18,8 @@ export class OpinionesPage implements OnInit {
   constructor(
     private dataService: DataService,
     private toastController: ToastController,
-    private storage: Storage
+    private storage: Storage,
+    private popoverCtrl: PopoverController
   ) { }
 
   ngOnInit() {
@@ -39,18 +41,23 @@ export class OpinionesPage implements OnInit {
       if(data.success === 'true' || 'TRUE'){
         this.infoOpiniones = data.opiniones;
         console.log('opiniones: ', this.infoOpiniones);
-        this.bien();
+        // this.bien();
       } else {
-        this.mal(data.message);
+        // this.mal(data.message);
       }
     });
   }
 
-  pushValoracion() {
-    console.log('nueva opinion');
+  async pushOpinion() {
     
+    const popover = await this.popoverCtrl.create({
+      component: PopopinionComponent,
+    });
+    await popover.present();
+
   }
 
+  /*
   async bien() {
     const toast = await this.toastController.create({
       message: 'Queremos saber tu opinión del negocio',
@@ -70,5 +77,6 @@ export class OpinionesPage implements OnInit {
     });
     toast.present();
   }
+  */
 
 }

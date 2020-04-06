@@ -39,7 +39,7 @@ export class PerfilModalPage implements OnInit {
           this.mal();
         }
       }, ( error ) => {
-        console.log(`error ${error}`);      
+        console.log('error ', error);      
       })
     } else {
       this.mail();
