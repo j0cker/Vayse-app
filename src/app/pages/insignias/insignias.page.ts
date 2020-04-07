@@ -54,15 +54,20 @@ export class InsigniasPage implements OnInit {
     });
   }
 
-  async popoverValoracion( evento ) {
+  async popoverValoracion( ) {
 
     const popover = await this.popoverCtrl.create({
       component: PopinsigniaComponent,
-      event: evento,
-      mode: 'ios',
       backdropDismiss: false,
     });
     await popover.present();
+  }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getID();
+      event.target.complete();
+    }, 1000);
   }
 
   /*

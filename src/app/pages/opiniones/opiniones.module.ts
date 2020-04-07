@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -21,6 +21,9 @@ import { PopopinionComponent } from '../../components/popopinion/popopinion.comp
     OpinionesPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [OpinionesPage]
+  declarations: [OpinionesPage],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class OpinionesPageModule {}

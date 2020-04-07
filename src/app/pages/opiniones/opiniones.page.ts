@@ -48,13 +48,21 @@ export class OpinionesPage implements OnInit {
     });
   }
 
-  async pushOpinion() {
+  async popoverOpinion() {
     
     const popover = await this.popoverCtrl.create({
       component: PopopinionComponent,
+      backdropDismiss: false,
     });
     await popover.present();
 
+  }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getID();
+      event.target.complete();
+    }, 1000);
   }
 
   /*

@@ -272,11 +272,11 @@ export class DataService {
   pushValoracion(
     id_negocio: any,
     id_user: string,
-    rating: number
+    rate: number
   ) {
     console.log('Valoracion: ');
     return this.http.get(
-      this.api + 'DEV/ws.php?action=agregar_valoracion&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio +'&id_usuario='+ id_user +'&rating='+ rating
+      this.api + 'DEV/ws.php?action=agregar_valoracion&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio +'&id_usuario='+ id_user +'&rating='+ rate
     ).pipe(
       tap( data => {
         console.log(data);

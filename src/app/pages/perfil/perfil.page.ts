@@ -89,7 +89,7 @@ export class PerfilPage implements OnInit {
     setTimeout(() => {
       this.getID();
       event.target.complete();
-    }, 2000);
+    }, 1000);
   }
 
 }

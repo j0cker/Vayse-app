@@ -1,22 +1,49 @@
 
 <ion-grid fixed>
   <ion-row>
-    <ion-col size="12">
+    <ion-col>
       <ion-text class="ion-text-center" color="secondary">
         <h3>
-          Deja tu Insignia
+          Déjanos tu Valoracion
         </h3>
       </ion-text>
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col size="12">
-      Para nosotros es muy importante saberlo.
+    <ion-col>
+      <ion-text class="ion-text-center" color="dark">
+        <p>
+          Para nosotros es muy importante saber el valor de nuestro negocio
+        </p>
+      </ion-text>
     </ion-col>
   </ion-row>
   <ion-row class="ion-justify-content-center">
-    <ion-col size="10">
-      <rating [rate]="rating" readonly="false" size=""></rating>
+    <ion-col>
+      <ion-text class="ion-text-center" color="dark">
+        <p>
+          Seleccione mínimo una estrella
+        </p>
+      </ion-text>
+      <ion-buttons>
+        <ion-button [disabled]="readonly" fill="clear" [size]="size" *ngFor="let current of [1, 2, 3, 4, 5]; let i = index" (click)="onClick(i + 1)" (mouseover)="hoverRate = i + 1" (mouseleave)="hoverRate = 0">
+          <ion-icon slot="icon-only" name="star" [class.filled]="(i + 1 <= hoverRate || (!hoverRate && i + 1 <= rate))"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="pushValoracion()" color="secondary" expand="block" fill="solid" shape="round">
+        Enviar
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="cerrar()" color="secondary" expand="block" fill="outline" shape="round">
+        Después...
+      </ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

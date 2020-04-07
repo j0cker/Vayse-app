@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
@@ -10,7 +10,6 @@ import { HeaderBackeditComponent } from './header-backedit/header-backedit.compo
 import { PopinsigniaComponent } from './popinsignia/popinsignia.component';
 import { PopopinionComponent } from './popopinion/popopinion.component';
 import { IonicRatingModule } from 'ionic4-rating';
-
 
 @NgModule({
   declarations: [
@@ -34,6 +33,9 @@ import { IonicRatingModule } from 'ionic4-rating';
     IonicModule,
     RouterModule,
     IonicRatingModule
+  ],
+  schemas: [
+    NO_ERRORS_SCHEMA
   ]
 })
 export class ComponentsModule { }

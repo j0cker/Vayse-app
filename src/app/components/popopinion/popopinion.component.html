@@ -1,3 +1,45 @@
-<p>
-  popopinion works!
-</p>
+
+<ion-grid fixed>
+  <ion-row>
+    <ion-col>
+      <ion-text class="ion-text-center" color="secondary">
+        <h1>
+          Déjanos tu opinion
+        </h1>
+      </ion-text>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-text class="ion-text-center" color="dark">
+        <p>
+          Nos importa mucho una opinión breve y sincera del servicio brindado por nuestros empleados, te agradecemos el tiempo para compartirnos tu experiencia
+        </p>
+      </ion-text>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked">
+          Tu opinion
+        </ion-label>
+        <ion-textarea [(ngModel)]="newOpinion" type="text" autoGrow ></ion-textarea>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="pushOpinion()" color="secondary" expand="block" fill="solid" shape="round">
+        Enviar
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="cerrar()" color="secondary" expand="block" fill="outline" shape="round">
+        Después...
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
