@@ -13,7 +13,7 @@ export class PagoPuntosPage implements OnInit {
 
   @Input() idMetodoPago: any;
   @Input() idNegocio: any;
-  total: number;
+  total: string;
 
   id_user: string;
   saldos: any;
@@ -58,10 +58,17 @@ export class PagoPuntosPage implements OnInit {
   puntos() {
     this.dataService.getSaldo(this.id_user)
     .subscribe( (data: any ) => {
-      if( data.response === true && this.total <= this.saldo_vayse_usado ) {          
+
+      console.log("this.total: '" + this.total + "'");
+      console.log("this.saldo_vayse_usado: '" + this.saldo_vayse_usado + "'");
+      console.log("data.response:'" + data.response+ "'");
+
+      if(data.response==true && parseInt(this.total)<=parseInt(this.saldo_vayse_usado)) {       
+        console.log("Aprobado");   
         this.bien();
         this.route.navigate(['/pago-aprobacion', this.idMetodoPago, this.idNegocio, this.total])
-      } else {
+      } else {   
+        console.log("No Aprobado");   
         this.mal('No tienes puntos suficientes');
       }
     });
