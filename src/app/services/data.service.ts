@@ -146,7 +146,7 @@ export class DataService {
 
   getProfile(token: string, id_user: string) {
     // tslint:disable-next-line: max-line-length
-    console.log('[DataService][getProfile] Data Services');
+    console.log('[DataService][getProfile] Data Services', id_user, token);
     // tslint:disable-next-line: max-line-length
     /* return this.http.get(this.api + 'usuarios/getProfile?token=' + token + '&id_user=' + id_user).pipe(
       tap( data => {

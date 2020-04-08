@@ -19,7 +19,12 @@ export class PerfilPage implements OnInit {
   correoUsuario: any;
   celularUsuario: any;  
 
-  constructor(private dataService: DataService , private modalCtrl: ModalController, private toastController: ToastController, private storage: Storage) { }
+  constructor(
+    private dataService: DataService,
+    private modalCtrl: ModalController,
+    private toastController: ToastController,
+    private storage: Storage
+  ) {}
 
   ngOnInit() {
     this.getID();
@@ -37,7 +42,7 @@ export class PerfilPage implements OnInit {
       
       // this.userData = data;
       // tslint:disable-next-line: triple-equals
-      if (data.success == 'TRUE') {
+      if (data.success === 'true' || 'TRUE' ) {
         // console.log('[Login][Entrar] Token: ' + data.token);
         // console.log('[Login][Entrar] Usuario: ' + data.data[0].id_usuarios);
         // localStorage.setItem('idUsuario', data.data[0].id_usuarios);
@@ -49,7 +54,7 @@ export class PerfilPage implements OnInit {
     }, ( error ) => {
       console.log(error);
       // this.userData = 'Este es el error: ' + error.toString();
-      this.mal(`console ${error}`);
+      this.mal('error '+ error);
     });
   }
   
@@ -58,8 +63,10 @@ export class PerfilPage implements OnInit {
     this.storage.get('id_usuario').then((val) => {
       console.log('ID Usuario: ', val);
       this.id_usuario = val;
-      this.getProfile();
       console.log(this.id_usuario);
+      console.log(this.token);
+      
+      this.getProfile();
     });
   }
 
