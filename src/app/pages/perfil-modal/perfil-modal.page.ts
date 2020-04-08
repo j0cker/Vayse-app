@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { DataService } from '../../services/data.service';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-modal',
@@ -16,15 +17,17 @@ export class PerfilModalPage implements OnInit {
 
   id_usuario: any;
 
-  constructor( private modalCtrl: ModalController, private storage: Storage, private dataService: DataService, private toastController: ToastController ) { }
+  constructor( 
+    private modalCtrl: ModalController,
+    private storage: Storage,
+    private dataService: DataService,
+    private toastController: ToastController,
+    private route: Router
+  ) { }
 
   ngOnInit() {
     this.getID();
     
-  }
-
-  cerrarModal() {
-    this.modalCtrl.dismiss();
   }
   
   editPerfil(nombre, correo, celular) {
@@ -44,6 +47,15 @@ export class PerfilModalPage implements OnInit {
     } else {
       this.mail();
     }
+  }
+
+  changePas() {
+    this.route.navigate(['/recover-password',  this.celular])
+    this.cerrarModal();
+  }
+  
+  cerrarModal() {
+    this.modalCtrl.dismiss();
   }
 
   getID(){

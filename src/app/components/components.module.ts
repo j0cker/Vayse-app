@@ -8,7 +8,6 @@ import { HeaderComponent } from './header/header.component';
 import { HeaderBackComponent } from './header-back/header-back.component';
 import { HeaderBackeditComponent } from './header-backedit/header-backedit.component';
 import { PopinsigniaComponent } from './popinsignia/popinsignia.component';
-import { PopopinionComponent } from './popopinion/popopinion.component';
 import { IonicRatingModule } from 'ionic4-rating';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { IonicRatingModule } from 'ionic4-rating';
     HeaderBackComponent,
     HeaderBackeditComponent,
     PopinsigniaComponent,
-    PopopinionComponent
   ],
   exports: [
     MenuComponent,
@@ -26,7 +24,6 @@ import { IonicRatingModule } from 'ionic4-rating';
     HeaderBackComponent,
     HeaderBackeditComponent,
     PopinsigniaComponent,
-    PopopinionComponent
   ],
   imports: [
     CommonModule,

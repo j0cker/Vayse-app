@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { RecoverPasswordPageRoutingModule } from './recover-password-routing.module';
 
 import { RecoverPasswordPage } from './recover-password.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RecoverPasswordPageRoutingModule
+    RecoverPasswordPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [RecoverPasswordPage]
 })

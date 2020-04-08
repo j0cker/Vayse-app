@@ -8,18 +8,20 @@ import { OpinionesPageRoutingModule } from './opiniones-routing.module';
 
 import { OpinionesPage } from './opiniones.page';
 import { ComponentsModule } from '../../components/components.module';
-import { PopopinionComponent } from '../../components/popopinion/popopinion.component';
+import { ModalopinionPage } from '../modalopinion/modalopinion.page';
+import { ModalopinionPageModule } from '../modalopinion/modalopinion.module';
 
 @NgModule({
   entryComponents: [
-    PopopinionComponent
+    ModalopinionPage
   ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     OpinionesPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    ModalopinionPageModule
   ],
   declarations: [OpinionesPage],
   schemas: [

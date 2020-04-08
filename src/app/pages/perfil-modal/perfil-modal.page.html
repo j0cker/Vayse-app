@@ -16,6 +16,7 @@
     </ion-card-header>
 
     <ion-card-content>
+
       <ion-item>
         <ion-label position="stacked" >
           Nombre:
@@ -34,6 +35,14 @@
         </ion-label>
         <ion-input [(ngModel)]="celular" clearInput></ion-input>
       </ion-item>
+
+      <ion-item color="transparent">
+        <ion-label>Cambiar Contraseña</ion-label>
+        <ion-button (click)="changePas()" expand="block" fill="solid" shape="round">
+          Cambiar
+        </ion-button>
+      </ion-item>
+
     </ion-card-content>
 
   </ion-card>

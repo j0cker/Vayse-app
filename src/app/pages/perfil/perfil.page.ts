@@ -76,7 +76,8 @@ export class PerfilPage implements OnInit {
       componentProps: {
         nombre: this.dataPerfil.nombre_usuario,
         correo: this.dataPerfil.email_usuario,
-        celular: this.dataPerfil.celular_usuario,        
+        celular: this.dataPerfil.celular_usuario,
+        password: this.dataPerfil.password,
       }
     });
     await modal.present();

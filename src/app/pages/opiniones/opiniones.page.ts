@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { ToastController, PopoverController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ToastController, ModalController  } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { PopopinionComponent } from '../../components/popopinion/popopinion.component';
+import { ModalopinionPage } from '../modalopinion/modalopinion.page';
 
 @Component({
   selector: 'app-opiniones',
@@ -12,14 +11,14 @@ import { PopopinionComponent } from '../../components/popopinion/popopinion.comp
 })
 export class OpinionesPage implements OnInit {
 
-  id_negocio: any = 42;
+  id_negocio: any;
   infoOpiniones: any = [];
   
   constructor(
     private dataService: DataService,
     private toastController: ToastController,
     private storage: Storage,
-    private popoverCtrl: PopoverController
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -48,14 +47,15 @@ export class OpinionesPage implements OnInit {
     });
   }
 
-  async popoverOpinion() {
+  async modalOpinion() {
     
-    const popover = await this.popoverCtrl.create({
-      component: PopopinionComponent,
-      backdropDismiss: false,
+    const modal = await this.modalCtrl.create({
+      component: ModalopinionPage,
+      componentProps: {
+        idNegocio: this.id_negocio
+      }
     });
-    await popover.present();
-
+    await modal.present();
   }
 
   doRefresh(event) {
