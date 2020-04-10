@@ -28,7 +28,7 @@ export class MapSubcategoriaPage implements OnInit {
   longitud: any;
   id_subcategoria: any;
 
-  marker: any;
+  marker: Marker;
 
   negocios: any = [];
   id_negocio: any;
@@ -75,7 +75,6 @@ export class MapSubcategoriaPage implements OnInit {
     this.isRunning = true;
 
     this.map.clear();
-
     
     // Get the location of you
     
@@ -94,17 +93,19 @@ export class MapSubcategoriaPage implements OnInit {
       this.marker = this.map.addMarkerSync({
         // title: JSON.stringify(location.latLng),
         position: location.latLng,
-        animation: GoogleMapsAnimation.BOUNCE
+        animation: GoogleMapsAnimation.BOUNCE,
+        'title': 'Hola!',
+        'snippet': 'Tu estas Aquí'
       });
       // show the infoWindow
-      this.marker.showInfoWindow();
+      //this.marker.showInfoWindow();
       // If clicked it, display the alert
       this.marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
         this.showToast('clicked!');
       });
       //alert("entro 2");
       //this.loading.dismiss();
-      
+      this.marker.showInfoWindow();
 
     })
     .catch(err => {
@@ -117,14 +118,15 @@ export class MapSubcategoriaPage implements OnInit {
     
     this.getNegocio();
 
+    console.log(document.getElementById('map_canvas2'));
+
     this.isRunning = false;
   }
 
   // obtiene el negocio
   getNegocio() {
 
-    this.dataService.getNegocios(this.latitud, this.longitud, this.id_subcategoria.id_subcategoria)
-    .subscribe( (data: any) => {
+    this.dataService.getNegocios(this.latitud, this.longitud, this.id_subcategoria.id_subcategoria).subscribe( (data: any) => {
 
       this.negocios = data.negocios;
       console.log('Data: ', data);
@@ -135,9 +137,6 @@ export class MapSubcategoriaPage implements OnInit {
         this.routers.navigate(['/dashboard'])
       }
       */
-
-      //this.map.clear();
-
       let start = Date.now();
 
       console.log('Aquí está el start = ', start);
@@ -145,102 +144,60 @@ export class MapSubcategoriaPage implements OnInit {
       console.log("negocios: ");
       console.log(this.negocios);
       
-      if(this.negocios === undefined) {
+      if (this.negocios === undefined) {
+
         this.mal('No hay negocios cerca de tu ubicación')
         this.routers.navigate(['/dashboard'])
+
       }
       
-      if(this.negocios.length>0){
+      if (this.negocios.length>0) { 
 
         for ( var index2 = 0 ; index2 < this.negocios.length; index2++ ) {
 
           console.log("Indice: " + index2);
-    
           console.log(this.negocios[index2]);
           console.log(this.negocios[index2].latitud);
           console.log(this.negocios[index2].longitud);
-          
             
-              //hay veces que no pasa de aquí
-              this.marker = this.map.addMarkerSync({
-                'position': {
-                  lat: parseFloat(this.negocios[index2].latitud),
-                  lng: parseFloat(this.negocios[index2].longitud)
-                },
-                'title': this.negocios[index2].nombre_negocio,
-                'index': index2,
-                //label: 'Estas aquí', //aparentemente no sirve
-                animation: GoogleMapsAnimation.DROP
-              });
-              //AQUI YA NO LLEGABA
-              // marker.showInfoWindow();
-              this.marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe( (data: any) => {
-                console.log('data.', data);
-                console.log('data.', data[1].get('index'));
-                
-                console.log('Nuevo entro ', this.negocios[data[1].get('index')].id_negocio);
-                this.ngZone.run( () => this.routers.navigate( ['/tabs-nav', this.negocios[data[1].get('index')].id_negocio ] )).then();
-                
-              });
+          //hay veces que no pasa de aquí
+          this.marker = this.map.addMarkerSync({
 
+            'position': {
+              lat: parseFloat(this.negocios[index2].latitud),
+              lng: parseFloat(this.negocios[index2].longitud)
 
+            },
+
+            'title': this.negocios[index2].nombre_negocio,
+            'snippet': 'promociones activas ' + index2,
+            'icon': {
+              url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+            },
+            'index': index2,
+            //label: 'Estas aquí', //aparentemente no sirve
+            animation: GoogleMapsAnimation.DROP
+
+          });
+          //AQUI YA NO LLEGABA
+          this.marker.setTitle('promociones activas ' + index2);
+          
+          this.marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe( (data: any) => {
+
+            console.log('data.', data);
+            console.log('data.', data[1].get('index'));            
+            console.log('Nuevo entro ', this.negocios[data[1].get('index')].id_negocio);
+            this.ngZone.run( () => this.routers.navigate( ['/tabs-nav', this.negocios[data[1].get('index')].id_negocio ] )).then();
+            
+          });
         }
-
       }
-
-      /*
-      this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-
-          // Geocode multiple location
-          Geocoder.geocode({
-            // Longitud y Latitud en la base de datos de Negocios
-            //"position" : negocios_parse_geolocation
-            "position" : this.negocios_hardcore
-          }).then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {     
-            mvcArray.on('insert_at').subscribe((params: any[]) => {
-              console.log('params: ', params);
-              //AQUI LUEGO IMPRIMIA ALERT 3
-              const index: number = params[0];
-
-              console.log("index: " + index);
-              
-              //aqui alert 5
-              const result: GeocoderResult = mvcArray.getAt(index);
-              //hay veces que no pasa de aquí
-              this.marker = this.map.addMarkerSync({
-                'position': result[0].position,
-                'title': this.negocios[index].nombre_negocio,
-                'index': index,
-                //label: 'Estas aquí', //aparentemente no sirve
-                animation: GoogleMapsAnimation.DROP
-              });
-              //AQUI YA NO LLEGABA
-              // marker.showInfoWindow();
-              this.marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe( (data: any) => {
-                console.log('data.', data);
-                console.log('data.', data[1].get('index'));
-                
-                console.log('Nuevo entro ', this.negocios[data[1].get('index')].id_negocio);
-                this.ngZone.run( () => this.routers.navigate( ['/tabs-nav', this.negocios[data[1].get('index')].id_negocio ] )).then();
-                
-              });
-
-              console.log('variable result [0] position: ', result[0].position );
-            });
-            mvcArray.one('finish').then(() => {
-              //this.loading.dismiss();
-              let end = Date.now();
-              //alert("duration: " + ((end - start) / 1000).toFixed(1) + " seconds");
-            });
-          }).catch(
-            console.error
-          );
-          */
-
         } ), (error) => {
+
           console.log('El error es: ', error);
           // this.userData = 'Este es el error: ' + error.toString();
           this.mal(error);
+          
       };
       
 

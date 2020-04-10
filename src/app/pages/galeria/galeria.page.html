@@ -13,7 +13,7 @@
   <ion-slides pager="true">
     <ion-slide *ngFor="let galeria of infoGaleria">
       <ion-card mode="ios">
-        <img [src]="galeria.imagen"/>
+        <img [src]="galeria.imagen" onerror="this.src='https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'"/>
       </ion-card>
     </ion-slide>
   </ion-slides>
