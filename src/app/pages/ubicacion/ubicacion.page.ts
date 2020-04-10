@@ -5,6 +5,7 @@ import {
   GoogleMap,
   GoogleMaps,
   GoogleMapsEvent,
+  GoogleMapOptions,
   Geocoder,
   GeocoderResult,
   GoogleMapsAnimation,
@@ -33,9 +34,68 @@ export class UbicacionPage implements OnInit {
 
   async ngOnInit() {
     await this.platform.ready();
-    await this.loadMap();
+    this.loadMap();
   }
 
+  loadMap() {
+
+    // This code is necessary for browser
+    Environment.setEnv({
+      'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBG2qkcfyKgIBzOoSnoLhBl_3CHJkS_2js',
+      'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyBG2qkcfyKgIBzOoSnoLhBl_3CHJkS_2js'
+    });
+    this.map = GoogleMaps.create('map_canvas');
+    this.onButtonClick();
+  }
+
+  onButtonClick() {
+    this.map.clear();
+    // Get the location of you
+    this.map.getMyLocation()
+      .then((location: MyLocation) => {
+        console.log(JSON.stringify(location, null ,2));
+
+        // Move the map camera to the location with animation
+        this.map.animateCamera({
+          target: location.latLng,
+          zoom: 17,
+          tilt: 30,
+          bearing: 140,
+          duration: 5000
+        })
+        .then(() => {
+          // add a marker
+          let marker: Marker = this.map.addMarkerSync({
+            // title: '@ionic-native/google-maps plugin!',
+            // snippet: 'This plugin is awesome!',
+            position: location.latLng,
+            animation: GoogleMapsAnimation.BOUNCE
+          });
+
+          // show the infoWindow
+          marker.showInfoWindow();
+
+          // If clicked it, display the alert
+          marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+            this.showToast('Aquí estás tu');
+          });
+        });
+      });
+  }
+
+  async showToast(message: string) {
+    let toast = await this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      color: 'dark',
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+    
+
+  /*
   loadMap() {
     Environment.setEnv({
       'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyBG2qkcfyKgIBzOoSnoLhBl_3CHJkS_2js',
@@ -61,7 +121,9 @@ export class UbicacionPage implements OnInit {
       this.map.animateCamera({
         target: location.latLng,
         zoom: 17,
-        tilt: 30
+        tilt: 30,
+        bearing: 140,
+        duration: 5000
       });
       // add a marker
       let marker: Marker = this.map.addMarkerSync({
@@ -93,7 +155,6 @@ export class UbicacionPage implements OnInit {
     });
     toast.present();
   }
-
-
+  */
 
 }

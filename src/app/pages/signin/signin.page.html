@@ -15,15 +15,15 @@
   <div class="ion-padding" style="background: white; height: 45%">
     <ion-item>
       <ion-label position="stacked" color="dark">Correo</ion-label>
-      <ion-input type="text" [(ngModel)]="correo"></ion-input>
+      <ion-input type="text" [(ngModel)]="correo" required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked" color="dark">Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="password1"></ion-input>
+      <ion-input type="password" [(ngModel)]="password1" required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked" color="dark">Confirmar contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="password2"></ion-input>
+      <ion-input type="password" [(ngModel)]="password2" required></ion-input>
     </ion-item>
     <ion-button (click)="signin(correo, password1, password2)" color="secondary" expand="block" size="default" style="margin-top: 30px; ">
       Siguiente

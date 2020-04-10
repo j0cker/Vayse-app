@@ -83,11 +83,7 @@ const routes: Routes = [
   {
     path: 'contacto',
     loadChildren: () => import('./pages/contacto/contacto.module').then( m => m.ContactoPageModule)
-  },  {
-    path: 'modalopinion',
-    loadChildren: () => import('./pages/modalopinion/modalopinion.module').then( m => m.ModalopinionPageModule)
   },
-
 ];
 
 @NgModule({

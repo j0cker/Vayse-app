@@ -22,15 +22,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class MapSubcategoriaPage implements OnInit {
   map: GoogleMap;
-  loading: any;
+  //loading: any;
 
   latitud: any;
   longitud: any;
   id_subcategoria: any;
 
+  marker: any;
+
   negocios: any = [];
   id_negocio: any;
 
+  isRunning: boolean = false;
   user: any;
 
   constructor(
@@ -50,9 +53,9 @@ export class MapSubcategoriaPage implements OnInit {
       });
    }
 
-  async ngOnInit() {
-    await this.platform.ready();
-    await this.loadMap();
+  ngOnInit() {
+    this.platform.ready();
+    this.loadMap();
   }
   
   loadMap() {
@@ -64,138 +67,183 @@ export class MapSubcategoriaPage implements OnInit {
     this.onButtonClick();
   }
 
-  //tu ubicacion
-  async onButtonClick() {
+  onButtonClick() {
+
+    if (this.isRunning) {
+      return;
+    }
+    this.isRunning = true;
+
     this.map.clear();
-    this.loading = await this.loadingCtrl.create({
-      message: 'Rastreando tu ubicación...'
-    });
-    await this.loading.present();
+
+    
     // Get the location of you
+    
     this.map.getMyLocation().then((location: MyLocation) => {
-      this.loading.dismiss();
-      console.log('el json stringify that location',JSON.stringify(location, null ,2));
-      this.latitud = location.latLng.lat;
-      this.longitud = location.latLng.lng;
+      //alert("entro 1");
+      console.log(JSON.stringify(location, null ,2));
       // Move the map camera to the location with animation
       this.map.animateCamera({
         target: location.latLng,
         zoom: 17,
-        tilt: 30
+        tilt: 30,
+        bearing: 140,
+        duration: 5000
       });
       // add a marker
-      let marker: Marker = this.map.addMarkerSync({
+      this.marker = this.map.addMarkerSync({
         // title: JSON.stringify(location.latLng),
         position: location.latLng,
-        title: 'Estas aquí',
-        //label: 'Estas aquí', //aparentemente no sirve
         animation: GoogleMapsAnimation.BOUNCE
       });
       // show the infoWindow
-      marker.showInfoWindow();
+      this.marker.showInfoWindow();
       // If clicked it, display the alert
-      marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-        this.showToast('Your location is here (Tu ubicación)');
+      this.marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+        this.showToast('clicked!');
       });
-      this.getNegocio();
+      //alert("entro 2");
+      //this.loading.dismiss();
+      
+
     })
     .catch(err => {
-      // this.loading.dismiss();
+      
+      //alert("entro 3");
       this.showToast(err.error_message);
+      //this.loading.dismiss();
     });
+  
+    
+    this.getNegocio();
+
+    this.isRunning = false;
   }
 
   // obtiene el negocio
   getNegocio() {
+
     this.dataService.getNegocios(this.latitud, this.longitud, this.id_subcategoria.id_subcategoria)
     .subscribe( (data: any) => {
+
       this.negocios = data.negocios;
       console.log('Data: ', data);
       console.log('Negocios: ', this.negocios);
+      /*
+      if(data.response === false) {
+        this.mal('No hay negocios cerca de tu ubicación')
+        this.routers.navigate(['/dashboard'])
+      }
+      */
 
-      this.onButton_click(event);
+      //this.map.clear();
+
+      let start = Date.now();
+
+      console.log('Aquí está el start = ', start);
+
+      console.log("negocios: ");
+      console.log(this.negocios);
       
-    }, ( error ) => {
-      console.log('El error es: ', error);
-      // this.userData = 'Este es el error: ' + error.toString();
-      this.mal(error);
-    });
-  }
+      if(this.negocios === undefined) {
+        this.mal('No hay negocios cerca de tu ubicación')
+        this.routers.navigate(['/dashboard'])
+      }
+      
+      if(this.negocios.length>0){
 
-  // batch-geocoding marca los negocios
+        for ( var index2 = 0 ; index2 < this.negocios.length; index2++ ) {
 
-  async onButton_click(event) {
-    this.map.clear();
-    this.loading = await this.loadingCtrl.create({
-      message: 'Please wait...'
-    });
-    // await this.loading.present();
-    let start = Date.now();
-    console.log('Aquí está el start = ', start);
+          console.log("Indice: " + index2);
+    
+          console.log(this.negocios[index2]);
+          console.log(this.negocios[index2].latitud);
+          console.log(this.negocios[index2].longitud);
+          
+            
+              //hay veces que no pasa de aquí
+              this.marker = this.map.addMarkerSync({
+                'position': {
+                  lat: parseFloat(this.negocios[index2].latitud),
+                  lng: parseFloat(this.negocios[index2].longitud)
+                },
+                'title': this.negocios[index2].nombre_negocio,
+                'index': index2,
+                //label: 'Estas aquí', //aparentemente no sirve
+                animation: GoogleMapsAnimation.DROP
+              });
+              //AQUI YA NO LLEGABA
+              // marker.showInfoWindow();
+              this.marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe( (data: any) => {
+                console.log('data.', data);
+                console.log('data.', data[1].get('index'));
+                
+                console.log('Nuevo entro ', this.negocios[data[1].get('index')].id_negocio);
+                this.ngZone.run( () => this.routers.navigate( ['/tabs-nav', this.negocios[data[1].get('index')].id_negocio ] )).then();
+                
+              });
 
-    var negocios_parse_geolocation = new Array();
 
-    console.log("negocios: ");
-    console.log(this.negocios);
+        }
 
-    if(this.negocios.length>0){
-
-      for ( var index2 = 0 ; index2 < this.negocios.length; index2++ ) {
-
-        console.log("Indice: " + index2);
-  
-        console.log(this.negocios[index2]);
-        console.log(this.negocios[index2].latitud);
-  
-        negocios_parse_geolocation[index2] =  new Array();
-        negocios_parse_geolocation[index2].lat = parseFloat(this.negocios[index2].latitud);
-        negocios_parse_geolocation[index2].lng = parseFloat(this.negocios[index2].longitud);
-  
       }
 
-    }
+      /*
+      this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
 
-    console.log("negocios_parse_geolocation:");
-    console.log(negocios_parse_geolocation);
+          // Geocode multiple location
+          Geocoder.geocode({
+            // Longitud y Latitud en la base de datos de Negocios
+            //"position" : negocios_parse_geolocation
+            "position" : this.negocios_hardcore
+          }).then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {     
+            mvcArray.on('insert_at').subscribe((params: any[]) => {
+              console.log('params: ', params);
+              //AQUI LUEGO IMPRIMIA ALERT 3
+              const index: number = params[0];
 
-    // Geocode multiple location
-    Geocoder.geocode({
-      // Longitud y Latitud en la base de datos de Negocios
-      "position" : negocios_parse_geolocation
-    })
-    .then((mvcArray: BaseArrayClass<GeocoderResult[]>) => {     
-      mvcArray.on('insert_at').subscribe((params: any[]) => {
-        console.log('params: ', params);
-        
-        const index: number = params[0];
-        console.log("index: " + index);
-        const result: GeocoderResult = mvcArray.getAt(index);
-        let marker: Marker = this.map.addMarkerSync({
-          'position': result[0].position,
-          'title': this.negocios[index].nombre_negocio,
-          'index': index,
-          //label: 'Estas aquí', //aparentemente no sirve
-          animation: GoogleMapsAnimation.DROP
-        });
-        // marker.showInfoWindow();
-        marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe( (data: any) => {
-          console.log('data.', data);
-          console.log('data.', data[1].get('index'));
-          
-          console.log('Nuevo entro ', this.negocios[data[1].get('index')].id_negocio);
-          this.ngZone.run( () => this.routers.navigate( ['/tabs-nav', this.negocios[data[1].get('index')].id_negocio ] )).then();
-          
-          
-        });
+              console.log("index: " + index);
+              
+              //aqui alert 5
+              const result: GeocoderResult = mvcArray.getAt(index);
+              //hay veces que no pasa de aquí
+              this.marker = this.map.addMarkerSync({
+                'position': result[0].position,
+                'title': this.negocios[index].nombre_negocio,
+                'index': index,
+                //label: 'Estas aquí', //aparentemente no sirve
+                animation: GoogleMapsAnimation.DROP
+              });
+              //AQUI YA NO LLEGABA
+              // marker.showInfoWindow();
+              this.marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe( (data: any) => {
+                console.log('data.', data);
+                console.log('data.', data[1].get('index'));
+                
+                console.log('Nuevo entro ', this.negocios[data[1].get('index')].id_negocio);
+                this.ngZone.run( () => this.routers.navigate( ['/tabs-nav', this.negocios[data[1].get('index')].id_negocio ] )).then();
+                
+              });
 
-        console.log('variable result [0] position: ', result[0].position );
-      });
-      mvcArray.one('finish').then(() => {
-        this.loading.dismiss();
-        let end = Date.now();
-        alert("duration: " + ((end - start) / 1000).toFixed(1) + " seconds");
-      });
-    });
+              console.log('variable result [0] position: ', result[0].position );
+            });
+            mvcArray.one('finish').then(() => {
+              //this.loading.dismiss();
+              let end = Date.now();
+              //alert("duration: " + ((end - start) / 1000).toFixed(1) + " seconds");
+            });
+          }).catch(
+            console.error
+          );
+          */
+
+        } ), (error) => {
+          console.log('El error es: ', error);
+          // this.userData = 'Este es el error: ' + error.toString();
+          this.mal(error);
+      };
+      
+
   }
   
   async showToast(message: string) {
