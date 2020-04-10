@@ -13,6 +13,8 @@ export class InsigniasPage implements OnInit {
 
   id_negocio: any;
   infoValoraciones: any;
+  promGeneral: any;
+  generalProm: any;
 
   constructor(
     private dataService: DataService,
@@ -46,14 +48,23 @@ export class InsigniasPage implements OnInit {
     .subscribe( (data: any) => {
       if (data.success === 'true' || 'TRUE'){
         this.infoValoraciones = data.valoraciones;
+        this.generalProm = this.infoValoraciones.map( rate => {
+          let prom = {}
+          prom = rate.rating
+          
+          return prom
+        })
+        console.log(this.generalProm);
         console.log('info valoraciones: ', this.infoValoraciones);
+        console.log();
+        
         // this.bien();
       } else {
         // this.mal(data.message);
       }
     });
   }
-
+  
   async popoverValoracion( ) {
 
     const popover = await this.popoverCtrl.create({
