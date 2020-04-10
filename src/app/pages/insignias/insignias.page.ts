@@ -49,12 +49,17 @@ export class InsigniasPage implements OnInit {
       if (data.success === 'true' || 'TRUE'){
         this.infoValoraciones = data.valoraciones;
         this.generalProm = this.infoValoraciones.map( rate => {
-          let prom = {}
+          let prom = []
           prom = rate.rating
-          
           return prom
         })
         console.log(this.generalProm);
+        this.generalProm.forEach( function(cValue, index) {
+          
+          console.log(cValue);
+          console.log(index);
+          
+        });
         console.log('info valoraciones: ', this.infoValoraciones);
         console.log();
         
