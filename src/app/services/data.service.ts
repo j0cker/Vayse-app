@@ -16,7 +16,8 @@ export class DataService {
   // api = 'http://vayse.mx/dashboard/webservices/';
   // api1 = 'http://api.vayse.mx/api/';
   //api = 'http://localhost/vayse-web/dashboard/webservices/';
-  api = 'http://192.168.0.105/vayse-web/dashboard/webservices/';
+  // api = 'http://192.168.0.105/vayse-web/dashboard/webservices/'; // en la oficina
+  api = 'http://192.168.1.74/vayse-web/dashboard/webservices/'; // en la lap ethernet'http://192.168.1.70/vayse-web/dashboard/webservices/'
   api1 = 'http://localhost:8000/api/';
 
   guardados: Registro[] = [];
@@ -290,7 +291,7 @@ export class DataService {
     id_user: string,
     opinion: string
   ) {
-    console.log('Opinion: ');
+    console.log('Opinion: ', opinion);
     return this.http.get(
       this.api + 'DEV/ws.php?action=agregar_opinion&token=5Nc7C5Mz@Mu&id_negocio='+ id_negocio +'&id_usuario='+ id_user +'&opinion='+ opinion
     ).pipe(
@@ -300,5 +301,15 @@ export class DataService {
     );
   }
 
+  pushPhotoPerfil(id_user, foto_perfil) {
+    console.log('Foto: ', foto_perfil);
+    return this.http.get(
+      this.api + 'DEV/ws.php?action=update-data-perfil&token=5Nc7C5Mz@Mu&id_usuario='+ id_user +'&foto_perfil=' + foto_perfil
+    ).pipe(
+      tap( data => {
+        console.log(data);
+      })
+    );
+  }
 
 }

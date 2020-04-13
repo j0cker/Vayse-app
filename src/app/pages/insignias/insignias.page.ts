@@ -13,8 +13,11 @@ export class InsigniasPage implements OnInit {
 
   id_negocio: any;
   infoValoraciones: any;
+
+  rates: any;
+  suma: number;
   promGeneral: any;
-  generalProm: any;
+  dosDecimales: any;
 
   constructor(
     private dataService: DataService,
@@ -48,18 +51,22 @@ export class InsigniasPage implements OnInit {
     .subscribe( (data: any) => {
       if (data.success === 'true' || 'TRUE'){
         this.infoValoraciones = data.valoraciones;
-        this.generalProm = this.infoValoraciones.map( rate => {
-          let prom = []
-          prom = rate.rating
-          return prom
+        this.rates = this.infoValoraciones.map( rate => {
+          let arrRating = []
+          arrRating = rate.rating
+          return arrRating
         })
-        console.log(this.generalProm);
-        this.generalProm.forEach( function(cValue, index) {
-          
-          console.log(cValue);
-          console.log(index);
-          
-        });
+        console.log(this.rates);
+        this.suma = this.rates.reduce( (total, cValue, cIndex, arr) => {
+          let int = parseInt(cValue)
+          console.log('total: ', total, 'int: ', int);
+          return total + int
+        }, 0)
+        console.log('suma: ', this.suma);
+        this.promGeneral = this.suma / this.rates.length
+        this.dosDecimales = this.promGeneral.toFixed(1)
+        console.log('promGeneral: ', this.promGeneral);
+        console.log('dosDecimales: ', this.dosDecimales);
         console.log('info valoraciones: ', this.infoValoraciones);
         console.log();
         

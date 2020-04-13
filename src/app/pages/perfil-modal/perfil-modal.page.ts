@@ -10,12 +10,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./perfil-modal.page.scss'],
 })
 export class PerfilModalPage implements OnInit {
-
+  
+  id_usuario: any;
   @Input() nombre: any;
   @Input() correo: any;
   @Input() celular: any;
+  // photoPerfil: any;
 
-  id_usuario: any;
 
   constructor( 
     private modalCtrl: ModalController,
@@ -33,7 +34,7 @@ export class PerfilModalPage implements OnInit {
   editPerfil(nombre, correo, celular) {
     const esMail = this.isEmail(correo);
     if(esMail === true) { 
-      this.dataService.updatePerfil(this.id_usuario, this.nombre, this.correo, this.celular)
+      this.dataService.updatePerfil(this.id_usuario, nombre, correo, celular)
       .subscribe( (data: any) => {
         if (data.success == 'TRUE') {
           this.bien();
@@ -53,7 +54,13 @@ export class PerfilModalPage implements OnInit {
     this.route.navigate(['/recover-password',  this.celular])
     this.cerrarModal();
   }
-  
+  /*
+  getPhotoGaleria(photoPerfil) {
+    console.log(photoPerfil);
+    
+    this.cerrarModal();
+  }
+  */
   cerrarModal() {
     this.modalCtrl.dismiss();
   }

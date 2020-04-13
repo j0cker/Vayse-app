@@ -8,8 +8,12 @@ import { HistoricoSaldoPageRoutingModule } from './historico-saldo-routing.modul
 
 import { HistoricoSaldoPage } from './historico-saldo.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { PopdetailsaldoComponent } from 'src/app/components/popdetailsaldo/popdetailsaldo.component';
 
 @NgModule({
+  entryComponents: [
+    PopdetailsaldoComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
