@@ -34,9 +34,11 @@
         "cordova-android": "^8.1.0",
         "cordova-browser": "6.0.0",
         "cordova-ios": "^5.1.1",
+        "cordova-plugin-add-swift-support": "^2.0.2",
         "cordova-plugin-dialogs": "^2.0.2",
         "cordova-plugin-geolocation": "^4.0.2",
         "cordova-plugin-googlemaps": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps",
+        "cordova-plugin-googlemaps-sdk": "git+https://github.com/mapsplugin/cordova-plugin-googlemaps-sdk.git",
         "cordova-plugin-nativegeocoder": "^3.2.2",
         "cordova-plugin-network-information": "^2.0.2",
         "cordova-sqlite-storage": "^4.0.0",
@@ -98,8 +100,13 @@
             },
             "cordova-plugin-ios-permissions": {},
             "cordova-sqlite-storage": {},
-            "cordova-plugin-googlemaps": {},
-            "cordova-plugin-nativegeocoder": {},
+            "cordova-plugin-googlemaps": {
+                "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
+                "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
+            },
+            "cordova-plugin-nativegeocoder": {
+                "LOCATION_WHEN_IN_USE_DESCRIPTION": "Use geocoder service"
+            },
             "cordova-plugin-geolocation": {}
         },
         "platforms": [
