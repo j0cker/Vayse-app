@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { PopoverController } from '@ionic/angular';
-import { PopdetailsaldoComponent } from 'src/app/components/popdetailsaldo/popdetailsaldo.component';
+import { ModalController } from '@ionic/angular';
+import { HistoricoSaldoModalPage } from '../historico-saldo-modal/historico-saldo-modal.page';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-historico-saldo',
@@ -10,24 +11,60 @@ import { PopdetailsaldoComponent } from 'src/app/components/popdetailsaldo/popde
 })
 export class HistoricoSaldoPage implements OnInit {
 
+  id_user: any;
+  historicoVentas = [];
+
+  idVenta: any;
+  total: any;
+  fechaVenta: any;
+  horaVenta: any;
+  idMetodoPaog: any;
+  saldoVayseUsado: any;
+  saldoVayseGanado: any;
+  idStatusVenta: any;
+
+
+
   constructor(
     public dataService: DataService,
-    private popoverCtrl: PopoverController
+    private modalCtrl: ModalController,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
+    this.getID();
   }
 
-  async popoverRegistro(registro: any = []) {
-    const popover = await this.popoverCtrl.create({
-      component: PopdetailsaldoComponent,
-      componentProps: {
-        detalles: registro
+  getID() {
+    // Or to get a key/value pair
+    this.storage.get('id_usuario').then((val) => {
+      console.log('ID Usuario: ', val);
+      this.id_user = val;
+      this.getHistorico();
+    });
+  }
+
+  getHistorico() {
+    this.dataService.getHistoricoVenta( this.id_user )
+    .subscribe( (data: any) => {
+      if (data.success === 'true' || 'TRUE') {
+        this.historicoVentas = data.historico
+        console.log('historico: ', this.historicoVentas);
+      } else {
+        console.log('error');
       }
     });
-    console.log(registro);
-    
-    await popover.present();
+  }
+
+  async modalRegistro(indexArr) {
+    console.log('index arr: ', indexArr);
+    const modal = await this.modalCtrl.create({
+      component: HistoricoSaldoModalPage,
+      componentProps: {
+        elemento: this.historicoVentas[indexArr]
+      }
+    });
+    await modal.present();
   }
 
 }

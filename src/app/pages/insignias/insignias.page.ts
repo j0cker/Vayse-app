@@ -17,7 +17,7 @@ export class InsigniasPage implements OnInit {
   rates: any;
   suma: number;
   promGeneral: any;
-  dosDecimales: any;
+  unDecimal: any;
 
   constructor(
     private dataService: DataService,
@@ -64,9 +64,9 @@ export class InsigniasPage implements OnInit {
         }, 0)
         console.log('suma: ', this.suma);
         this.promGeneral = this.suma / this.rates.length
-        this.dosDecimales = this.promGeneral.toFixed(1)
+        this.unDecimal = this.promGeneral.toFixed(1)
         console.log('promGeneral: ', this.promGeneral);
-        console.log('dosDecimales: ', this.dosDecimales);
+        console.log('unDecimal: ', this.unDecimal);
         console.log('info valoraciones: ', this.infoValoraciones);
         console.log();
         

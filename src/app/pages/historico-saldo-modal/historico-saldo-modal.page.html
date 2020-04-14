@@ -1,0 +1,65 @@
+<app-back-modal>
+
+</app-back-modal>
+
+<ion-content class="ion-padding">
+
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <ion-text class="ion-text-center" color="primary">
+          <h3>
+            Detalles
+          </h3>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    
+    <ion-item *ngFor="let e of arrElement">
+
+      <ion-row>
+        <ion-col>
+          <ion-text color="primary">
+            {{e.id_venta}}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-text color="primary">
+            {{e.total}}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-text color="primary">
+            {{e.fecha_venta}}
+          </ion-text>          
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-text color="primary">
+            {{e.hora_venta}}
+          </ion-text>          
+        </ion-col>
+      </ion-row>
+
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="cerrar()" color="secondary" expand="block" fill="solid" shape="round">
+          Regresar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  
+  </ion-grid>
+
+</ion-content>

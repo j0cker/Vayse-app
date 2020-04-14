@@ -9,7 +9,7 @@ import { HeaderBackComponent } from './header-back/header-back.component';
 import { HeaderBackeditComponent } from './header-backedit/header-backedit.component';
 import { PopinsigniaComponent } from './popinsignia/popinsignia.component';
 import { IonicRatingModule } from 'ionic4-rating';
-import { PopdetailsaldoComponent } from './popdetailsaldo/popdetailsaldo.component';
+import { BackModalComponent } from './back-modal/back-modal.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { PopdetailsaldoComponent } from './popdetailsaldo/popdetailsaldo.compone
     HeaderBackComponent,
     HeaderBackeditComponent,
     PopinsigniaComponent,
-    PopdetailsaldoComponent
+    BackModalComponent
   ],
   exports: [
     MenuComponent,
@@ -26,7 +26,7 @@ import { PopdetailsaldoComponent } from './popdetailsaldo/popdetailsaldo.compone
     HeaderBackComponent,
     HeaderBackeditComponent,
     PopinsigniaComponent,
-    PopdetailsaldoComponent
+    BackModalComponent
   ],
   imports: [
     CommonModule,
