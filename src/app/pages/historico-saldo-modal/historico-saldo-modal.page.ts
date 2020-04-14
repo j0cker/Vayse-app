@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-historico-saldo-modal',
@@ -11,18 +12,65 @@ export class HistoricoSaldoModalPage implements OnInit {
   elemento = {} ;
   arrElement = [];
 
+  idMetodoPago: string;
+  idStatusPago: string;
+  idStatusVenta: string;
+  idNegocio: number;
+  nombreNegocio: string;
+
   constructor(
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private dataService: DataService
   ) { }
 
   ngOnInit() {
-    console.log('elemento: ', this.elemento);
-    this.arrElement = Object.entries(this.elemento).map( (property) => {
-      return this.elemento
-    })
-    console.log(this.arrElement);
-    
+    console.log('object: ', this.elemento);
+    this.arrElement.push(this.elemento)
+    console.log('array: ', this.arrElement);
 
+    if( parseInt(this.arrElement[0].id_metodo_pago) === 1 ) {
+      this.idMetodoPago = 'Pago con Puntos Vayse';
+      console.log('Pago con puntos');
+    } else {
+      this.idMetodoPago = 'Pago con Efectivo';
+      console.log('Pago Normal');
+    }
+
+    if( parseInt(this.arrElement[0].id_status_pago) === 2 ) {
+      this.idStatusPago = 'Estado es 2';
+      console.log('Estado es 2');
+    } else {
+      this.idStatusPago = 'Estado no sé';
+      console.log('Estado es ');
+    }
+
+    if( parseInt(this.arrElement[0].id_status_venta) === 2 ) {
+      this.idStatusVenta = 'Estado es 2';
+      console.log('Estado es 2');
+    } else {
+      this.idStatusVenta = 'Estado no sé';
+      console.log('Estado es ');
+    }
+
+    this.negocio()
+  }
+
+  negocio() {
+    this.idNegocio = this.arrElement[0].id_negocio
+    this.getInfoNegocios();
+  }
+
+  getInfoNegocios() {
+    this.dataService.getInfoNegocios( this.idNegocio )
+    .subscribe( (data: any) => {
+      if(data.success === 'true' || 'TRUE') {
+        this.nombreNegocio = data.negocios[0].nombre_negocio;
+        console.log('info negocios: ', this.nombreNegocio);
+        // this.bien()
+      } else {
+        // this.mal(data.message)
+      }
+    });
   }
 
   cerrar() {
