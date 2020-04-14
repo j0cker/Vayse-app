@@ -8,14 +8,20 @@ import { HistoricoSaldoPageRoutingModule } from './historico-saldo-routing.modul
 
 import { HistoricoSaldoPage } from './historico-saldo.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { HistoricoSaldoModalPage } from '../historico-saldo-modal/historico-saldo-modal.page';
+import { HistoricoSaldoModalPageModule } from '../historico-saldo-modal/historico-saldo-modal.module';
 
 @NgModule({
+  entryComponents: [
+    HistoricoSaldoModalPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     HistoricoSaldoPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    HistoricoSaldoModalPageModule
   ],
   declarations: [HistoricoSaldoPage],
   schemas: [

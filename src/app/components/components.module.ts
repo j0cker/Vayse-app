@@ -9,6 +9,7 @@ import { HeaderBackComponent } from './header-back/header-back.component';
 import { HeaderBackeditComponent } from './header-backedit/header-backedit.component';
 import { PopinsigniaComponent } from './popinsignia/popinsignia.component';
 import { IonicRatingModule } from 'ionic4-rating';
+import { BackModalComponent } from './back-modal/back-modal.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { IonicRatingModule } from 'ionic4-rating';
     HeaderBackComponent,
     HeaderBackeditComponent,
     PopinsigniaComponent,
+    BackModalComponent
   ],
   exports: [
     MenuComponent,
@@ -24,6 +26,7 @@ import { IonicRatingModule } from 'ionic4-rating';
     HeaderBackComponent,
     HeaderBackeditComponent,
     PopinsigniaComponent,
+    BackModalComponent
   ],
   imports: [
     CommonModule,

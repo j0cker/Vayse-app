@@ -14,6 +14,11 @@ export class InsigniasPage implements OnInit {
   id_negocio: any;
   infoValoraciones: any;
 
+  rates: any;
+  suma: number;
+  promGeneral: any;
+  unDecimal: any;
+
   constructor(
     private dataService: DataService,
     private toastController: ToastController,
@@ -46,14 +51,32 @@ export class InsigniasPage implements OnInit {
     .subscribe( (data: any) => {
       if (data.success === 'true' || 'TRUE'){
         this.infoValoraciones = data.valoraciones;
+        this.rates = this.infoValoraciones.map( rate => {
+          let arrRating = []
+          arrRating = rate.rating
+          return arrRating
+        })
+        console.log(this.rates);
+        this.suma = this.rates.reduce( (total, cValue, cIndex, arr) => {
+          let int = parseInt(cValue)
+          console.log('total: ', total, 'int: ', int);
+          return total + int
+        }, 0)
+        console.log('suma: ', this.suma);
+        this.promGeneral = this.suma / this.rates.length
+        this.unDecimal = this.promGeneral.toFixed(1)
+        console.log('promGeneral: ', this.promGeneral);
+        console.log('unDecimal: ', this.unDecimal);
         console.log('info valoraciones: ', this.infoValoraciones);
+        console.log();
+        
         // this.bien();
       } else {
         // this.mal(data.message);
       }
     });
   }
-
+  
   async popoverValoracion( ) {
 
     const popover = await this.popoverCtrl.create({

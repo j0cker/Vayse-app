@@ -22,7 +22,7 @@
   
   <ion-item color="transparent" *ngFor="let opiniones of infoOpiniones">
     <ion-avatar class="imgAvatar">
-      <img [src]="opiniones.foto_perfil">
+      <img [src]="opiniones.foto_perfil" onerror="this.src='https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg'">
     </ion-avatar>
     <ion-label>
       <ion-text color="dark">

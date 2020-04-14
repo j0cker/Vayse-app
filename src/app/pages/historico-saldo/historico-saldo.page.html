@@ -4,13 +4,19 @@
 
 <ion-content>
   
-  <ion-list>
+  <ion-list *ngFor="let venta of historicoVentas; let i = index">
 
-    <ion-item *ngFor="let registro of dataService.guardados" (click)="abrirRegistro(registro)" detail>
-      <ion-icon slot="start" [name]="registro.icon"></ion-icon>
+    <ion-item color="transparent" (click)="modalRegistro(i)" detail>
+      <ion-icon slot="start" name="clipboard"></ion-icon>
       <ion-label>
-        <h2>{{registro.text}}</h2>
-        <p>{{registro.created | date: 'medium'}}</p>
+        Fecha 
+        <ion-text color="primary">
+          {{venta.fecha_venta}}
+        </ion-text>
+        Hora 
+        <ion-text color="primary">
+          {{venta.hora_venta}} 
+        </ion-text>
       </ion-label>
     </ion-item>
 
