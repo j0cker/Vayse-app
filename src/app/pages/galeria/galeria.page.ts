@@ -39,13 +39,16 @@ export class GaleriaPage implements OnInit {
       if(data.success === 'true' || 'TRUE'){
         this.infoGaleria = data.galeria;
         console.log('info Galeria: ', this.infoGaleria);
-        this.bien()
+        // this.bien()
+        if(this.infoGaleria.length == 0 ) {
+          this.mal('No hay imagenes para mostrar');
+        }
       } else {
         this.mal(data.message)
       }
     });
   }
-
+  /*
   async bien() {
     const toast = await this.toastController.create({
       message: 'Ve nuestro negocio',
@@ -55,13 +58,13 @@ export class GaleriaPage implements OnInit {
     });
     toast.present();
   }
-
+  */
   async mal(msj: any) {
     const toast = await this.toastController.create({
       message: msj,
       duration: 4000,
       color: 'dark',
-      position: 'bottom'
+      position: 'middle'
     });
     toast.present();
   }

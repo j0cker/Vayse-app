@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-horarios',
@@ -15,7 +16,8 @@ export class HorariosPage implements OnInit {
   
   constructor(
     private dataService: DataService,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -34,12 +36,28 @@ export class HorariosPage implements OnInit {
   getInfoNegocios() {
     this.dataService.getInfoNegocios( this.id_negocio )
     .subscribe( (data: any) => {
-      this.infoServicio = data.horarios;
-      console.log('info servicio: ', this.infoServicio);
-    }, ( error ) => {
-      console.log(error);
+      if(data.success === 'true' || 'TRUE') {
+        this.infoServicio = data.horarios;
+        console.log('info servicio: ', this.infoServicio);
+        if(this.infoServicio.length == 0 ) {
+          this.mal('No hay horarios para mostrar');
+        }
+      } else {
+        console.log('error');
+        this.mal(data.message);
+      }
     });
     
+  }
+
+  async mal(msj: any) {
+    const toast = await this.toastController.create({
+      message: msj,
+      duration: 4000,
+      color: 'dark',
+      position: 'middle'
+    });
+    toast.present();
   }
 
 }
