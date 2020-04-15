@@ -12,6 +12,8 @@ import {
   BaseArrayClass,
   Marker,
   MyLocation} from '@ionic-native/google-maps/ngx';
+import { Storage } from '@ionic/storage';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-ubicacion',
@@ -26,17 +28,45 @@ export class UbicacionPage implements OnInit {
   latitud: any;
   longitud: any;
 
+  id_negocio: number;
+  infoDetalles: any;
+
   constructor(
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     private platform: Platform,
+    private storage: Storage,
+    private dataService: DataService
   ) { }
 
   async ngOnInit() {
+    this.getID();
     await this.platform.ready();
-    this.loadMap();
   }
 
+  getID() {
+    // Or to get a key/value pair
+    this.storage.get('id_negocio').then((val) => {
+      console.log('ID Negocio: ', val);
+      this.id_negocio = val;
+      this.getInfoNegocios();
+    });
+  }
+
+  getInfoNegocios() {
+    this.dataService.getInfoNegocios( this.id_negocio )
+    .subscribe( (data: any) => {
+      if(data.success === 'true' || 'TRUE') {
+        this.infoDetalles = data.negocios;
+        console.log('info negocios: ', this.infoDetalles);
+        this.loadMap();
+        // this.bien()
+      } else {
+        // this.mal(data.message)
+      }
+    });
+  }
+  
   loadMap() {
 
     // This code is necessary for browser
@@ -72,15 +102,36 @@ export class UbicacionPage implements OnInit {
             animation: GoogleMapsAnimation.BOUNCE
           });
 
-          // show the infoWindow
-          marker.showInfoWindow();
-
+          
           // If clicked it, display the alert
           marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
             this.showToast('Aquí estás tu');
           });
         });
       });
+
+      //hay veces que no pasa de aquí
+      let marker: Marker = this.map.addMarkerSync({
+
+        'position': {
+          lat: parseFloat(this.infoDetalles[0].latitud),
+          lng: parseFloat(this.infoDetalles[0].longitud)
+
+        },
+
+        'title': this.infoDetalles[0].nombre_negocio,
+        'snippet': 'promociones activas ',
+        'icon': {
+          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        },
+        //label: 'Estas aquí', //aparentemente no sirve
+        animation: GoogleMapsAnimation.DROP
+
+      });
+
+      // show the infoWindow
+      marker.showInfoWindow();
+
   }
 
   async showToast(message: string) {

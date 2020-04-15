@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { HistoricoSaldoModalPage } from '../historico-saldo-modal/historico-saldo-modal.page';
 import { Storage } from '@ionic/storage';
 
@@ -28,7 +28,8 @@ export class HistoricoSaldoPage implements OnInit {
   constructor(
     public dataService: DataService,
     private modalCtrl: ModalController,
-    private storage: Storage
+    private storage: Storage,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -50,8 +51,11 @@ export class HistoricoSaldoPage implements OnInit {
       if (data.success === 'true' || 'TRUE') {
         this.historicoVentas = data.historico
         console.log('historico: ', this.historicoVentas);
+        if(this.historicoVentas == undefined) {
+          this.mal('No hay negocios para mostrar')
+        }
       } else {
-        console.log('error');
+        this.mal(data.message)
       }
     });
   }
@@ -65,6 +69,16 @@ export class HistoricoSaldoPage implements OnInit {
       }
     });
     await modal.present();
+  }
+
+  async mal(msj: any) {
+    const toast = await this.toastController.create({
+      message: msj,
+      duration: 4000,
+      color: 'dark',
+      position: 'middle'
+    });
+    toast.present();
   }
 
 }

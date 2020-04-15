@@ -15,6 +15,8 @@ export class DetallesPage implements OnInit {
   infoDetalles: any;
   promociones: any;
   valoraciones: any;
+  image: any;
+  cadena: any;
 
   constructor(
     private dataService: DataService,
@@ -39,7 +41,16 @@ export class DetallesPage implements OnInit {
     .subscribe( (data: any) => {
       if(data.success === 'true' || 'TRUE') {
         this.infoDetalles = data.negocios;
+
+        this.cadena = this.infoDetalles[0].foto_negocio.split('..');
+        console.log('arr: ', this.cadena);
+        
+        this.image = 'http://www.vayse.mx/dashboard/' + this.cadena[1];
+        console.log('image: ', this.image);
+        
+
         this.valoraciones = data.valoraciones.length;
+
         console.log('info negocios: ', this.infoDetalles);
         console.log('valoraciones: ', this.valoraciones);
         // this.bien()

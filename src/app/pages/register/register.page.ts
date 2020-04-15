@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,13 @@ export class RegisterPage implements OnInit {
   nombre: any; celular: any; user: any;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private dataService: DataService, public toastController: ToastController, private router2: Router, private router: ActivatedRoute) {
+  constructor(
+    private dataService: DataService,
+    public toastController: ToastController,
+    private router2: Router,
+    private router: ActivatedRoute,
+    private storage: Storage
+  ) {
     this.router.params
       .subscribe((params: any) => {
           console.log(params);
@@ -25,6 +32,9 @@ export class RegisterPage implements OnInit {
   }
 
   register(nombre: any, celular: any) {
+
+    this.storage.clear();
+
     this.dataService.userPost(this.user.correo, this.user.password, nombre, celular)
     .subscribe( (data: any) => {
 
@@ -32,7 +42,7 @@ export class RegisterPage implements OnInit {
       console.log('[Register][Register] Reponse: ' + data.response);
       // tslint:disable-next-line: triple-equals
       if (data.response === true) {
-
+        
         this.router2.navigate( ['/dashboard'] );
         // this.bien();
       } else {

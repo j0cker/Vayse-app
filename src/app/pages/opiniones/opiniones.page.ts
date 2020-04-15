@@ -40,9 +40,12 @@ export class OpinionesPage implements OnInit {
       if(data.success === 'true' || 'TRUE'){
         this.infoOpiniones = data.opiniones;
         console.log('opiniones: ', this.infoOpiniones);
+        if(this.infoOpiniones.length == 0 ) {
+          this.mal('No hay opiones para mostrar');
+        }
         // this.bien();
       } else {
-        // this.mal(data.message);
+        this.mal(data.message);
       }
     });
   }
@@ -75,16 +78,16 @@ export class OpinionesPage implements OnInit {
     });
     toast.present();
   }
-
+  */
   async mal(msj: any) {
     const toast = await this.toastController.create({
       message: msj,
       duration: 4000,
       color: 'dark',
-      position: 'bottom'
+      position: 'middle'
     });
     toast.present();
   }
-  */
+  
 
 }

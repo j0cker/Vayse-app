@@ -27,29 +27,13 @@ export class HistoricoSaldoModalPage implements OnInit {
     console.log('object: ', this.elemento);
     this.arrElement.push(this.elemento)
     console.log('array: ', this.arrElement);
-
+    
     if( parseInt(this.arrElement[0].id_metodo_pago) === 1 ) {
       this.idMetodoPago = 'Pago con Puntos Vayse';
       console.log('Pago con puntos');
     } else {
       this.idMetodoPago = 'Pago con Efectivo';
       console.log('Pago Normal');
-    }
-
-    if( parseInt(this.arrElement[0].id_status_pago) === 2 ) {
-      this.idStatusPago = 'Estado es 2';
-      console.log('Estado es 2');
-    } else {
-      this.idStatusPago = 'Estado no sé';
-      console.log('Estado es ');
-    }
-
-    if( parseInt(this.arrElement[0].id_status_venta) === 2 ) {
-      this.idStatusVenta = 'Estado es 2';
-      console.log('Estado es 2');
-    } else {
-      this.idStatusVenta = 'Estado no sé';
-      console.log('Estado es ');
     }
 
     this.negocio()
@@ -66,9 +50,8 @@ export class HistoricoSaldoModalPage implements OnInit {
       if(data.success === 'true' || 'TRUE') {
         this.nombreNegocio = data.negocios[0].nombre_negocio;
         console.log('info negocios: ', this.nombreNegocio);
-        // this.bien()
       } else {
-        // this.mal(data.message)
+        console.log('error');
       }
     });
   }

@@ -47,6 +47,9 @@ export class InsigniasPage implements OnInit {
   }
 
   getInfoNegocios() {
+
+    console.log("[InsigniasPage][getInfoNegocios]");
+
     this.dataService.getInfoNegocios( this.id_negocio )
     .subscribe( (data: any) => {
       if (data.success === 'true' || 'TRUE'){
@@ -56,23 +59,41 @@ export class InsigniasPage implements OnInit {
           arrRating = rate.rating
           return arrRating
         })
+
         console.log(this.rates);
-        this.suma = this.rates.reduce( (total, cValue, cIndex, arr) => {
+        
+        //suma del arreglo de valoraciones
+        this.suma = this.rates.reduce( (total, cValue) => {
           let int = parseInt(cValue)
-          console.log('total: ', total, 'int: ', int);
+          console.log('[InsigniasPage][getInfoNegocios] total: ', total, 'int: ', int);
           return total + int
         }, 0)
-        console.log('suma: ', this.suma);
-        this.promGeneral = this.suma / this.rates.length
-        this.unDecimal = this.promGeneral.toFixed(1)
-        console.log('promGeneral: ', this.promGeneral);
-        console.log('unDecimal: ', this.unDecimal);
-        console.log('info valoraciones: ', this.infoValoraciones);
-        console.log();
+        
+        console.log('[InsigniasPage][getInfoNegocios] suma: ', this.suma);
+        
+        console.log("[InsigniasPage][getInfoNegocios] unDecimal: " + this.unDecimal);
+
+        if (this.suma==0) {
+
+          this.unDecimal = 0;
+          this.mal('No hay valoraciones para mostrar')
+
+        } else {
+          
+          console.log('[InsigniasPage][getInfoNegocios] hacemos la operación de divisón');
+
+          this.promGeneral = this.suma / this.rates.length
+
+          this.unDecimal = this.promGeneral.toFixed(1)
+        }
+
+        console.log('[InsigniasPage][getInfoNegocios] promGeneral: ', this.promGeneral);
+        console.log('[InsigniasPage][getInfoNegocios] unDecimal: ', this.unDecimal);
+        console.log('[InsigniasPage][getInfoNegocios] info valoraciones: ', this.infoValoraciones);
         
         // this.bien();
       } else {
-        // this.mal(data.message);
+        this.mal(data.message);
       }
     });
   }
@@ -103,16 +124,16 @@ export class InsigniasPage implements OnInit {
     });
     toast.present();
   }
-
+  */
   async mal(msj: any) {
     const toast = await this.toastController.create({
       message: msj,
       duration: 4000,
       color: 'dark',
-      position: 'bottom'
+      position: 'middle'
     });
     toast.present();
   }
-  */
+  
 
 }
