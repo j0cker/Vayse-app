@@ -52,7 +52,7 @@ export class HistoricoSaldoPage implements OnInit {
         this.historicoVentas = data.historico
         console.log('historico: ', this.historicoVentas);
         if(this.historicoVentas == undefined) {
-          this.mal('No hay negocios para mostrar')
+          this.mal('No hay historial para mostrar')
         }
       } else {
         this.mal(data.message)

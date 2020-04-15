@@ -15,27 +15,24 @@
         <ion-card-title class="ion-text-center" color="primary">
           Información Detallada
         </ion-card-title>
+        <ion-card-subtitle class="ion-text-center">
+          <h5>
+            Saldo Ganado: <ion-text color="primary"> ${{e.saldo_vayse_ganado}} </ion-text>
+            <br>
+            Saldo Usado: <ion-text color="primary"> ${{e.saldo_vayse_usado}} </ion-text>
+          </h5>
+        </ion-card-subtitle> 
       </ion-card-header>
       <ion-card-content class="ion-text-justify">
-        ID Venta: <ion-text color="primary"> {{e.id_venta}} </ion-text>
-        <br>
-        Total: <ion-text color="primary"> {{e.total}} </ion-text>
-        <br>
-        Comisión: <ion-text color="primary"> {{e.comision_vayse}} </ion-text>
-        <br>
-        Día: <ion-text color="primary"> {{e.fecha_venta}} </ion-text>
-        <br>
-        Hora: <ion-text color="primary"> {{e.hora_venta}} </ion-text>
-        <br>
         Negocio: <ion-text color="primary"> {{nombreNegocio}} </ion-text>
         <br>
         Metodo Pago: <ion-text color="primary"> {{idMetodoPago}} </ion-text>
         <br>
-        Saldo Usado: <ion-text color="primary"> {{e.saldo_vayse_usado}} </ion-text>
+        Cantdiad Pagada: <ion-text color="primary"> ${{e.total}} </ion-text>
         <br>
-        Saldo Otros: <ion-text color="primary"> {{e.saldo_otros}} </ion-text>
+        Día: <ion-text color="primary"> {{e.fecha_venta}} </ion-text>
         <br>
-        Saldo Ganado: <ion-text color="primary"> {{e.saldo_vayse_ganado}} </ion-text>
+        Hora: <ion-text color="primary"> {{e.hora_venta}} </ion-text>
       </ion-card-content>
     </ion-card>
 
