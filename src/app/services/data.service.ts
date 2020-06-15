@@ -13,12 +13,12 @@ import { Router } from '@angular/router';
 })
 export class DataService {
 
-  // api = 'http://vayse.mx/dashboard/webservices/';
-  // api1 = 'http://api.vayse.mx/api/';
-  api = 'http://localhost/vayse-web/dashboard/webservices/';
+   api = 'http://vayse.mx/dashboard/webservices/';
+   api1 = 'http://api.vayse.mx/api/';
+  //api = 'http://localhost/vayse-web/dashboard/webservices/';
   //api = 'http://192.168.0.101/vayse-web/dashboard/webservices/'; // en la of
   // api = 'http://192.168.1.74/vayse-web/dashboard/webservices/'; // en la unix conect 'http://192.168.1.70/vayse-web/dashboard/webservices/'
-  api1 = 'http://localhost:8000/api/';
+  //api1 = 'http://localhost:8000/api/';
 
   guardados: Registro[] = [];
 
