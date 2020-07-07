@@ -29,8 +29,8 @@ export class HistoricoSaldoModalPage implements OnInit {
     console.log('array: ', this.arrElement);
     
     if( parseInt(this.arrElement[0].id_metodo_pago) === 1 ) {
-      this.idMetodoPago = 'Pago con vayse coins';
-      console.log('Pago con puntos');
+      this.idMetodoPago = 'Pago con Vayse Coins';
+      console.log('Pago con Vayse Coins');
     } else {
       this.idMetodoPago = 'Pago con efectivo';
       console.log('Pago normal');
